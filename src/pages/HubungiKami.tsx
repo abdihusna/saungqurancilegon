@@ -40,9 +40,9 @@ const HubungiKami = () => {
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Alamat</h3>
                       <p className="text-muted-foreground">
-                        Jl. Raya Cilegon No. 123<br />
-                        Kec. Cibeber, Kota Cilegon<br />
-                        Banten 42411
+                        Link. Ciberko Gg. Makam, RT 001/003<br />
+                        Kalitimbang, Cibeber, Kota Cilegon<br />
+                        Banten 42424
                       </p>
                     </div>
                   </div>
@@ -57,10 +57,10 @@ const HubungiKami = () => {
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Telepon</h3>
                       <a
-                        href="tel:+6281234567890"
+                        href="tel:+6287781818143"
                         className="text-primary hover:underline"
                       >
-                        +62 812-3456-7890
+                        +62 877-8181-8143
                       </a>
                       <p className="text-sm text-muted-foreground mt-1">
                         (Senin - Sabtu, 08:00 - 16:00)
@@ -78,12 +78,12 @@ const HubungiKami = () => {
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">WhatsApp</h3>
                       <a
-                        href="https://wa.me/6281234567890"
+                        href="https://wa.me/6287781818143"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-green-600 hover:underline"
                       >
-                        +62 812-3456-7890
+                        +62 877-8181-8143
                       </a>
                       <p className="text-sm text-muted-foreground mt-1">
                         Respon lebih cepat via WhatsApp
@@ -201,7 +201,7 @@ const HubungiKami = () => {
             Jangan ragu untuk menghubungi kami. Kami siap membantu Anda.
           </p>
           <a
-            href="https://wa.me/6281234567890"
+            href="https://wa.me/6287781818143"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-medium transition-colors"

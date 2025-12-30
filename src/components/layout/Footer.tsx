@@ -79,13 +79,13 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                 <span className="text-sm text-white/70">
-                  Jl. Raya Cilegon No. 123, Kec. Cibeber, Kota Cilegon, Banten 42411
+                  Link. Ciberko Gg. Makam, RT 001/003. Kalitimbang, Cibeber, Kota Cilegon, Banten 42424
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-primary shrink-0" />
-                <a href="tel:+6281234567890" className="text-sm text-white/70 hover:text-primary">
-                  +62 812-3456-7890
+                <a href="tel:+6287781818143" className="text-sm text-white/70 hover:text-primary">
+                  +62 877-8181-8143
                 </a>
               </li>
               <li className="flex items-center gap-3">
