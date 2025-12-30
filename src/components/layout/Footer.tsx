@@ -90,8 +90,8 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary shrink-0" />
-                <a href="mailto:info@saungquran.sch.id" className="text-sm text-white/70 hover:text-primary">
-                  info@saungquran.sch.id
+                <a href="mailto:admin@saungqurancilegon.id" className="text-sm text-white/70 hover:text-primary">
+                  admin@saungqurancilegon.id
                 </a>
               </li>
             </ul>

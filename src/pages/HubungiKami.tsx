@@ -101,10 +101,10 @@ const HubungiKami = () => {
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Email</h3>
                       <a
-                        href="mailto:info@saungquran.sch.id"
+                        href="mailto:admin@saungqurancilegon.id"
                         className="text-primary hover:underline"
                       >
-                        info@saungquran.sch.id
+                        admin@saungqurancilegon.id
                       </a>
                     </div>
                   </div>
