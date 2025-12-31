@@ -26,7 +26,9 @@ export function Footer() {
             {/* Social Media */}
             <div className="flex items-center gap-3 pt-2">
               <a
-                href="#"
+                href="https://www.facebook.com/saung.quran.cilegon/?locale=id_ID"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-2 rounded-full bg-white/10 hover:bg-primary transition-colors"
                 aria-label="Facebook"
               >
