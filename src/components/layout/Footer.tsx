@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { BookOpen, MapPin, Phone, Mail, Clock, Facebook, Instagram, Youtube } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Youtube } from "lucide-react";
+import logoSQC from "@/assets/logo-sqc.png";
 
 export function Footer() {
   return (
@@ -9,10 +10,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo & About */}
           <div className="space-y-4">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                <BookOpen className="h-5 w-5" />
-              </div>
+            <Link to="/" className="flex items-center gap-3">
+              <img 
+                src={logoSQC} 
+                alt="Logo Saung Qur'an Cilegon" 
+                className="h-12 w-12 object-contain"
+              />
               <div className="flex flex-col">
                 <span className="font-serif text-lg font-bold leading-tight">
                   Saung Qur'an

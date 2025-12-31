@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, BookOpen } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import logoSQC from "@/assets/logo-sqc.png";
 
 const navLinks = [
   { name: "Beranda", path: "/" },
@@ -20,10 +21,12 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container flex h-16 items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-transform group-hover:scale-105">
-            <BookOpen className="h-5 w-5" />
-          </div>
+        <Link to="/" className="flex items-center gap-3 group">
+          <img 
+            src={logoSQC} 
+            alt="Logo Saung Qur'an Cilegon" 
+            className="h-12 w-12 object-contain transition-transform group-hover:scale-105"
+          />
           <div className="flex flex-col">
             <span className="font-serif text-lg font-bold leading-tight text-foreground">
               Saung Qur'an
