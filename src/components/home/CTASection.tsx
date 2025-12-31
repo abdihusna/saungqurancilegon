@@ -11,8 +11,7 @@ export function CTASection() {
             Bergabunglah Bersama Kami
           </h2>
           <p className="text-lg text-primary-foreground/90 mb-8">
-            Daftarkan putra-putri Anda sekarang dan jadikan mereka generasi Qur'ani 
-            yang berakhlak mulia dan bermanfaat bagi umat.
+            Daftarkan putra-putri Anda sekarang dan wujudkan generasi Qur'ani yang terampil dan mandiri.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button size="lg" variant="secondary" asChild className="group">
