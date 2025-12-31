@@ -24,9 +24,9 @@ export function AboutSection() {
           <div className="space-y-6">
             <p className="text-lg text-muted-foreground leading-relaxed">
               <span className="font-serif text-2xl text-primary font-bold">Saung Qur'an Cilegon</span> 
-              {" "}adalah lembaga pendidikan Islam yang berdiri sejak tahun 2013. Kami berkomitmen 
-              untuk memberikan pendidikan terbaik yang memadukan kurikulum nasional dengan 
-              pendidikan Al-Qur'an yang intensif.
+              {" "}adalah lembaga pendidikan Islam yang berdiri sejak tahun 2020. Kami berkomitmen 
+              untuk memberikan pendidikan terbaik yang memadukan kurikulum karakter nabawiyah dengan 
+              pembelajaran Al-Qur'an yang intensif.
             </p>
 
             <p className="text-muted-foreground leading-relaxed">
