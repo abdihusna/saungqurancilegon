@@ -6,7 +6,7 @@ export function AboutSection() {
       <div className="container">
         <SectionHeader
           title="Tentang Kami"
-          subtitle="Lembaga pendidikan Islam yang berdedikasi untuk mencetak generasi Qur'ani"
+          subtitle="Lembaga pendidikan Islam yang berdedikasi mewujudkan generasi Qur'ani, terampil dan mandiri"
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

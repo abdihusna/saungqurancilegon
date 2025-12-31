@@ -31,8 +31,7 @@ export function HeroSection() {
           </h1>
 
           <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed animate-fade-up delay-200">
-            Mencetak Generasi Qur'ani yang Berakhlak Mulia, Cerdas, 
-            dan Bermanfaat bagi Umat
+            Mewujudkan Generasi Qur'ani, Terampil dan Mandiri
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up delay-300">
