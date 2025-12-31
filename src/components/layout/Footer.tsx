@@ -40,7 +40,9 @@ export function Footer() {
                 <Instagram className="h-4 w-4" />
               </a>
               <a
-                href="#"
+                href="https://www.youtube.com/@saung.quran.cilegon"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-2 rounded-full bg-white/10 hover:bg-primary transition-colors"
                 aria-label="Youtube"
               >
