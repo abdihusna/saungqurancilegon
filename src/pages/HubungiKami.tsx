@@ -173,7 +173,7 @@ const HubungiKami = () => {
               </h2>
               <div className="islamic-card overflow-hidden h-[500px]">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126748.56029575066!2d105.9089075!3d-6.0170169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e418d3e4ec31c7f%3A0x301576d14feb980!2sCilegon%2C%20Cilegon%20City%2C%20Banten!5e0!3m2!1sen!2sid!4v1703500000000!5m2!1sen!2sid"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.1377736861396!2d106.02890307499284!3d-6.372159993602741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e4224bba93d79eb%3A0xf8ffc5bf74edd8db!2sSaung%20Quran%20Cilegon!5e0!3m2!1sid!2sid!4v1735638000000!5m2!1sid!2sid"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
