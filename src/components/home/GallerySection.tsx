@@ -51,10 +51,6 @@ const galleryImages = [
     src: cookingClass,
     alt: "Kegiatan cooking class",
   },
-  {
-    src: makanBersama,
-    alt: "Makan bersama keluarga besar",
-  },
 ];
 
 export function GallerySection() {
