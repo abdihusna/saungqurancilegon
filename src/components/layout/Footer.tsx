@@ -10,18 +10,15 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Logo & About */}
           <div className="space-y-4">
-            <Link to="/" className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3 group">
               <img 
                 src={logoSQC} 
                 alt="Logo Saung Qur'an Cilegon" 
-                className="h-12 w-12 object-contain"
+                className="h-10 w-10 object-contain transition-transform group-hover:scale-105"
               />
-              <div className="flex flex-col">
-                <span className="font-serif text-lg font-bold leading-tight">
-                  Saung Qur'an
-                </span>
-                <span className="text-xs text-white/70">Cilegon</span>
-              </div>
+              <span className="font-serif text-xl font-bold whitespace-nowrap">
+                Saung Qur'an Cilegon
+              </span>
             </Link>
             <p className="text-sm text-white/70 leading-relaxed">
               Lembaga pendidikan Islam yang berkomitmen mewujudkan generasi Qur'ani, terampil dan mandiri.
