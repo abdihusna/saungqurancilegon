@@ -113,7 +113,7 @@ const Profil = () => {
                     alt="Ketua Yayasan"
                     className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
                   />
-                  <h3 className="font-serif text-lg font-bold text-foreground">KH. Ahmad Fauzi, Lc.</h3>
+                  <h3 className="font-serif text-lg font-bold text-foreground">DR. Ahmad Suja'i M.Pd</h3>
                   <p className="text-sm text-muted-foreground">Ketua Yayasan</p>
                 </div>
               </div>
