@@ -142,21 +142,27 @@ const HubungiKami = () => {
                 <h3 className="font-semibold text-foreground mb-4">Ikuti Kami</h3>
                 <div className="flex items-center gap-3">
                   <a
-                    href="#"
+                    href="https://www.facebook.com/saung.quran.cilegon/?locale=id_ID"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="p-3 bg-accent hover:bg-primary hover:text-primary-foreground rounded-xl transition-colors"
                     aria-label="Facebook"
                   >
                     <Facebook className="h-5 w-5" />
                   </a>
                   <a
-                    href="#"
+                    href="https://www.instagram.com/saung.quran.cilegon/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="p-3 bg-accent hover:bg-primary hover:text-primary-foreground rounded-xl transition-colors"
                     aria-label="Instagram"
                   >
                     <Instagram className="h-5 w-5" />
                   </a>
                   <a
-                    href="#"
+                    href="https://www.youtube.com/@saung.quran.cilegon"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="p-3 bg-accent hover:bg-primary hover:text-primary-foreground rounded-xl transition-colors"
                     aria-label="Youtube"
                   >
