@@ -31,7 +31,7 @@ export function AboutSection() {
 
             <p className="text-muted-foreground leading-relaxed">
               Dengan metode pembelajaran yang inovatif dan guru-guru yang berkompeten, 
-              kami telah berhasil mencetak ratusan hafidz dan hafidzah Al-Qur'an yang 
+              kami terus berupaya mewujudkan generasi yang solih dan solihah, hafidz dan hafidzah Al-Qur'an yang 
               tidak hanya menghafal tetapi juga memahami dan mengamalkan isi Al-Qur'an 
               dalam kehidupan sehari-hari.
             </p>
