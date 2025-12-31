@@ -66,14 +66,14 @@ const Profil = () => {
               </div>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Saung Qur'an Cilegon didirikan pada tahun 2013 oleh sekelompok tokoh 
+                  Saung Qur'an Cilegon didirikan pada tahun 2020 oleh sekelompok tokoh 
                   masyarakat dan ulama yang memiliki visi untuk mencetak generasi 
                   Qur'ani di Kota Cilegon dan sekitarnya.
                 </p>
                 <p>
-                  Berawal dari sebuah musholla kecil dengan 15 santri, kini Saung Qur'an 
+                  Berawal dari sebuah saung kecil dengan beberapa santri, kini Saung Qur'an 
                   telah berkembang menjadi lembaga pendidikan Islam terpadu dengan 
-                  lebih dari 500 santri aktif.
+                  lebih dari 200 santri aktif.
                 </p>
                 <p>
                   Nama "Saung" diambil dari bahasa Sunda yang berarti "rumah kecil" atau 
