@@ -2,30 +2,58 @@ import { useState } from "react";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { Lightbox } from "@/components/shared/Lightbox";
 
+// Import gallery images
+import kegiatanKomputer from "@/assets/gallery/kegiatan-komputer.jpg";
+import belajarKomputer from "@/assets/gallery/belajar-komputer.jpg";
+import berkebun from "@/assets/gallery/berkebun.jpg";
+import mengaji from "@/assets/gallery/mengaji.jpg";
+import ternak from "@/assets/gallery/ternak.jpg";
+import kegiatanBersama from "@/assets/gallery/kegiatan-bersama.jpg";
+import cookingClass from "@/assets/gallery/cooking-class.jpg";
+import berkebunBersama from "@/assets/gallery/berkebun-bersama.jpg";
+import makanBersama from "@/assets/gallery/makan-bersama.jpg";
+import belajarOutdoor from "@/assets/gallery/belajar-outdoor.jpg";
+
 const galleryImages = [
   {
-    src: "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=800&q=80",
-    alt: "Kegiatan hafalan Al-Qur'an",
+    src: mengaji,
+    alt: "Kegiatan mengaji Al-Qur'an",
   },
   {
-    src: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80",
-    alt: "Upacara wisuda tahfidz",
+    src: belajarOutdoor,
+    alt: "Belajar di saung outdoor",
   },
   {
-    src: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80",
-    alt: "Kegiatan belajar di kelas",
+    src: belajarKomputer,
+    alt: "Kegiatan belajar komputer",
   },
   {
-    src: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
-    alt: "Kegiatan outdoor santri",
+    src: kegiatanKomputer,
+    alt: "Santri belajar komputer",
   },
   {
-    src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
-    alt: "Perayaan Hari Besar Islam",
+    src: berkebunBersama,
+    alt: "Berkebun bersama di kebun sekolah",
   },
   {
-    src: "https://images.unsplash.com/photo-1544776193-352d25ca82cd?auto=format&fit=crop&w=800&q=80",
-    alt: "Kegiatan ekstrakurikuler",
+    src: berkebun,
+    alt: "Santri belajar menanam",
+  },
+  {
+    src: ternak,
+    alt: "Kegiatan ternak ayam",
+  },
+  {
+    src: kegiatanBersama,
+    alt: "Kegiatan bersama santriwati",
+  },
+  {
+    src: cookingClass,
+    alt: "Kegiatan cooking class",
+  },
+  {
+    src: makanBersama,
+    alt: "Makan bersama keluarga besar",
   },
 ];
 
