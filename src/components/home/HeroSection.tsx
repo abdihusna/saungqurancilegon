@@ -52,9 +52,9 @@ export function HeroSection() {
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-16 max-w-3xl mx-auto animate-fade-up delay-400">
           {[
-            { icon: BookOpen, value: "10+", label: "Tahun Berdiri" },
-            { icon: Users, value: "500+", label: "Santri Aktif" },
-            { icon: Award, value: "50+", label: "Hafidz Al-Qur'an" },
+            { icon: BookOpen, value: "5+", label: "Tahun Berdiri" },
+            { icon: Users, value: "200+", label: "Santri Aktif" },
+            { icon: Award, value: "5+", label: "Hafidz Al-Qur'an" },
           ].map((stat, index) => (
             <div
               key={index}
