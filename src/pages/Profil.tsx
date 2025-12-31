@@ -125,7 +125,7 @@ const Profil = () => {
                   alt="Kepala Sekolah"
                   className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
                 />
-                <h3 className="font-serif text-lg font-bold text-foreground">Ustadz Hasan, M.Pd.</h3>
+                <h3 className="font-serif text-lg font-bold text-foreground">Ustadz Mu'inudin S.Pd.I</h3>
                 <p className="text-sm text-muted-foreground">Kepala Sekolah</p>
               </div>
 
