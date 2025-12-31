@@ -21,9 +21,7 @@ export function VisionMissionSection() {
               <h3 className="font-serif text-2xl font-bold">Visi</h3>
             </div>
             <p className="text-lg leading-relaxed text-primary-foreground/90">
-              Menjadi lembaga pendidikan Islam terdepan yang mencetak generasi 
-              Qur'ani berakhlak mulia, cerdas, mandiri, dan bermanfaat bagi umat, 
-              dengan landasan iman yang kokoh dan ilmu yang luas.
+              Mewujudkan generasi qur'ani, terampil dan mandiri.
             </p>
           </div>
 
@@ -37,11 +35,10 @@ export function VisionMissionSection() {
             </div>
             <ul className="space-y-3 text-primary-foreground/90">
               {[
-                "Menyelenggarakan pembelajaran Al-Qur'an dengan metode yang efektif dan menyenangkan",
-                "Membina akhlak mulia berdasarkan nilai-nilai Islami",
-                "Mengembangkan potensi peserta didik secara optimal",
-                "Menciptakan lingkungan belajar yang Islami dan kondusif",
-                "Menjalin kerjasama dengan orang tua dan masyarakat",
+                "Menumbuhkan kebiasaan membaca & menghafal Al-Qur'an sejak dini serta mengamalkannya dalam kehidupan sehari-hari",
+                "Mengembangkan minat bakat dan life skill pada anak sejak dini agar mandiri",
+                "Menciptakan lingkungan sekolah yang kondusif dalam membentuk dan membina karakter pemimpin masa depan",
+                "Memberikan paradigma baru terhadap orang tua tentang keutamaan menghafal Al-Qur'an dalam meraih cita-cita",
               ].map((item, index) => (
                 <li key={index} className="flex items-start gap-3">
                   <span className="text-secondary font-bold">{index + 1}.</span>
