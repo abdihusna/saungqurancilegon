@@ -24,7 +24,7 @@ export function Footer() {
               </div>
             </Link>
             <p className="text-sm text-white/70 leading-relaxed">
-              Lembaga pendidikan Islam yang berkomitmen mencetak generasi Qur'ani berakhlak mulia, cerdas, dan bermanfaat bagi umat.
+              Lembaga pendidikan Islam yang berkomitmen mewujudkan generasi Qur'ani, terampil dan mandiri.
             </p>
             {/* Social Media */}
             <div className="flex items-center gap-3 pt-2">
@@ -130,7 +130,7 @@ export function Footer() {
             © {new Date().getFullYear()} Saung Qur'an Cilegon. All rights reserved.
           </p>
           <p className="text-sm text-white/50">
-            Mencetak Generasi Qur'ani
+            Mewujudkan Generasi Qur'ani, Terampil dan Mandiri
           </p>
         </div>
       </div>
