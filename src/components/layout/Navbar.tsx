@@ -25,14 +25,11 @@ export function Navbar() {
           <img 
             src={logoSQC} 
             alt="Logo Saung Qur'an Cilegon" 
-            className="h-12 w-12 object-contain transition-transform group-hover:scale-105"
+            className="h-10 w-10 object-contain transition-transform group-hover:scale-105"
           />
-          <div className="flex flex-col">
-            <span className="font-serif text-lg font-bold leading-tight text-foreground">
-              Saung Qur'an
-            </span>
-            <span className="text-xs text-muted-foreground">Cilegon</span>
-          </div>
+          <span className="font-serif text-xl font-bold text-foreground whitespace-nowrap">
+            Saung Qur'an Cilegon
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
