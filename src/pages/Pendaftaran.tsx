@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { Button } from "@/components/ui/button";
@@ -11,11 +12,73 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { CheckCircle, Loader2 } from "lucide-react";
 
+// Validation schema for registration form
+const registrationSchema = z.object({
+  nama_lengkap: z
+    .string()
+    .trim()
+    .min(2, "Nama lengkap minimal 2 karakter")
+    .max(100, "Nama lengkap maksimal 100 karakter"),
+  tempat_lahir: z
+    .string()
+    .trim()
+    .min(2, "Tempat lahir minimal 2 karakter")
+    .max(100, "Tempat lahir maksimal 100 karakter"),
+  tanggal_lahir: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Format tanggal tidak valid"),
+  jenis_kelamin: z.enum(["Laki-laki", "Perempuan"], {
+    errorMap: () => ({ message: "Pilih jenis kelamin" }),
+  }),
+  alamat: z
+    .string()
+    .trim()
+    .min(10, "Alamat minimal 10 karakter")
+    .max(500, "Alamat maksimal 500 karakter"),
+  nama_ayah: z
+    .string()
+    .trim()
+    .min(2, "Nama ayah minimal 2 karakter")
+    .max(100, "Nama ayah maksimal 100 karakter"),
+  nama_ibu: z
+    .string()
+    .trim()
+    .min(2, "Nama ibu minimal 2 karakter")
+    .max(100, "Nama ibu maksimal 100 karakter"),
+  no_telepon: z
+    .string()
+    .trim()
+    .regex(/^(\+62|62|0)[0-9]{9,12}$/, "Format nomor telepon tidak valid (contoh: 081234567890)"),
+  email: z
+    .string()
+    .trim()
+    .email("Format email tidak valid")
+    .max(255, "Email maksimal 255 karakter")
+    .optional()
+    .or(z.literal("")),
+  program: z.enum(["Tahfidz Reguler", "Tahfidz Intensif", "Diniyah", "Akademik"], {
+    errorMap: () => ({ message: "Pilih program pendidikan" }),
+  }),
+  asal_sekolah: z
+    .string()
+    .trim()
+    .max(200, "Asal sekolah maksimal 200 karakter")
+    .optional()
+    .or(z.literal("")),
+  catatan: z
+    .string()
+    .trim()
+    .max(1000, "Catatan maksimal 1000 karakter")
+    .optional()
+    .or(z.literal("")),
+});
+
 const Pendaftaran = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
 
   const [formData, setFormData] = useState({
     nama_lengkap: "",
@@ -33,10 +96,19 @@ const Pendaftaran = () => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
+    // Clear validation error when user types
+    if (validationErrors[name]) {
+      setValidationErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
   };
 
   const handleSelectChange = (name: string, value: string) => {
@@ -44,27 +116,39 @@ const Pendaftaran = () => {
       ...prev,
       [name]: value,
     }));
+    // Clear validation error when user selects
+    if (validationErrors[name]) {
+      setValidationErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setValidationErrors({});
 
     try {
+      // Validate form data
+      const validatedData = registrationSchema.parse(formData);
+
       const { error } = await supabase.from("pendaftaran").insert([
         {
-          nama_lengkap: formData.nama_lengkap,
-          tempat_lahir: formData.tempat_lahir,
-          tanggal_lahir: formData.tanggal_lahir,
-          jenis_kelamin: formData.jenis_kelamin,
-          alamat: formData.alamat,
-          nama_ayah: formData.nama_ayah,
-          nama_ibu: formData.nama_ibu,
-          no_telepon: formData.no_telepon,
-          email: formData.email || null,
-          program: formData.program,
-          asal_sekolah: formData.asal_sekolah || null,
-          catatan: formData.catatan || null,
+          nama_lengkap: validatedData.nama_lengkap,
+          tempat_lahir: validatedData.tempat_lahir,
+          tanggal_lahir: validatedData.tanggal_lahir,
+          jenis_kelamin: validatedData.jenis_kelamin,
+          alamat: validatedData.alamat,
+          nama_ayah: validatedData.nama_ayah,
+          nama_ibu: validatedData.nama_ibu,
+          no_telepon: validatedData.no_telepon,
+          email: validatedData.email || null,
+          program: validatedData.program,
+          asal_sekolah: validatedData.asal_sekolah || null,
+          catatan: validatedData.catatan || null,
         },
       ]);
 
@@ -76,12 +160,27 @@ const Pendaftaran = () => {
         description: "Data pendaftaran Anda telah kami terima. Tim kami akan menghubungi Anda segera.",
       });
     } catch (error) {
-      console.error("Error submitting form:", error);
-      toast({
-        title: "Terjadi Kesalahan",
-        description: "Gagal mengirim pendaftaran. Silakan coba lagi.",
-        variant: "destructive",
-      });
+      if (error instanceof z.ZodError) {
+        // Handle validation errors
+        const errors: Record<string, string> = {};
+        error.errors.forEach((err) => {
+          if (err.path[0]) {
+            errors[err.path[0] as string] = err.message;
+          }
+        });
+        setValidationErrors(errors);
+        toast({
+          title: "Data Tidak Valid",
+          description: "Mohon periksa kembali data yang Anda masukkan.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Terjadi Kesalahan",
+          description: "Gagal mengirim pendaftaran. Silakan coba lagi.",
+          variant: "destructive",
+        });
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -154,9 +253,13 @@ const Pendaftaran = () => {
                         name="nama_lengkap"
                         value={formData.nama_lengkap}
                         onChange={handleChange}
-                        required
                         placeholder="Masukkan nama lengkap"
+                        maxLength={100}
+                        className={validationErrors.nama_lengkap ? "border-destructive" : ""}
                       />
+                      {validationErrors.nama_lengkap && (
+                        <p className="text-sm text-destructive mt-1">{validationErrors.nama_lengkap}</p>
+                      )}
                     </div>
                     <div>
                       <Label htmlFor="tempat_lahir">Tempat Lahir *</Label>
@@ -165,9 +268,13 @@ const Pendaftaran = () => {
                         name="tempat_lahir"
                         value={formData.tempat_lahir}
                         onChange={handleChange}
-                        required
                         placeholder="Contoh: Cilegon"
+                        maxLength={100}
+                        className={validationErrors.tempat_lahir ? "border-destructive" : ""}
                       />
+                      {validationErrors.tempat_lahir && (
+                        <p className="text-sm text-destructive mt-1">{validationErrors.tempat_lahir}</p>
+                      )}
                     </div>
                     <div>
                       <Label htmlFor="tanggal_lahir">Tanggal Lahir *</Label>
@@ -177,8 +284,11 @@ const Pendaftaran = () => {
                         type="date"
                         value={formData.tanggal_lahir}
                         onChange={handleChange}
-                        required
+                        className={validationErrors.tanggal_lahir ? "border-destructive" : ""}
                       />
+                      {validationErrors.tanggal_lahir && (
+                        <p className="text-sm text-destructive mt-1">{validationErrors.tanggal_lahir}</p>
+                      )}
                     </div>
                     <div>
                       <Label htmlFor="jenis_kelamin">Jenis Kelamin *</Label>
@@ -186,7 +296,7 @@ const Pendaftaran = () => {
                         value={formData.jenis_kelamin}
                         onValueChange={(value) => handleSelectChange("jenis_kelamin", value)}
                       >
-                        <SelectTrigger>
+                        <SelectTrigger className={validationErrors.jenis_kelamin ? "border-destructive" : ""}>
                           <SelectValue placeholder="Pilih jenis kelamin" />
                         </SelectTrigger>
                         <SelectContent>
@@ -194,6 +304,9 @@ const Pendaftaran = () => {
                           <SelectItem value="Perempuan">Perempuan</SelectItem>
                         </SelectContent>
                       </Select>
+                      {validationErrors.jenis_kelamin && (
+                        <p className="text-sm text-destructive mt-1">{validationErrors.jenis_kelamin}</p>
+                      )}
                     </div>
                     <div>
                       <Label htmlFor="asal_sekolah">Asal Sekolah</Label>
@@ -203,7 +316,12 @@ const Pendaftaran = () => {
                         value={formData.asal_sekolah}
                         onChange={handleChange}
                         placeholder="Contoh: SD Negeri 1 Cilegon"
+                        maxLength={200}
+                        className={validationErrors.asal_sekolah ? "border-destructive" : ""}
                       />
+                      {validationErrors.asal_sekolah && (
+                        <p className="text-sm text-destructive mt-1">{validationErrors.asal_sekolah}</p>
+                      )}
                     </div>
                     <div className="md:col-span-2">
                       <Label htmlFor="alamat">Alamat Lengkap *</Label>
@@ -212,10 +330,14 @@ const Pendaftaran = () => {
                         name="alamat"
                         value={formData.alamat}
                         onChange={handleChange}
-                        required
                         placeholder="Masukkan alamat lengkap"
                         rows={3}
+                        maxLength={500}
+                        className={validationErrors.alamat ? "border-destructive" : ""}
                       />
+                      {validationErrors.alamat && (
+                        <p className="text-sm text-destructive mt-1">{validationErrors.alamat}</p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -233,9 +355,13 @@ const Pendaftaran = () => {
                         name="nama_ayah"
                         value={formData.nama_ayah}
                         onChange={handleChange}
-                        required
                         placeholder="Masukkan nama ayah"
+                        maxLength={100}
+                        className={validationErrors.nama_ayah ? "border-destructive" : ""}
                       />
+                      {validationErrors.nama_ayah && (
+                        <p className="text-sm text-destructive mt-1">{validationErrors.nama_ayah}</p>
+                      )}
                     </div>
                     <div>
                       <Label htmlFor="nama_ibu">Nama Ibu *</Label>
@@ -244,9 +370,13 @@ const Pendaftaran = () => {
                         name="nama_ibu"
                         value={formData.nama_ibu}
                         onChange={handleChange}
-                        required
                         placeholder="Masukkan nama ibu"
+                        maxLength={100}
+                        className={validationErrors.nama_ibu ? "border-destructive" : ""}
                       />
+                      {validationErrors.nama_ibu && (
+                        <p className="text-sm text-destructive mt-1">{validationErrors.nama_ibu}</p>
+                      )}
                     </div>
                     <div>
                       <Label htmlFor="no_telepon">No. Telepon/WhatsApp *</Label>
@@ -255,9 +385,13 @@ const Pendaftaran = () => {
                         name="no_telepon"
                         value={formData.no_telepon}
                         onChange={handleChange}
-                        required
                         placeholder="Contoh: 081234567890"
+                        maxLength={15}
+                        className={validationErrors.no_telepon ? "border-destructive" : ""}
                       />
+                      {validationErrors.no_telepon && (
+                        <p className="text-sm text-destructive mt-1">{validationErrors.no_telepon}</p>
+                      )}
                     </div>
                     <div>
                       <Label htmlFor="email">Email</Label>
@@ -268,7 +402,12 @@ const Pendaftaran = () => {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="Contoh: email@example.com"
+                        maxLength={255}
+                        className={validationErrors.email ? "border-destructive" : ""}
                       />
+                      {validationErrors.email && (
+                        <p className="text-sm text-destructive mt-1">{validationErrors.email}</p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -284,7 +423,7 @@ const Pendaftaran = () => {
                       value={formData.program}
                       onValueChange={(value) => handleSelectChange("program", value)}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className={validationErrors.program ? "border-destructive" : ""}>
                         <SelectValue placeholder="Pilih program pendidikan" />
                       </SelectTrigger>
                       <SelectContent>
@@ -294,6 +433,9 @@ const Pendaftaran = () => {
                         <SelectItem value="Akademik">Program Akademik (6 Tahun)</SelectItem>
                       </SelectContent>
                     </Select>
+                    {validationErrors.program && (
+                      <p className="text-sm text-destructive mt-1">{validationErrors.program}</p>
+                    )}
                   </div>
                 </div>
 
@@ -307,7 +449,12 @@ const Pendaftaran = () => {
                     onChange={handleChange}
                     placeholder="Catatan atau pertanyaan tambahan (opsional)"
                     rows={3}
+                    maxLength={1000}
+                    className={validationErrors.catatan ? "border-destructive" : ""}
                   />
+                  {validationErrors.catatan && (
+                    <p className="text-sm text-destructive mt-1">{validationErrors.catatan}</p>
+                  )}
                 </div>
 
                 {/* Submit */}
