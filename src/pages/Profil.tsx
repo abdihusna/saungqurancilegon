@@ -1,6 +1,7 @@
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import { BookOpen, Users, Award, Calendar, Building, Target } from "lucide-react";
+import { PersonAvatar } from "@/components/shared/PersonAvatar";
+import { Award, Calendar, Building } from "lucide-react";
 
 const achievements = [
   "Juara 1 MTQ Tingkat Kota Cilegon 2023",
@@ -108,11 +109,7 @@ const Profil = () => {
               {/* Ketua Yayasan */}
               <div className="col-span-full">
                 <div className="islamic-card p-6 text-center max-w-xs mx-auto">
-                  <img
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
-                    alt="Ketua Yayasan"
-                    className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-                  />
+                  <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
                   <h3 className="font-serif text-lg font-bold text-foreground">DR. Ahmad Suja'i M.Pd</h3>
                   <p className="text-sm text-muted-foreground">Ketua Yayasan</p>
                 </div>
@@ -120,31 +117,19 @@ const Profil = () => {
 
               {/* Kepala Sekolah & Wakil */}
               <div className="islamic-card p-6 text-center">
-                <img
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80"
-                  alt="Kepala Sekolah"
-                  className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
-                />
+                <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
                 <h3 className="font-serif text-lg font-bold text-foreground">Ustadz Mu'inudin S.Pd.I</h3>
                 <p className="text-sm text-muted-foreground">Kepala Sekolah</p>
               </div>
 
               <div className="islamic-card p-6 text-center">
-                <img
-                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80"
-                  alt="Wakil Kepala Sekolah"
-                  className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
-                />
+                <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
                 <h3 className="font-serif text-lg font-bold text-foreground">Ustadz Ridwan, S.Pd.I</h3>
                 <p className="text-sm text-muted-foreground">Wakil Kepala Sekolah</p>
               </div>
 
               <div className="islamic-card p-6 text-center">
-                <img
-                  src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=200&q=80"
-                  alt="Ketua Tahfidz"
-                  className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
-                />
+                <PersonAvatar gender="female" size="md" className="mx-auto mb-4" />
                 <h3 className="font-serif text-lg font-bold text-foreground">Ustadzah Maryam</h3>
                 <p className="text-sm text-muted-foreground">Ketua Program Tahfidz</p>
               </div>
