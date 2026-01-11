@@ -58,7 +58,7 @@ const programs = [
   },
   {
     name: "Program Bimbel Qur'an & Akademik",
-    description: "Kurikulum nasional dengan penguatan pada sains dan matematika, dipadukan dengan nilai-nilai Islam dalam setiap pembelajaran.",
+    description: "Program TALQIN (Tahsin Al-Qur'an Intensif) yaitu Program Bimbingan Belajar Al-Qur'an yang bersifat intensif dengan menggunakan metode pembelajaran Al-Qur'an Metode 'Ali. Program ini dilaksanakan di sore hari untuk usia mulai 4 tahun hingga usia SMP.",
     duration: "6 Level",
     icon: Building,
     curriculum: [
