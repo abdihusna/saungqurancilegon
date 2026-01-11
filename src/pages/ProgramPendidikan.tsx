@@ -18,7 +18,7 @@ import ternak from "@/assets/gallery/ternak.jpg";
 const programs = [
   {
     name: "Program Thufulah",
-    description: "Thufulah adalah Program Pendidikan Anak Usia Dini (PAUD) Karakter Nabawiyah Taman Saung Qur'an (TASAQUR) untuk Usia 4-6 Tahun dalam rangka mewujudkan generasi berkarakter, beriman dan Cinta Al-Qur'an sejak usia dini dengan metode yang menyenangkan, bermain, bermakna, tumbuh dengan iman sesuai fitrah anak.",
+    description: "Thufulah adalah Program Pendidikan Anak Usia Dini (PAUD) Karakter Nabawiyah Taman Saung Qur'an (TASAQUR) untuk Usia 4-6 Tahun dalam rangka mewujudkan generasi berkarakter, beriman dan cinta Al-Qur'an sejak usia dini dengan metode yang menyenangkan, bermain, bermakna, tumbuh dengan iman sesuai fitrah anak.",
     duration: "2 Tahun",
     icon: BookOpen,
     curriculum: [
