@@ -24,7 +24,7 @@ const programs = [
   },
   {
     name: "Program Murohaqoh",
-    description: "Pendidikan keagamaan meliputi Fiqh, Aqidah, Akhlak, dan Bahasa Arab",
+    description: "Program Murohaqoh adalah Program Pendidikan Jenjang SMP yang bersifat Bonding dan Boarding School. Program ini dalam rangka mewujudkan generasi Qur'ani yang solih dan muslih, berakhlakul karimah dan bermanfaat untuk umat.",
     duration: "3 Tahun",
   },
   {
