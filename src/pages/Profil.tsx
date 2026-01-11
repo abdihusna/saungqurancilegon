@@ -62,7 +62,7 @@ const Profil = () => {
                   <Calendar className="h-5 w-5 text-primary" />
                 </div>
                 <h2 className="font-serif text-3xl font-bold text-foreground">
-                  Sejarah Pendirian
+                  Latar Belakang
                 </h2>
               </div>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
