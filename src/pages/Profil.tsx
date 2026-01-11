@@ -15,22 +15,22 @@ const programs = [
   {
     name: "Program Thufulah",
     description: "Program hafalan Al-Qur'an dengan target minimal 15 juz dalam 3 tahun",
-    duration: "3 Tahun",
+    duration: "2 Tahun",
   },
   {
     name: "Program Tamyiz",
     description: "Program hafalan Al-Qur'an 30 juz dengan metode talaqqi intensif",
-    duration: "2 Tahun",
+    duration: "6 Tahun",
   },
   {
     name: "Program Murohaqoh",
     description: "Pendidikan keagamaan meliputi Fiqh, Aqidah, Akhlak, dan Bahasa Arab",
-    duration: "6 Tahun",
+    duration: "3 Tahun",
   },
   {
     name: "Program Bimbel Qur'an & Akademik",
     description: "Kurikulum nasional dengan penguatan pada sains dan matematika",
-    duration: "6 Tahun",
+    duration: "6 Level",
   },
 ];
 
