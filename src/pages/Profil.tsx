@@ -14,7 +14,7 @@ const achievements = [
 const programs = [
   {
     name: "Program Thufulah",
-    description: "Program hafalan Al-Qur'an dengan target minimal 15 juz dalam 3 tahun",
+    description: "Thufulah adalah Program Pendidikan Anak Usia Dini (PAUD) Karakter Nabawiyah Taman Saung Qur'an (TASAQUR) untuk Usia 4-6 Tahun dalam rangka mewujudkan generasi berkarakter, beriman dan Cinta Al-Qur'an sejak usia dini dengan metode yang menyenangkan, bermain, bermakna, tumbuh dengan iman sesuai fitrah anak.",
     duration: "2 Tahun",
   },
   {
