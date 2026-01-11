@@ -8,7 +8,7 @@ import logoSQC from "@/assets/logo-sqc.png";
 const navLinks = [
   { name: "Beranda", path: "/" },
   { name: "Profil", path: "/profil" },
-  { name: "Guru & Staf", path: "/guru-staf" },
+  { name: "Program Pendidikan", path: "/program-pendidikan" },
   { name: "Ekstrakurikuler", path: "/ekstrakurikuler" },
   { name: "Hubungi Kami", path: "/hubungi-kami" },
 ];
