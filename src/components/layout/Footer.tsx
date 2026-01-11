@@ -61,7 +61,7 @@ export function Footer() {
             <ul className="space-y-2">
               {[
                 { name: "Profil Sekolah", path: "/profil" },
-                { name: "Guru & Staf", path: "/guru-staf" },
+                { name: "Program Pendidikan", path: "/program-pendidikan" },
                 { name: "Ekstrakurikuler", path: "/ekstrakurikuler" },
                 { name: "Pendaftaran", path: "/pendaftaran" },
                 { name: "Hubungi Kami", path: "/hubungi-kami" },
