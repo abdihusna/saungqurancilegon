@@ -1,6 +1,19 @@
+import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import { Building, BookOpen, Clock, GraduationCap, Target, CheckCircle } from "lucide-react";
+import { Lightbox } from "@/components/shared/Lightbox";
+import { Building, BookOpen, Clock, GraduationCap, Target, CheckCircle, Image } from "lucide-react";
+
+import belajarKomputer from "@/assets/gallery/belajar-komputer.jpg";
+import belajarOutdoor from "@/assets/gallery/belajar-outdoor.jpg";
+import berkebunBersama from "@/assets/gallery/berkebun-bersama.jpg";
+import berkebun from "@/assets/gallery/berkebun.jpg";
+import cookingClass from "@/assets/gallery/cooking-class.jpg";
+import kegiatanBersama from "@/assets/gallery/kegiatan-bersama.jpg";
+import kegiatanKomputer from "@/assets/gallery/kegiatan-komputer.jpg";
+import makanBersama from "@/assets/gallery/makan-bersama.jpg";
+import mengaji from "@/assets/gallery/mengaji.jpg";
+import ternak from "@/assets/gallery/ternak.jpg";
 
 const programs = [
   {
@@ -21,6 +34,11 @@ const programs = [
       "Tumbuh sesuai fitrah dengan metode yang menyenangkan",
       "Siap melanjutkan ke jenjang pendidikan dasar",
     ],
+    gallery: [
+      { src: cookingClass, alt: "Kegiatan cooking class anak-anak Thufulah" },
+      { src: kegiatanBersama, alt: "Kegiatan bersama anak-anak Thufulah" },
+      { src: makanBersama, alt: "Makan bersama anak-anak Thufulah" },
+    ],
   },
   {
     name: "Program Tamyiz",
@@ -39,6 +57,11 @@ const programs = [
       "Mampu mengintegrasikan nilai Al-Qur'an dalam kehidupan",
       "Menguasai ilmu Diniyah dan akademik nasional",
       "Memiliki karakter Nabawiyah yang kuat",
+    ],
+    gallery: [
+      { src: belajarKomputer, alt: "Kegiatan belajar komputer santri Tamyiz" },
+      { src: berkebun, alt: "Kegiatan berkebun santri Tamyiz" },
+      { src: belajarOutdoor, alt: "Pembelajaran outdoor santri Tamyiz" },
     ],
   },
   {
@@ -59,6 +82,11 @@ const programs = [
       "Bermanfaat untuk umat dan masyarakat",
       "Lulus pendidikan SMP dengan nilai baik",
     ],
+    gallery: [
+      { src: kegiatanKomputer, alt: "Kegiatan komputer santri Murohaqoh" },
+      { src: berkebunBersama, alt: "Kegiatan berkebun bersama santri Murohaqoh" },
+      { src: ternak, alt: "Kegiatan beternak santri Murohaqoh" },
+    ],
   },
   {
     name: "Program Bimbel Qur'an & Akademik",
@@ -78,10 +106,34 @@ const programs = [
       "Fasih dalam makharijul huruf",
       "Siap melanjutkan ke program hafalan Al-Qur'an",
     ],
+    gallery: [
+      { src: mengaji, alt: "Kegiatan mengaji Program TALQIN" },
+      { src: makanBersama, alt: "Kegiatan makan bersama peserta TALQIN" },
+      { src: kegiatanBersama, alt: "Kegiatan bersama peserta TALQIN" },
+    ],
   },
 ];
 
 const ProgramPendidikan = () => {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentImages, setCurrentImages] = useState<{ src: string; alt: string }[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const openLightbox = (images: { src: string; alt: string }[], index: number) => {
+    setCurrentImages(images);
+    setCurrentIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const closeLightbox = () => setLightboxOpen(false);
+
+  const goToPrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? currentImages.length - 1 : prev - 1));
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev === currentImages.length - 1 ? 0 : prev + 1));
+  };
   return (
     <Layout>
       {/* Hero Section */}
@@ -167,6 +219,32 @@ const ProgramPendidikan = () => {
                       </ul>
                     </div>
                   </div>
+
+                  {/* Gallery */}
+                  {program.gallery && program.gallery.length > 0 && (
+                    <div className="mt-6">
+                      <div className="flex items-center gap-2 mb-4">
+                        <Image className="h-5 w-5 text-primary" />
+                        <h4 className="font-semibold text-foreground">Galeri Kegiatan</h4>
+                      </div>
+                      <div className="grid grid-cols-3 gap-3">
+                        {program.gallery.map((image, imgIdx) => (
+                          <div
+                            key={imgIdx}
+                            className="relative aspect-video rounded-lg overflow-hidden cursor-pointer group"
+                            onClick={() => openLightbox(program.gallery, imgIdx)}
+                          >
+                            <img
+                              src={image.src}
+                              alt={image.alt}
+                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                            />
+                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -194,6 +272,17 @@ const ProgramPendidikan = () => {
           </div>
         </div>
       </section>
+
+      {/* Lightbox */}
+      {lightboxOpen && (
+        <Lightbox
+          images={currentImages}
+          currentIndex={currentIndex}
+          onClose={closeLightbox}
+          onPrev={goToPrev}
+          onNext={goToNext}
+        />
+      )}
     </Layout>
   );
 };
