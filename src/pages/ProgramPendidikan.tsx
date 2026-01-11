@@ -4,7 +4,7 @@ import { Building, BookOpen, Clock, GraduationCap, Target, CheckCircle } from "l
 
 const programs = [
   {
-    name: "Program Tahfidz Reguler",
+    name: "Program Thufulah",
     description: "Program hafalan Al-Qur'an dengan target minimal 15 juz dalam 3 tahun dengan metode yang menyenangkan dan sesuai fitrah anak.",
     duration: "3 Tahun",
     icon: BookOpen,
@@ -21,7 +21,7 @@ const programs = [
     ],
   },
   {
-    name: "Program Tahfidz Intensif",
+    name: "Program Tamyiz",
     description: "Program hafalan Al-Qur'an 30 juz dengan metode talaqqi intensif untuk santri yang memiliki semangat tinggi dalam menghafal.",
     duration: "2 Tahun",
     icon: BookOpen,
@@ -38,7 +38,7 @@ const programs = [
     ],
   },
   {
-    name: "Program Diniyah",
+    name: "Program Murohaqah",
     description: "Pendidikan keagamaan komprehensif meliputi Fiqh, Aqidah, Akhlak, dan Bahasa Arab dengan pendekatan klasik yang teruji.",
     duration: "6 Tahun",
     icon: GraduationCap,
@@ -57,7 +57,7 @@ const programs = [
     ],
   },
   {
-    name: "Program Akademik",
+    name: "Program Bimbel Qur'an & Akademik",
     description: "Kurikulum nasional dengan penguatan pada sains dan matematika, dipadukan dengan nilai-nilai Islam dalam setiap pembelajaran.",
     duration: "6 Tahun",
     icon: Building,
