@@ -23,7 +23,7 @@ const programs = [
     duration: "2 Tahun",
   },
   {
-    name: "Program Murohaqah",
+    name: "Program Murohaqoh",
     description: "Pendidikan keagamaan meliputi Fiqh, Aqidah, Akhlak, dan Bahasa Arab",
     duration: "6 Tahun",
   },

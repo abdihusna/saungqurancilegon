@@ -38,7 +38,7 @@ const programs = [
     ],
   },
   {
-    name: "Program Murohaqah",
+    name: "Program Murohaqoh",
     description: "Pendidikan keagamaan komprehensif meliputi Fiqh, Aqidah, Akhlak, dan Bahasa Arab dengan pendekatan klasik yang teruji.",
     duration: "6 Tahun",
     icon: GraduationCap,
