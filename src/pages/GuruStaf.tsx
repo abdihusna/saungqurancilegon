@@ -1,31 +1,79 @@
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import { Building, BookOpen, Clock, GraduationCap } from "lucide-react";
+import { Building, BookOpen, Clock, GraduationCap, Target, CheckCircle } from "lucide-react";
 
 const programs = [
   {
     name: "Program Tahfidz Reguler",
-    description: "Program hafalan Al-Qur'an dengan target minimal 15 juz dalam 3 tahun",
+    description: "Program hafalan Al-Qur'an dengan target minimal 15 juz dalam 3 tahun dengan metode yang menyenangkan dan sesuai fitrah anak.",
     duration: "3 Tahun",
     icon: BookOpen,
+    curriculum: [
+      "Hafalan Al-Qur'an dengan metode Talaqqi",
+      "Tajwid dan Makharijul Huruf",
+      "Muraja'ah (pengulangan) harian",
+      "Tadabbur ayat-ayat pilihan",
+    ],
+    targets: [
+      "Minimal 15 Juz hafalan",
+      "Lancar membaca Al-Qur'an dengan tajwid",
+      "Memahami makna ayat-ayat penting",
+    ],
   },
   {
     name: "Program Tahfidz Intensif",
-    description: "Program hafalan Al-Qur'an 30 juz dengan metode talaqqi intensif",
+    description: "Program hafalan Al-Qur'an 30 juz dengan metode talaqqi intensif untuk santri yang memiliki semangat tinggi dalam menghafal.",
     duration: "2 Tahun",
     icon: BookOpen,
+    curriculum: [
+      "Hafalan intensif 30 juz Al-Qur'an",
+      "Setoran hafalan harian kepada ustadz/ustadzah",
+      "Muraja'ah terstruktur dan terjadwal",
+      "Ilmu Gharib dan Mutasyabihat",
+    ],
+    targets: [
+      "Hafal 30 Juz Al-Qur'an",
+      "Mahir dalam ilmu tajwid",
+      "Mampu mengajarkan Al-Qur'an kepada orang lain",
+    ],
   },
   {
     name: "Program Diniyah",
-    description: "Pendidikan keagamaan meliputi Fiqh, Aqidah, Akhlak, dan Bahasa Arab",
+    description: "Pendidikan keagamaan komprehensif meliputi Fiqh, Aqidah, Akhlak, dan Bahasa Arab dengan pendekatan klasik yang teruji.",
     duration: "6 Tahun",
     icon: GraduationCap,
+    curriculum: [
+      "Fiqh Ibadah dan Muamalah",
+      "Aqidah Ahlus Sunnah wal Jama'ah",
+      "Akhlak dan Adab Islami",
+      "Bahasa Arab (Nahwu, Sharaf, Muhadatsah)",
+      "Sirah Nabawiyah dan Tarikh Islam",
+    ],
+    targets: [
+      "Memahami dan mengamalkan ibadah dengan benar",
+      "Memiliki akidah yang lurus sesuai Al-Qur'an dan Sunnah",
+      "Berakhlak mulia sesuai tuntunan Rasulullah ﷺ",
+      "Mampu membaca dan memahami kitab-kitab berbahasa Arab",
+    ],
   },
   {
     name: "Program Akademik",
-    description: "Kurikulum nasional dengan penguatan pada sains dan matematika",
+    description: "Kurikulum nasional dengan penguatan pada sains dan matematika, dipadukan dengan nilai-nilai Islam dalam setiap pembelajaran.",
     duration: "6 Tahun",
     icon: Building,
+    curriculum: [
+      "Matematika dan Sains Terpadu",
+      "Bahasa Indonesia dan Inggris",
+      "Ilmu Pengetahuan Sosial",
+      "Pendidikan Jasmani dan Kesehatan",
+      "Keterampilan dan Seni",
+    ],
+    targets: [
+      "Lulus ujian nasional dengan nilai baik",
+      "Memiliki dasar keilmuan yang kuat",
+      "Siap melanjutkan ke jenjang pendidikan lebih tinggi",
+      "Mampu mengintegrasikan ilmu dengan nilai-nilai Islam",
+    ],
   },
 ];
 
@@ -55,28 +103,64 @@ const ProgramPendidikan = () => {
             subtitle="Berbagai program pendidikan untuk mencetak generasi Qur'ani yang berakhlak mulia"
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-8">
             {programs.map((program, index) => {
               const IconComponent = program.icon;
               return (
-                <div key={index} className="islamic-card p-6 hover:shadow-lg transition-shadow">
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-accent rounded-xl">
-                      <IconComponent className="h-6 w-6 text-primary" />
+                <div key={index} className="islamic-card p-6 md:p-8 hover:shadow-lg transition-shadow">
+                  {/* Header */}
+                  <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
+                    <div className="p-4 bg-accent rounded-xl w-fit">
+                      <IconComponent className="h-8 w-8 text-primary" />
                     </div>
                     <div className="flex-1">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="font-serif text-xl font-bold text-foreground">
+                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                        <h3 className="font-serif text-2xl font-bold text-foreground">
                           {program.name}
                         </h3>
-                        <span className="text-xs bg-secondary/20 text-secondary px-2 py-1 rounded-full flex items-center gap-1">
-                          <Clock className="h-3 w-3" />
+                        <span className="text-sm bg-secondary/20 text-secondary px-3 py-1.5 rounded-full flex items-center gap-1.5 w-fit">
+                          <Clock className="h-4 w-4" />
                           {program.duration}
                         </span>
                       </div>
-                      <p className="text-muted-foreground text-sm">
+                      <p className="text-muted-foreground mt-2">
                         {program.description}
                       </p>
+                    </div>
+                  </div>
+
+                  {/* Content Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Curriculum */}
+                    <div className="bg-muted/50 rounded-xl p-5">
+                      <div className="flex items-center gap-2 mb-4">
+                        <BookOpen className="h-5 w-5 text-primary" />
+                        <h4 className="font-semibold text-foreground">Kurikulum</h4>
+                      </div>
+                      <ul className="space-y-2">
+                        {program.curriculum.map((item, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
+                            <CheckCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Targets */}
+                    <div className="bg-accent/50 rounded-xl p-5">
+                      <div className="flex items-center gap-2 mb-4">
+                        <Target className="h-5 w-5 text-primary" />
+                        <h4 className="font-semibold text-foreground">Target Capaian</h4>
+                      </div>
+                      <ul className="space-y-2">
+                        {program.targets.map((item, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
+                            <CheckCircle className="h-4 w-4 text-secondary mt-0.5 flex-shrink-0" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                 </div>
