@@ -22,7 +22,7 @@ const programs = [
   },
   {
     name: "Program Tamyiz",
-    description: "Program hafalan Al-Qur'an 30 juz dengan metode talaqqi intensif untuk santri yang memiliki semangat tinggi dalam menghafal.",
+    description: "Tamyiz adalah Program Pendidikan Karakter untuk Usia Sekolah Dasar (SD), dalam rangka mewujudkan generasi Qur'ani yang terampil dan mandiri. Program ini ditunjang dengan Kurikulum Karakter Nabawiyah dengan metode pembelajaran yang berbasis project serta mengintegrasikan pembelajaran Al-Qur'an, Diniyah dan Kurikulum Nasional.",
     duration: "6 Tahun",
     icon: BookOpen,
     curriculum: [
