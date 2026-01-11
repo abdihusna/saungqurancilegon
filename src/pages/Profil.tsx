@@ -82,6 +82,37 @@ const Profil = () => {
                   Kami percaya bahwa pendidikan yang baik tidak harus mewah, tetapi 
                   harus penuh dengan cinta dan dedikasi.
                 </p>
+                <p>
+                  Saung Qur'an Cilegon adalah Sekolah Islam yang memiliki konsep alamiah dan 
+                  berbasis Pendidikan Karakter Nabawiyah. Pendidikan Karakter Nabawiyah ataupun 
+                  Pendidikan Fitrah merupakan sistem pendidikan yang menekankan pentingnya proses 
+                  pendidikan dalam rangka menumbuhkan 4 karakter fitrah, yaitu; karakter iman 
+                  (fitrah keimanan), karakter belajar (fitrah belajar), karakter bakat (fitrah bakat) 
+                  dan diselaraskan dengan karakter perkembangan (fitrah perkembangan).
+                </p>
+                <p>
+                  Pendidikan Karakter Nabawiyah juga berkaitan erat dengan menumbuhkan kesadaran 
+                  akan tujuan diciptakannya manusia yaitu untuk beribadah dan menjadi hamba yang 
+                  senantiasa ta'at kepada Allah ta'ala serta bermanfaat untuk ummat.
+                </p>
+                <p>
+                  Melalui kurikulum yang berbasis karakter mari kita membersamai dan membekali 
+                  putra-putri kita dalam proses pendidikan dengan penuh cinta dan keimanan, 
+                  karena pendidikan terhadap diri dan keluarga adalah kewajiban bagi setiap 
+                  orang yang beriman kepada Allah ta'ala.
+                </p>
+                <div className="mt-6 p-6 bg-accent rounded-xl border-l-4 border-primary">
+                  <p className="text-foreground font-medium mb-2">Firman Allah subhanahu wata'ala:</p>
+                  <p className="text-xl font-arabic text-foreground leading-loose text-right mb-4" dir="rtl">
+                    يَا أَيُّهَا الَّذِينَ آمَنُوا قُوا أَنْفُسَكُمْ وَأَهْلِيكُمْ نَارًا وَقُودُهَا النَّاسُ وَالْحِجَارَةُ عَلَيْهَا مَلَائِكَةٌ غِلَاظٌ شِدَادٌ لَا يَعْصُونَ اللَّهَ مَا أَمَرَهُمْ وَيَفْعَلُونَ مَا يُؤْمَرُونَ ﴿٦﴾
+                  </p>
+                  <p className="text-sm italic">
+                    "Wahai orang-orang yang beriman, peliharalah dirimu dan keluargamu dari api neraka 
+                    yang bahan bakarnya adalah manusia dan batu. Penjaganya adalah malaikat-malaikat 
+                    yang kasar dan keras. Mereka tidak durhaka kepada Allah terhadap apa yang Dia 
+                    perintahkan kepadanya dan selalu mengerjakan apa yang diperintahkan." (QS. At-Tahrim: 6)
+                  </p>
+                </div>
               </div>
             </div>
             <div className="relative">
