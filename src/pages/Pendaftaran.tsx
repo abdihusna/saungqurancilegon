@@ -430,7 +430,7 @@ const Pendaftaran = () => {
                         <SelectItem value="Thufulah">Program Thufulah (Usia 4-6 Tahun)</SelectItem>
                         <SelectItem value="Tamyiz">Program Tamyiz (Usia 7-12 Tahun)</SelectItem>
                         <SelectItem value="Murohaqoh">Program Murohaqoh (Usia 13-18 Tahun)</SelectItem>
-                        <SelectItem value="TALQIN">Program TALQIN (Usia 18+ Tahun)</SelectItem>
+                        <SelectItem value="TALQIN">Program TALQIN (Usia 4+ Tahun)</SelectItem>
                       </SelectContent>
                     </Select>
                     {validationErrors.program && (
