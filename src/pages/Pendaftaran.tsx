@@ -56,7 +56,7 @@ const registrationSchema = z.object({
     .max(255, "Email maksimal 255 karakter")
     .optional()
     .or(z.literal("")),
-  program: z.enum(["Tahfidz Reguler", "Tahfidz Intensif", "Diniyah", "Akademik"], {
+  program: z.enum(["Thufulah", "Tamyiz", "Murohaqoh", "TALQIN"], {
     errorMap: () => ({ message: "Pilih program pendidikan" }),
   }),
   asal_sekolah: z
@@ -427,10 +427,10 @@ const Pendaftaran = () => {
                         <SelectValue placeholder="Pilih program pendidikan" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Tahfidz Reguler">Program Tahfidz Reguler (3 Tahun)</SelectItem>
-                        <SelectItem value="Tahfidz Intensif">Program Tahfidz Intensif (2 Tahun)</SelectItem>
-                        <SelectItem value="Diniyah">Program Diniyah (6 Tahun)</SelectItem>
-                        <SelectItem value="Akademik">Program Akademik (6 Tahun)</SelectItem>
+                        <SelectItem value="Thufulah">Program Thufulah (Usia 4-6 Tahun)</SelectItem>
+                        <SelectItem value="Tamyiz">Program Tamyiz (Usia 7-12 Tahun)</SelectItem>
+                        <SelectItem value="Murohaqoh">Program Murohaqoh (Usia 13-18 Tahun)</SelectItem>
+                        <SelectItem value="TALQIN">Program TALQIN (Usia 18+ Tahun)</SelectItem>
                       </SelectContent>
                     </Select>
                     {validationErrors.program && (
