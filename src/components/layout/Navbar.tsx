@@ -10,6 +10,7 @@ const navLinks = [
   { name: "Profil", path: "/profil" },
   { name: "Program Pendidikan", path: "/program-pendidikan" },
   { name: "Ekstrakurikuler", path: "/ekstrakurikuler" },
+  { name: "Event", path: "/event" },
   { name: "Hubungi Kami", path: "/hubungi-kami" },
 ];
 
