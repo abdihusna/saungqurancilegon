@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Profil from "./pages/Profil";
 import ProgramPendidikan from "./pages/ProgramPendidikan";
 import Ekstrakurikuler from "./pages/Ekstrakurikuler";
+import Event from "./pages/Event";
 import HubungiKami from "./pages/HubungiKami";
 import Pendaftaran from "./pages/Pendaftaran";
 import NotFound from "./pages/NotFound";
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/profil" element={<Profil />} />
           <Route path="/program-pendidikan" element={<ProgramPendidikan />} />
           <Route path="/ekstrakurikuler" element={<Ekstrakurikuler />} />
+          <Route path="/event" element={<Event />} />
           <Route path="/hubungi-kami" element={<HubungiKami />} />
           <Route path="/pendaftaran" element={<Pendaftaran />} />
           <Route path="*" element={<NotFound />} />
