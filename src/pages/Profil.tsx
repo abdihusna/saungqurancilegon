@@ -135,34 +135,70 @@ const Profil = () => {
             subtitle="Struktur kepengurusan Saung Qur'an Cilegon"
           />
 
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Ketua Yayasan */}
-              <div className="col-span-full">
-                <div className="islamic-card p-6 text-center max-w-xs mx-auto">
+          <div className="max-w-5xl mx-auto">
+            {/* Yayasan Level */}
+            <div className="mb-8">
+              <h3 className="text-center text-lg font-semibold text-muted-foreground mb-6">Pengurus Yayasan</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="islamic-card p-6 text-center">
                   <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
-                  <h3 className="font-serif text-lg font-bold text-foreground">DR. Ahmad Suja'i M.Pd</h3>
+                  <h3 className="font-serif text-lg font-bold text-foreground">-</h3>
                   <p className="text-sm text-muted-foreground">Ketua Yayasan</p>
                 </div>
+                <div className="islamic-card p-6 text-center">
+                  <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
+                  <h3 className="font-serif text-lg font-bold text-foreground">-</h3>
+                  <p className="text-sm text-muted-foreground">Sekretaris Yayasan</p>
+                </div>
+                <div className="islamic-card p-6 text-center">
+                  <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
+                  <h3 className="font-serif text-lg font-bold text-foreground">-</h3>
+                  <p className="text-sm text-muted-foreground">Bendahara Yayasan</p>
+                </div>
               </div>
+            </div>
 
-              {/* Kepala Sekolah & Wakil */}
-              <div className="islamic-card p-6 text-center">
-                <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
-                <h3 className="font-serif text-lg font-bold text-foreground">Ustadz Mu'inudin S.Pd.I</h3>
-                <p className="text-sm text-muted-foreground">Kepala Sekolah</p>
+            {/* PKBM Level */}
+            <div className="mb-8">
+              <h3 className="text-center text-lg font-semibold text-muted-foreground mb-6">Pengurus PKBM</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="islamic-card p-6 text-center">
+                  <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
+                  <h3 className="font-serif text-lg font-bold text-foreground">-</h3>
+                  <p className="text-sm text-muted-foreground">Mudir / Ketua PKBM</p>
+                </div>
+                <div className="islamic-card p-6 text-center">
+                  <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
+                  <h3 className="font-serif text-lg font-bold text-foreground">-</h3>
+                  <p className="text-sm text-muted-foreground">Sekretaris</p>
+                </div>
+                <div className="islamic-card p-6 text-center">
+                  <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
+                  <h3 className="font-serif text-lg font-bold text-foreground">-</h3>
+                  <p className="text-sm text-muted-foreground">Bendahara</p>
+                </div>
               </div>
+            </div>
 
-              <div className="islamic-card p-6 text-center">
-                <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
-                <h3 className="font-serif text-lg font-bold text-foreground">Ustadz Ridwan, S.Pd.I</h3>
-                <p className="text-sm text-muted-foreground">Wakil Kepala Sekolah</p>
-              </div>
-
-              <div className="islamic-card p-6 text-center">
-                <PersonAvatar gender="female" size="md" className="mx-auto mb-4" />
-                <h3 className="font-serif text-lg font-bold text-foreground">Ustadzah Maryam</h3>
-                <p className="text-sm text-muted-foreground">Ketua Program Tahfidz</p>
+            {/* Wakil Kepala */}
+            <div>
+              <h3 className="text-center text-lg font-semibold text-muted-foreground mb-6">Wakil Kepala</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="islamic-card p-6 text-center">
+                  <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
+                  <h3 className="font-serif text-lg font-bold text-foreground">-</h3>
+                  <p className="text-sm text-muted-foreground">Waka Kurikulum</p>
+                </div>
+                <div className="islamic-card p-6 text-center">
+                  <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
+                  <h3 className="font-serif text-lg font-bold text-foreground">-</h3>
+                  <p className="text-sm text-muted-foreground">Waka Kesiswaan</p>
+                </div>
+                <div className="islamic-card p-6 text-center">
+                  <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
+                  <h3 className="font-serif text-lg font-bold text-foreground">-</h3>
+                  <p className="text-sm text-muted-foreground">Waka Sarpras</p>
+                </div>
               </div>
             </div>
           </div>
