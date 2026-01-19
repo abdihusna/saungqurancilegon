@@ -7,25 +7,23 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-import belajarKomputer from "@/assets/gallery/belajar-komputer.jpg";
-import belajarOutdoor from "@/assets/gallery/belajar-outdoor.jpg";
-import berkebunBersama from "@/assets/gallery/berkebun-bersama.jpg";
-import berkebun from "@/assets/gallery/berkebun.jpg";
+import thufulahBerkebun from "@/assets/gallery/thufulah-berkebun.jpg";
+import thufulahKolam from "@/assets/gallery/thufulah-kolam.jpg";
+import thufulahOutbond from "@/assets/gallery/thufulah-outbond.jpg";
+import mengaji from "@/assets/gallery/mengaji.jpg";
 import cookingClass from "@/assets/gallery/cooking-class.jpg";
 import kegiatanBersama from "@/assets/gallery/kegiatan-bersama.jpg";
-import kegiatanKomputer from "@/assets/gallery/kegiatan-komputer.jpg";
 import makanBersama from "@/assets/gallery/makan-bersama.jpg";
-import mengaji from "@/assets/gallery/mengaji.jpg";
 import ternak from "@/assets/gallery/ternak.jpg";
 
 const latestGallery = [
+  { src: thufulahBerkebun, alt: "Program Thufulah - Berkebun", date: "30 Januari 2025" },
+  { src: thufulahKolam, alt: "Program Thufulah - Bermain Air", date: "30 Januari 2025" },
+  { src: thufulahOutbond, alt: "Program Thufulah - Outbond", date: "30 Januari 2025" },
   { src: mengaji, alt: "Kegiatan Mengaji Bersama", date: "10 Januari 2026" },
-  { src: belajarKomputer, alt: "Belajar Komputer", date: "8 Januari 2026" },
   { src: cookingClass, alt: "Cooking Class", date: "5 Januari 2026" },
-  { src: berkebunBersama, alt: "Berkebun Bersama", date: "3 Januari 2026" },
   { src: kegiatanBersama, alt: "Kegiatan Bersama", date: "1 Januari 2026" },
   { src: makanBersama, alt: "Makan Bersama", date: "28 Desember 2025" },
-  { src: belajarOutdoor, alt: "Belajar Outdoor", date: "25 Desember 2025" },
   { src: ternak, alt: "Kegiatan Beternak", date: "22 Desember 2025" },
 ];
 

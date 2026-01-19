@@ -3,41 +3,31 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { Lightbox } from "@/components/shared/Lightbox";
 
 // Import gallery images
-import kegiatanKomputer from "@/assets/gallery/kegiatan-komputer.jpg";
-import belajarKomputer from "@/assets/gallery/belajar-komputer.jpg";
-import berkebun from "@/assets/gallery/berkebun.jpg";
+import thufulahBerkebun from "@/assets/gallery/thufulah-berkebun.jpg";
+import thufulahKolam from "@/assets/gallery/thufulah-kolam.jpg";
+import thufulahOutbond from "@/assets/gallery/thufulah-outbond.jpg";
 import mengaji from "@/assets/gallery/mengaji.jpg";
 import ternak from "@/assets/gallery/ternak.jpg";
 import kegiatanBersama from "@/assets/gallery/kegiatan-bersama.jpg";
 import cookingClass from "@/assets/gallery/cooking-class.jpg";
-import berkebunBersama from "@/assets/gallery/berkebun-bersama.jpg";
 import makanBersama from "@/assets/gallery/makan-bersama.jpg";
-import belajarOutdoor from "@/assets/gallery/belajar-outdoor.jpg";
 
 const galleryImages = [
   {
+    src: thufulahBerkebun,
+    alt: "Program Thufulah - Berkebun",
+  },
+  {
+    src: thufulahKolam,
+    alt: "Program Thufulah - Bermain Air",
+  },
+  {
+    src: thufulahOutbond,
+    alt: "Program Thufulah - Outbond",
+  },
+  {
     src: mengaji,
     alt: "Kegiatan mengaji Al-Qur'an",
-  },
-  {
-    src: belajarOutdoor,
-    alt: "Belajar di saung outdoor",
-  },
-  {
-    src: belajarKomputer,
-    alt: "Kegiatan belajar komputer",
-  },
-  {
-    src: kegiatanKomputer,
-    alt: "Santri belajar komputer",
-  },
-  {
-    src: berkebunBersama,
-    alt: "Berkebun bersama di kebun sekolah",
-  },
-  {
-    src: berkebun,
-    alt: "Santri belajar menanam",
   },
   {
     src: ternak,
@@ -50,6 +40,10 @@ const galleryImages = [
   {
     src: cookingClass,
     alt: "Kegiatan cooking class",
+  },
+  {
+    src: makanBersama,
+    alt: "Makan bersama",
   },
 ];
 
