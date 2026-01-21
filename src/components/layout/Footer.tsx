@@ -85,7 +85,7 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                 <span className="text-sm text-white/70">
-                  Link. Ciberko Gg. Makam, RT 001/003. Kalitimbang, Cibeber, Kota Cilegon, Banten 42424
+                  Jl. Ciberko Gg. Makam Jelani, RT.001/RW.003, Kalitimbang, Kec. Cibeber, Kota Cilegon, Banten 42426
                 </span>
               </li>
               <li className="flex items-center gap-3">

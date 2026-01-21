@@ -40,9 +40,9 @@ const HubungiKami = () => {
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Alamat</h3>
                       <p className="text-muted-foreground">
-                        Link. Ciberko Gg. Makam, RT 001/003<br />
-                        Kalitimbang, Cibeber, Kota Cilegon<br />
-                        Banten 42424
+                        Jl. Ciberko Gg. Makam Jelani, RT.001/RW.003<br />
+                        Kalitimbang, Kec. Cibeber, Kota Cilegon<br />
+                        Banten 42426
                       </p>
                     </div>
                   </div>
@@ -179,7 +179,7 @@ const HubungiKami = () => {
               </h2>
               <div className="islamic-card overflow-hidden h-[500px]">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.1377736861396!2d106.02890307499284!3d-6.372159993602741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e4224bba93d79eb%3A0xf8ffc5bf74edd8db!2sSaung%20Quran%20Cilegon!5e0!3m2!1sid!2sid!4v1735638000000!5m2!1sid!2sid"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.1377736861396!2d106.02890307499284!3d-6.372159993602741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e4224bba93d79eb%3A0xf8ffc5bf74edd8db!2sSaung%20Quran%20Cilegon!5e0!3m2!1sid!2sid!4v1737500000000!5m2!1sid!2sid"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
