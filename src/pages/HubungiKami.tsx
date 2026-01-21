@@ -40,7 +40,7 @@ const HubungiKami = () => {
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Alamat</h3>
                       <p className="text-muted-foreground">
-                        Jl. Ciberko Gg. Makam Jelani, RT.001/RW.003<br />
+                        Link Ciberko Gg. Makam, RT.001/RW.003<br />
                         Kalitimbang, Kec. Cibeber, Kota Cilegon<br />
                         Banten 42426
                       </p>
