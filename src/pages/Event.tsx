@@ -60,6 +60,7 @@ const upcomingEvents = [
 ];
 
 import juaraTaekwondo from "@/assets/news/juara-taekwondo.jpeg";
+import programTasmi from "@/assets/news/program-tasmi.jpeg";
 
 const latestNews = [
   {
@@ -86,10 +87,11 @@ const latestNews = [
   },
   {
     id: 4,
-    title: "Program Beasiswa untuk Santri Berprestasi",
-    excerpt: "Saung Qur'an Cilegon menyediakan program beasiswa bagi santri yang berprestasi dalam hafalan dan akademik.",
-    date: "2 Januari 2026",
+    title: "Program Tasmi': Apresiasi Tertinggi untuk Ananda Dhafita Nizza Nur",
+    excerpt: "Alhamdulillah, dengan penuh rasa syukur dan bangga, kami sampaikan apresiasi yang sebesar-besarnya kepada Ananda Dhafita Nizza Nur Azizah, santri Banat (putri) kelas 6, atas keberhasilannya dalam menyelesaikan program Tasmi' Juz'i Juz-30 di Saung Qur'an Cilegon. Tasmi' bukan hanya sekadar ujian kemampuan hafalan, tetapi juga merupakan bukti keteguhan hati dalam mendekatkan diri kepada Allah Ta'ala.",
+    date: "24 Januari 2026",
     category: "Program",
+    image: programTasmi,
   },
 ];
 
