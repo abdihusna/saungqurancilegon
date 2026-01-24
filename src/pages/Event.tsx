@@ -57,20 +57,23 @@ const upcomingEvents = [
   },
 ];
 
+import juaraTaekwondo from "@/assets/news/juara-taekwondo.jpeg";
+
 const latestNews = [
   {
     id: 1,
-    title: "Pendaftaran Santri Baru Tahun Ajaran 2026/2027 Dibuka",
-    excerpt: "Saung Qur'an Cilegon membuka pendaftaran santri baru untuk semua program. Daftar sekarang dan dapatkan berbagai keuntungan.",
-    date: "12 Januari 2026",
-    category: "Pengumuman",
+    title: "Santri SQC Raih Juara 1 Taekwondo Nasional",
+    excerpt: "Alhamdulillah, Muhammad Kamil Abdun Syakuur, santri Saung Qur'an Cilegon berhasil meraih Juara 1 Kategori Kyorugi Pemula pada pertandingan PRABU TAEKWONDO CHALLENGE 9 Grade B Nasional di Indoor Stadium Tangerang.",
+    date: "24 Januari 2026",
+    category: "Prestasi",
+    image: juaraTaekwondo,
   },
   {
     id: 2,
-    title: "Santri SQC Raih Juara 1 MTQ Tingkat Provinsi",
-    excerpt: "Alhamdulillah, santri Saung Qur'an Cilegon berhasil meraih juara 1 dalam Musabaqah Tilawatil Qur'an tingkat Provinsi Banten.",
-    date: "8 Januari 2026",
-    category: "Prestasi",
+    title: "Pendaftaran Santri Baru Tahun Ajaran 2026/2027 Dibuka",
+    excerpt: "Saung Qur'an Cilegon membuka SPMB Tahun Pelajaran 2026-2027. Info: wa.me/6285187855124. Daftar online: PAUD/TK (bit.ly/SPMBSTASAQURsqc), SD (bit.ly/SPMBSDsqc), SMP (bit.ly/SPMBSMPsqc).",
+    date: "12 Januari 2026",
+    category: "Pengumuman",
   },
   {
     id: 3,
@@ -200,19 +203,30 @@ const Event = () => {
           />
           <div className="grid md:grid-cols-2 gap-6 mt-10">
             {latestNews.map((news) => (
-              <Card key={news.id} className="hover:shadow-lg transition-shadow group">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Badge>{news.category}</Badge>
-                    <span className="text-sm text-muted-foreground">{news.date}</span>
+              <Card key={news.id} className={`hover:shadow-lg transition-shadow group ${news.image ? 'md:col-span-2' : ''}`}>
+                <CardContent className={`p-6 ${news.image ? 'flex flex-col md:flex-row gap-6' : ''}`}>
+                  {news.image && (
+                    <div className="md:w-1/3 flex-shrink-0">
+                      <img 
+                        src={news.image} 
+                        alt={news.title}
+                        className="w-full h-auto rounded-lg object-cover"
+                      />
+                    </div>
+                  )}
+                  <div className={news.image ? 'flex-1' : ''}>
+                    <div className="flex items-center gap-3 mb-3">
+                      <Badge>{news.category}</Badge>
+                      <span className="text-sm text-muted-foreground">{news.date}</span>
+                    </div>
+                    <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+                      {news.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm mb-4">{news.excerpt}</p>
+                    <Button variant="ghost" size="sm" className="gap-2 p-0 h-auto text-primary">
+                      Baca Selengkapnya <ArrowRight className="h-4 w-4" />
+                    </Button>
                   </div>
-                  <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-                    {news.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm mb-4">{news.excerpt}</p>
-                  <Button variant="ghost" size="sm" className="gap-2 p-0 h-auto text-primary">
-                    Baca Selengkapnya <ArrowRight className="h-4 w-4" />
-                  </Button>
                 </CardContent>
               </Card>
             ))}
