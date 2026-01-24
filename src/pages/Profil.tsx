@@ -135,15 +135,71 @@ const Profil = () => {
             subtitle="Struktur kepengurusan Saung Qur'an Cilegon"
           />
 
-          <div className="max-w-5xl mx-auto">
-            {/* Yayasan Level */}
-            <div className="mb-8">
-              <h3 className="text-center text-lg font-semibold text-muted-foreground mb-6">Pengurus Yayasan</h3>
+          <div className="max-w-6xl mx-auto space-y-12">
+            {/* Pembina Yayasan */}
+            <div>
+              <h3 className="text-center text-lg font-semibold text-primary mb-6">Pembina Yayasan</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="islamic-card p-6 text-center">
+                  <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
+                  <h3 className="font-serif text-lg font-bold text-foreground">Syihabullah Millah, Lc</h3>
+                  <p className="text-sm text-muted-foreground">Pembina</p>
+                </div>
+                <div className="islamic-card p-6 text-center">
+                  <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
+                  <h3 className="font-serif text-lg font-bold text-foreground">Radi Ramdhani, S.T</h3>
+                  <p className="text-sm text-muted-foreground">Pembina</p>
+                </div>
+                <div className="islamic-card p-6 text-center">
+                  <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
+                  <h3 className="font-serif text-lg font-bold text-foreground">Wahid Darma Wantoro, Lc, M.S.I</h3>
+                  <p className="text-sm text-muted-foreground">Pembina</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Pengawas */}
+            <div>
+              <h3 className="text-center text-lg font-semibold text-primary mb-6">Pengawas</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                <div className="islamic-card p-6 text-center">
+                  <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
+                  <h3 className="font-serif text-lg font-bold text-foreground">Muhtadi Abdul Munib, Lc</h3>
+                  <p className="text-sm text-muted-foreground">Pengawas</p>
+                </div>
+                <div className="islamic-card p-6 text-center">
+                  <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
+                  <h3 className="font-serif text-lg font-bold text-foreground">Abdussalam</h3>
+                  <p className="text-sm text-muted-foreground">Pengawas</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Konsultan Hukum */}
+            <div>
+              <h3 className="text-center text-lg font-semibold text-primary mb-6">Konsultan Hukum</h3>
+              <div className="flex justify-center">
+                <div className="islamic-card p-6 text-center max-w-xs">
+                  <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
+                  <h3 className="font-serif text-lg font-bold text-foreground">Bpk. Ade Kusnadi, SH, M.S.I</h3>
+                  <p className="text-sm text-muted-foreground">Konsultan Hukum</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Pengurus Yayasan */}
+            <div>
+              <h3 className="text-center text-lg font-semibold text-primary mb-6">Pengurus Yayasan</h3>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div className="islamic-card p-6 text-center">
                   <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
                   <h3 className="font-serif text-lg font-bold text-foreground">Dr. Ahmad Suja'i, M.Pd</h3>
                   <p className="text-sm text-muted-foreground">Ketua Yayasan</p>
+                </div>
+                <div className="islamic-card p-6 text-center">
+                  <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
+                  <h3 className="font-serif text-lg font-bold text-foreground">Miftahul Ulum, Lc, M.A</h3>
+                  <p className="text-sm text-muted-foreground">Wakil Ketua Yayasan</p>
                 </div>
                 <div className="islamic-card p-6 text-center">
                   <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
@@ -158,14 +214,14 @@ const Profil = () => {
               </div>
             </div>
 
-            {/* PKBM Level */}
-            <div className="mb-8">
-              <h3 className="text-center text-lg font-semibold text-muted-foreground mb-6">Pengurus PKBM</h3>
+            {/* Pengurus PKBM */}
+            <div>
+              <h3 className="text-center text-lg font-semibold text-primary mb-6">Pengurus PKBM</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="islamic-card p-6 text-center">
                   <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
                   <h3 className="font-serif text-lg font-bold text-foreground">Ustadz Mu'inudin, S.Pd.I</h3>
-                  <p className="text-sm text-muted-foreground">Mudir / Ketua PKBM</p>
+                  <p className="text-sm text-muted-foreground">Ketua PKBM</p>
                 </div>
                 <div className="islamic-card p-6 text-center">
                   <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
@@ -182,7 +238,7 @@ const Profil = () => {
 
             {/* Wakil Kepala */}
             <div>
-              <h3 className="text-center text-lg font-semibold text-muted-foreground mb-6">Wakil Kepala</h3>
+              <h3 className="text-center text-lg font-semibold text-primary mb-6">Wakil Kepala</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="islamic-card p-6 text-center">
                   <PersonAvatar gender="female" size="md" className="mx-auto mb-4" />
@@ -198,6 +254,18 @@ const Profil = () => {
                   <PersonAvatar gender="male" size="md" className="mx-auto mb-4" />
                   <h3 className="font-serif text-lg font-bold text-foreground">Ustadz Haryadi</h3>
                   <p className="text-sm text-muted-foreground">Waka Sarpras</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Dewan Guru & Staf */}
+            <div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                <div className="islamic-card p-8 text-center bg-primary/5 border-2 border-primary/20">
+                  <h3 className="font-serif text-xl font-bold text-foreground">Dewan Guru</h3>
+                </div>
+                <div className="islamic-card p-8 text-center bg-primary/5 border-2 border-primary/20">
+                  <h3 className="font-serif text-xl font-bold text-foreground">Staf</h3>
                 </div>
               </div>
             </div>
