@@ -15,6 +15,7 @@ import cookingClass from "@/assets/gallery/cooking-class.jpg";
 import kegiatanBersama from "@/assets/gallery/kegiatan-bersama.jpg";
 import makanBersama from "@/assets/gallery/makan-bersama.jpg";
 import ternak from "@/assets/gallery/ternak.jpg";
+import kajianParenting from "@/assets/news/kajian-parenting.jpeg";
 
 const latestGallery = [
   { src: thufulahBerkebun, alt: "Program Thufulah - Berkebun", date: "30 Januari 2025" },
@@ -48,12 +49,13 @@ const upcomingEvents = [
   },
   {
     id: 3,
-    title: "Pengajian Akbar Bulanan",
-    description: "Pengajian rutin bulanan dengan mengundang ustadz dari luar untuk memberikan tausiyah.",
-    date: "1 Februari 2026",
-    time: "19:30 WIB",
-    location: "Masjid Saung Qur'an Cilegon",
-    category: "Pengajian",
+    title: "Kajian Parenting: Membina Intelektualitas Anak Sejak Dini",
+    description: "Kajian Parenting SQC bersama Ustadz Drs. Muhammad Rijal, Psi (Pembina Yayasan Al Hanif Cilegon, Independent Consultant, Trainer, Presenter & Conselor). Acara ini diselenggarakan sebagai bentuk kepedulian dalam mendidik peserta didik dan bukti komitmen orangtua dalam meningkatkan kapasitas keilmuan.",
+    date: "25 Januari 2026 / 6 Sya'ban 1447 H",
+    time: "08:00 - 10:00 WIB",
+    location: "Saung Qur'an Cilegon (Saung Abu Bakr)",
+    category: "Kajian",
+    image: kajianParenting,
   },
 ];
 
@@ -164,30 +166,43 @@ const Event = () => {
           />
           <div className="grid md:grid-cols-3 gap-6 mt-10">
             {upcomingEvents.map((event) => (
-              <Card key={event.id} className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="flex items-center justify-between mb-2">
-                    <Badge variant="secondary">{event.category}</Badge>
+              <Card key={event.id} className={`hover:shadow-lg transition-shadow ${event.image ? 'md:col-span-3' : ''}`}>
+                <div className={event.image ? 'flex flex-col md:flex-row' : ''}>
+                  {event.image && (
+                    <div className="md:w-1/3 flex-shrink-0">
+                      <img 
+                        src={event.image} 
+                        alt={event.title}
+                        className="w-full h-full object-cover rounded-t-lg md:rounded-l-lg md:rounded-tr-none"
+                      />
+                    </div>
+                  )}
+                  <div className="flex-1">
+                    <CardHeader>
+                      <div className="flex items-center justify-between mb-2">
+                        <Badge variant="secondary">{event.category}</Badge>
+                      </div>
+                      <CardTitle className="text-lg">{event.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <p className="text-sm text-muted-foreground">{event.description}</p>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex items-center gap-2 text-muted-foreground">
+                          <Calendar className="h-4 w-4 text-primary" />
+                          <span>{event.date}</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-muted-foreground">
+                          <Clock className="h-4 w-4 text-primary" />
+                          <span>{event.time}</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-muted-foreground">
+                          <MapPin className="h-4 w-4 text-primary" />
+                          <span>{event.location}</span>
+                        </div>
+                      </div>
+                    </CardContent>
                   </div>
-                  <CardTitle className="text-lg">{event.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <p className="text-sm text-muted-foreground">{event.description}</p>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <Calendar className="h-4 w-4 text-primary" />
-                      <span>{event.date}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <Clock className="h-4 w-4 text-primary" />
-                      <span>{event.time}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-muted-foreground">
-                      <MapPin className="h-4 w-4 text-primary" />
-                      <span>{event.location}</span>
-                    </div>
-                  </div>
-                </CardContent>
+                </div>
               </Card>
             ))}
           </div>
