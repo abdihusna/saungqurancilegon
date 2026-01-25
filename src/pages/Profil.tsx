@@ -2,14 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { PersonAvatar } from "@/components/shared/PersonAvatar";
 import { Award, Calendar, Building } from "lucide-react";
-
-const achievements = [
-  "Juara 1 MTQ Tingkat Kota Cilegon 2023",
-  "Juara 2 Tahfidz Qur'an Tingkat Provinsi Banten 2023",
-  "Juara 1 Kaligrafi Tingkat Nasional 2022",
-  "Juara 3 Olimpiade Sains Madrasah 2022",
-  "Juara 1 Pidato Bahasa Arab Tingkat Kota 2021",
-];
+import { achievements } from "@/data/newsData";
 
 const programs = [
   {
@@ -322,12 +315,15 @@ const Profil = () => {
               {achievements.map((achievement, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-4 p-4 bg-white/10 backdrop-blur-sm rounded-xl"
+                  className="flex items-start gap-4 p-4 bg-white/10 backdrop-blur-sm rounded-xl"
                 >
-                  <div className="p-2 bg-secondary rounded-lg">
+                  <div className="p-2 bg-secondary rounded-lg flex-shrink-0">
                     <Award className="h-5 w-5 text-secondary-foreground" />
                   </div>
-                  <span className="text-primary-foreground">{achievement}</span>
+                  <div>
+                    <h4 className="font-semibold text-primary-foreground">{achievement.title}</h4>
+                    <p className="text-sm text-primary-foreground/80">{achievement.description}</p>
+                  </div>
                 </div>
               ))}
             </div>
