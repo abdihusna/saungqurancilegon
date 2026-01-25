@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { Lightbox } from "@/components/shared/Lightbox";
@@ -6,6 +7,7 @@ import { Calendar, Clock, MapPin, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { newsData } from "@/data/newsData";
 
 import thufulahBerkebun from "@/assets/gallery/thufulah-berkebun.jpg";
 import thufulahKolam from "@/assets/gallery/thufulah-kolam.jpg";
@@ -59,41 +61,6 @@ const upcomingEvents = [
   },
 ];
 
-import juaraTaekwondo from "@/assets/news/juara-taekwondo.jpeg";
-import programTasmi from "@/assets/news/program-tasmi.jpeg";
-
-const latestNews = [
-  {
-    id: 1,
-    title: "Santri SQC Raih Juara 1 Taekwondo Nasional",
-    excerpt: "Alhamdulillah, Muhammad Kamil Abdun Syakuur, santri Saung Qur'an Cilegon berhasil meraih Juara 1 Kategori Kyorugi Pemula pada pertandingan PRABU TAEKWONDO CHALLENGE 9 Grade B Nasional di Indoor Stadium Tangerang.",
-    date: "24 Januari 2026",
-    category: "Prestasi",
-    image: juaraTaekwondo,
-  },
-  {
-    id: 2,
-    title: "Pendaftaran Santri Baru Tahun Ajaran 2026/2027 Dibuka",
-    excerpt: "Saung Qur'an Cilegon membuka SPMB Tahun Pelajaran 2026-2027. Info: wa.me/6285187855124. Daftar online: PAUD/TK (bit.ly/SPMBSTASAQURsqc), SD (bit.ly/SPMBSDsqc), SMP (bit.ly/SPMBSMPsqc).",
-    date: "12 Januari 2026",
-    category: "Pengumuman",
-  },
-  {
-    id: 3,
-    title: "Kunjungan Dinas Pendidikan Kota Cilegon",
-    excerpt: "Dinas Pendidikan Kota Cilegon melakukan kunjungan kerja untuk melihat program pendidikan di Saung Qur'an Cilegon.",
-    date: "5 Januari 2026",
-    category: "Berita",
-  },
-  {
-    id: 4,
-    title: "Program Tasmi': Apresiasi Tertinggi untuk Ananda Dhafita Nizza Nur",
-    excerpt: "Alhamdulillah, dengan penuh rasa syukur dan bangga, kami sampaikan apresiasi yang sebesar-besarnya kepada Ananda Dhafita Nizza Nur Azizah, santri Banat (putri) kelas 6, atas keberhasilannya dalam menyelesaikan program Tasmi' Juz'i Juz-30 di Saung Qur'an Cilegon. Tasmi' bukan hanya sekadar ujian kemampuan hafalan, tetapi juga merupakan bukti keteguhan hati dalam mendekatkan diri kepada Allah Ta'ala.",
-    date: "24 Januari 2026",
-    category: "Program",
-    image: programTasmi,
-  },
-];
 
 const Event = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -219,7 +186,7 @@ const Event = () => {
             subtitle="Kabar terkini seputar Saung Qur'an Cilegon"
           />
           <div className="grid md:grid-cols-2 gap-6 mt-10">
-            {latestNews.map((news) => (
+            {newsData.map((news) => (
               <Card key={news.id} className={`hover:shadow-lg transition-shadow group ${news.image ? 'md:col-span-2' : ''}`}>
                 <CardContent className={`p-6 ${news.image ? 'flex flex-col md:flex-row gap-6' : ''}`}>
                   {news.image && (
@@ -240,9 +207,11 @@ const Event = () => {
                       {news.title}
                     </h3>
                     <p className="text-muted-foreground text-sm mb-4">{news.excerpt}</p>
-                    <Button variant="ghost" size="sm" className="gap-2 p-0 h-auto text-primary">
-                      Baca Selengkapnya <ArrowRight className="h-4 w-4" />
-                    </Button>
+                    <Link to={`/berita/${news.slug}`}>
+                      <Button variant="ghost" size="sm" className="gap-2 p-0 h-auto text-primary">
+                        Baca Selengkapnya <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>

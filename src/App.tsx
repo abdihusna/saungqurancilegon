@@ -10,6 +10,7 @@ import Ekstrakurikuler from "./pages/Ekstrakurikuler";
 import Event from "./pages/Event";
 import HubungiKami from "./pages/HubungiKami";
 import Pendaftaran from "./pages/Pendaftaran";
+import BeritaDetail from "./pages/BeritaDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/program-pendidikan" element={<ProgramPendidikan />} />
           <Route path="/ekstrakurikuler" element={<Ekstrakurikuler />} />
           <Route path="/event" element={<Event />} />
+          <Route path="/berita/:slug" element={<BeritaDetail />} />
           <Route path="/hubungi-kami" element={<HubungiKami />} />
           <Route path="/pendaftaran" element={<Pendaftaran />} />
           <Route path="*" element={<NotFound />} />
