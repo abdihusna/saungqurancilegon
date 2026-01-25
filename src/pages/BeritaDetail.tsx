@@ -1,13 +1,18 @@
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
+import { Lightbox } from "@/components/shared/Lightbox";
 import { newsData } from "@/data/newsData";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Calendar, Share2 } from "lucide-react";
+import { ArrowLeft, Calendar, Share2, Images } from "lucide-react";
 
 const BeritaDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const news = newsData.find((n) => n.slug === slug);
+  
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   if (!news) {
     return (
@@ -37,6 +42,25 @@ const BeritaDetail = () => {
     } else {
       navigator.clipboard.writeText(window.location.href);
       alert("Link berhasil disalin!");
+    }
+  };
+
+  const openLightbox = (index: number) => {
+    setCurrentIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const closeLightbox = () => setLightboxOpen(false);
+
+  const goToPrev = () => {
+    if (news.gallery) {
+      setCurrentIndex((prev) => (prev === 0 ? news.gallery!.length - 1 : prev - 1));
+    }
+  };
+
+  const goToNext = () => {
+    if (news.gallery) {
+      setCurrentIndex((prev) => (prev === news.gallery!.length - 1 ? 0 : prev + 1));
     }
   };
 
@@ -117,6 +141,38 @@ const BeritaDetail = () => {
               })}
             </div>
 
+            {/* Photo Gallery */}
+            {news.gallery && news.gallery.length > 0 && (
+              <div className="mt-12">
+                <div className="flex items-center gap-2 mb-6">
+                  <Images className="h-5 w-5 text-primary" />
+                  <h2 className="font-serif text-2xl font-bold text-foreground">
+                    Galeri Foto
+                  </h2>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {news.gallery.map((image, index) => (
+                    <div
+                      key={index}
+                      className="group relative aspect-square overflow-hidden rounded-xl cursor-pointer"
+                      onClick={() => openLightbox(index)}
+                    >
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="absolute bottom-0 left-0 right-0 p-3">
+                          <p className="text-white text-sm font-medium">{image.alt}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Footer */}
             <footer className="mt-12 pt-8 border-t border-border">
               <div className="bg-accent/50 rounded-xl p-6 text-center">
@@ -131,6 +187,17 @@ const BeritaDetail = () => {
           </article>
         </div>
       </section>
+
+      {/* Lightbox */}
+      {lightboxOpen && news.gallery && (
+        <Lightbox
+          images={news.gallery}
+          currentIndex={currentIndex}
+          onClose={closeLightbox}
+          onPrev={goToPrev}
+          onNext={goToNext}
+        />
+      )}
     </Layout>
   );
 };

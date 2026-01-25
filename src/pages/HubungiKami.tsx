@@ -1,6 +1,9 @@
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import { MapPin, Phone, Mail, Clock, MessageCircle, Facebook, Instagram, Youtube } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, MessageCircle, Facebook, Instagram, Youtube, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/qTukX6NxcZw57sdD7";
 
 const HubungiKami = () => {
   return (
@@ -189,9 +192,21 @@ const HubungiKami = () => {
                   title="Lokasi Saung Qur'an Cilegon"
                 />
               </div>
-              <p className="text-sm text-muted-foreground mt-4">
-                Klik peta untuk navigasi menggunakan Google Maps
-              </p>
+              <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <p className="text-sm text-muted-foreground">
+                  Klik peta untuk navigasi menggunakan Google Maps
+                </p>
+                <a
+                  href={GOOGLE_MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button variant="default" className="gap-2">
+                    <ExternalLink className="h-4 w-4" />
+                    Buka di Google Maps
+                  </Button>
+                </a>
+              </div>
             </div>
           </div>
         </div>

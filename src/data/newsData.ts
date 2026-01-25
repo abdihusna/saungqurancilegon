@@ -1,6 +1,21 @@
 import juaraTaekwondo from "@/assets/news/juara-taekwondo.jpeg";
 import programTasmi from "@/assets/news/program-tasmi.jpeg";
 
+// Gallery images for news articles
+import thufulahBerkebun from "@/assets/gallery/thufulah-berkebun.jpg";
+import thufulahKolam from "@/assets/gallery/thufulah-kolam.jpg";
+import thufulahOutbond from "@/assets/gallery/thufulah-outbond.jpg";
+import mengaji from "@/assets/gallery/mengaji.jpg";
+import cookingClass from "@/assets/gallery/cooking-class.jpg";
+import kegiatanBersama from "@/assets/gallery/kegiatan-bersama.jpg";
+import makanBersama from "@/assets/gallery/makan-bersama.jpg";
+import berkebun from "@/assets/gallery/berkebun.jpg";
+
+export interface GalleryImage {
+  src: string;
+  alt: string;
+}
+
 export interface NewsItem {
   id: number;
   slug: string;
@@ -10,6 +25,7 @@ export interface NewsItem {
   date: string;
   category: string;
   image?: string;
+  gallery?: GalleryImage[];
 }
 
 export const newsData: NewsItem[] = [
@@ -40,6 +56,10 @@ wa.me/6285187855124
     date: "24 Januari 2026",
     category: "Prestasi",
     image: juaraTaekwondo,
+    gallery: [
+      { src: kegiatanBersama, alt: "Kegiatan Bersama Santri" },
+      { src: mengaji, alt: "Kegiatan Mengaji" },
+    ],
   },
   {
     id: 2,
@@ -61,6 +81,12 @@ Hubungi kami di wa.me/6285187855124
 Segera daftarkan putra-putri Anda untuk bergabung bersama kami dalam mewujudkan generasi Qur'ani, Terampil, dan Mandiri.`,
     date: "12 Januari 2026",
     category: "Pengumuman",
+    gallery: [
+      { src: thufulahBerkebun, alt: "Program Thufulah Berkebun" },
+      { src: thufulahKolam, alt: "Program Thufulah Bermain Air" },
+      { src: thufulahOutbond, alt: "Program Thufulah Outbond" },
+      { src: cookingClass, alt: "Cooking Class" },
+    ],
   },
   {
     id: 3,
@@ -74,6 +100,10 @@ Kunjungan ini merupakan bentuk apresiasi dan dukungan dari pemerintah daerah ter
 Dalam kunjungan tersebut, tim dari Dinas Pendidikan berkesempatan melihat langsung proses pembelajaran dan fasilitas yang tersedia di Saung Qur'an Cilegon.`,
     date: "5 Januari 2026",
     category: "Berita",
+    gallery: [
+      { src: berkebun, alt: "Kegiatan Berkebun" },
+      { src: makanBersama, alt: "Makan Bersama" },
+    ],
   },
   {
     id: 4,
@@ -96,6 +126,10 @@ Semoga keberhasilan ini menjadi motivasi bagi Ananda untuk selalu mencintai Al-Q
     date: "24 Januari 2026",
     category: "Program",
     image: programTasmi,
+    gallery: [
+      { src: mengaji, alt: "Kegiatan Mengaji" },
+      { src: kegiatanBersama, alt: "Kegiatan Bersama" },
+    ],
   },
 ];
 
