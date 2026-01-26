@@ -2,7 +2,7 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 
 export function AboutSection() {
   return (
-    <section className="py-20 bg-background islamic-pattern">
+    <section className="py-20 bg-background geometric-pattern">
       <div className="container">
         <SectionHeader
           title="Tentang Kami"

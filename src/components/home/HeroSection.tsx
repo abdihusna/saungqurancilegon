@@ -16,7 +16,7 @@ export function HeroSection() {
       </div>
 
       {/* Islamic Pattern Overlay */}
-      <div className="absolute inset-0 islamic-pattern opacity-30" />
+      <div className="absolute inset-0 islamic-pattern opacity-20" />
 
       {/* Content */}
       <div className="container relative z-10 py-20">
