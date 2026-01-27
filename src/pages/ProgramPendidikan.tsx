@@ -16,6 +16,7 @@ import kegiatanKomputer from "@/assets/gallery/kegiatan-komputer.jpg";
 import makanBersama from "@/assets/gallery/makan-bersama.jpg";
 import mengaji from "@/assets/gallery/mengaji.jpg";
 import ternak from "@/assets/gallery/ternak.jpg";
+import berkudaMemanah from "@/assets/gallery/berkuda-memanah.jpg";
 
 const programs = [
   {
@@ -62,7 +63,7 @@ const programs = [
     ],
     gallery: [
       { src: belajarKomputer, alt: "Kegiatan belajar komputer santri Tamyiz" },
-      { src: berkebun, alt: "Kegiatan berkebun santri Tamyiz" },
+      { src: berkudaMemanah, alt: "Kegiatan berkuda santri Tamyiz" },
       { src: belajarOutdoor, alt: "Pembelajaran outdoor santri Tamyiz" },
     ],
   },

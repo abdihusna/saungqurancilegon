@@ -10,6 +10,7 @@ import cookingClass from "@/assets/gallery/cooking-class.jpg";
 import kegiatanBersama from "@/assets/gallery/kegiatan-bersama.jpg";
 import makanBersama from "@/assets/gallery/makan-bersama.jpg";
 import berkebun from "@/assets/gallery/berkebun.jpg";
+import berkudaMemanah from "@/assets/gallery/berkuda-memanah.jpg";
 
 export interface GalleryImage {
   src: string;
@@ -58,6 +59,7 @@ wa.me/6285187855124
     image: juaraTaekwondo,
     gallery: [
       { src: kegiatanBersama, alt: "Kegiatan Bersama Santri" },
+      { src: berkudaMemanah, alt: "Kegiatan Berkuda & Memanah" },
       { src: mengaji, alt: "Kegiatan Mengaji" },
     ],
   },
