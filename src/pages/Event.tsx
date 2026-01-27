@@ -17,6 +17,7 @@ import cookingClass from "@/assets/gallery/cooking-class.jpg";
 import kegiatanBersama from "@/assets/gallery/kegiatan-bersama.jpg";
 import makanBersama from "@/assets/gallery/makan-bersama.jpg";
 import ternak from "@/assets/gallery/ternak.jpg";
+import berkudaMemanah from "@/assets/gallery/berkuda-memanah.jpg";
 import kajianParenting from "@/assets/news/kajian-parenting.jpeg";
 
 const latestGallery = [
@@ -28,6 +29,7 @@ const latestGallery = [
   { src: kegiatanBersama, alt: "Kegiatan Bersama", date: "1 Januari 2026" },
   { src: makanBersama, alt: "Makan Bersama", date: "28 Desember 2025" },
   { src: ternak, alt: "Kegiatan Beternak", date: "22 Desember 2025" },
+  { src: berkudaMemanah, alt: "Kegiatan Berkuda & Memanah", date: "20 Desember 2025" },
 ];
 
 const upcomingEvents = [

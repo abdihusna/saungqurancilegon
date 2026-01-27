@@ -7,6 +7,8 @@ import { AnimatedSection, AnimatedCard } from "@/components/shared/AnimatedSecti
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 import { Waves, BookOpen, Camera, Globe, Swords, Dribbble, Palette } from "lucide-react";
 
+import berkudaMemanah from "@/assets/gallery/berkuda-memanah.jpg";
+
 const extracurriculars = [
   {
     name: "Renang",
@@ -34,7 +36,7 @@ const extracurriculars = [
     icon: Swords,
     description: "Sunnah Rasulullah ﷺ untuk melatih keberanian, fokus, dan ketangkasan",
     schedule: "Rabu, 14:20 - 17:20",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
+    image: berkudaMemanah,
   },
   {
     name: "Futsal",
@@ -58,7 +60,7 @@ const galleryImages = [
     alt: "Kegiatan Renang",
   },
   {
-    src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80",
+    src: berkudaMemanah,
     alt: "Berkuda & Memanah",
   },
   {

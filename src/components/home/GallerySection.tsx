@@ -11,6 +11,7 @@ import ternak from "@/assets/gallery/ternak.jpg";
 import kegiatanBersama from "@/assets/gallery/kegiatan-bersama.jpg";
 import cookingClass from "@/assets/gallery/cooking-class.jpg";
 import makanBersama from "@/assets/gallery/makan-bersama.jpg";
+import berkudaMemanah from "@/assets/gallery/berkuda-memanah.jpg";
 
 const galleryImages = [
   {
@@ -44,6 +45,10 @@ const galleryImages = [
   {
     src: makanBersama,
     alt: "Makan bersama",
+  },
+  {
+    src: berkudaMemanah,
+    alt: "Kegiatan berkuda & memanah",
   },
 ];
 
