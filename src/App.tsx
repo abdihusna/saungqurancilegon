@@ -11,6 +11,7 @@ import Event from "./pages/Event";
 import HubungiKami from "./pages/HubungiKami";
 import Pendaftaran from "./pages/Pendaftaran";
 import BeritaDetail from "./pages/BeritaDetail";
+import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/berita/:slug" element={<BeritaDetail />} />
           <Route path="/hubungi-kami" element={<HubungiKami />} />
           <Route path="/pendaftaran" element={<Pendaftaran />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

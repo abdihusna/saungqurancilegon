@@ -64,6 +64,7 @@ export function Footer() {
                 { name: "Program Pendidikan", path: "/program-pendidikan" },
                 { name: "Ekstrakurikuler", path: "/ekstrakurikuler" },
                 { name: "Pendaftaran", path: "/pendaftaran" },
+                { name: "FAQ", path: "/faq" },
                 { name: "Hubungi Kami", path: "/hubungi-kami" },
               ].map((link) => (
                 <li key={link.path}>
