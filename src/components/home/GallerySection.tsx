@@ -12,6 +12,12 @@ import kegiatanBersama from "@/assets/gallery/kegiatan-bersama.jpg";
 import cookingClass from "@/assets/gallery/cooking-class.jpg";
 import makanBersama from "@/assets/gallery/makan-bersama.jpg";
 import berkudaMemanah from "@/assets/gallery/berkuda-memanah.jpg";
+import berkebunSayuran from "@/assets/gallery/berkebun-sayuran.jpg";
+import ternakKandang from "@/assets/gallery/ternak-kandang.jpg";
+import outbondJembatan from "@/assets/gallery/outbond-jembatan.jpg";
+import classMeetingPutra from "@/assets/gallery/class-meeting-putra.jpg";
+import classMeetingPutri from "@/assets/gallery/class-meeting-putri.jpg";
+import kegiatanOutdoorPutri from "@/assets/gallery/kegiatan-outdoor-putri.jpg";
 
 const galleryImages = [
   {
@@ -49,6 +55,30 @@ const galleryImages = [
   {
     src: berkudaMemanah,
     alt: "Kegiatan berkuda & memanah",
+  },
+  {
+    src: berkebunSayuran,
+    alt: "Berkebun sayuran bersama",
+  },
+  {
+    src: ternakKandang,
+    alt: "Membersihkan kandang ternak",
+  },
+  {
+    src: outbondJembatan,
+    alt: "Outbond jembatan tali",
+  },
+  {
+    src: classMeetingPutra,
+    alt: "Class Meeting - Santri Putra",
+  },
+  {
+    src: classMeetingPutri,
+    alt: "Class Meeting - Santri Putri",
+  },
+  {
+    src: kegiatanOutdoorPutri,
+    alt: "Kegiatan outdoor santriwati",
   },
 ];
 
