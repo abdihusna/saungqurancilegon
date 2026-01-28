@@ -11,6 +11,12 @@ import kegiatanBersama from "@/assets/gallery/kegiatan-bersama.jpg";
 import makanBersama from "@/assets/gallery/makan-bersama.jpg";
 import berkebun from "@/assets/gallery/berkebun.jpg";
 import berkudaMemanah from "@/assets/gallery/berkuda-memanah.jpg";
+import berkebunSayuran from "@/assets/gallery/berkebun-sayuran.jpg";
+import ternakKandang from "@/assets/gallery/ternak-kandang.jpg";
+import outbondJembatan from "@/assets/gallery/outbond-jembatan.jpg";
+import classMeetingPutra from "@/assets/gallery/class-meeting-putra.jpg";
+import classMeetingPutri from "@/assets/gallery/class-meeting-putri.jpg";
+import kegiatanOutdoorPutri from "@/assets/gallery/kegiatan-outdoor-putri.jpg";
 
 export interface GalleryImage {
   src: string;
@@ -61,6 +67,8 @@ wa.me/6285187855124
       { src: kegiatanBersama, alt: "Kegiatan Bersama Santri" },
       { src: berkudaMemanah, alt: "Kegiatan Berkuda & Memanah" },
       { src: mengaji, alt: "Kegiatan Mengaji" },
+      { src: outbondJembatan, alt: "Outbond Jembatan Tali" },
+      { src: classMeetingPutra, alt: "Class Meeting Santri Putra" },
     ],
   },
   {
@@ -88,6 +96,8 @@ Segera daftarkan putra-putri Anda untuk bergabung bersama kami dalam mewujudkan 
       { src: thufulahKolam, alt: "Program Thufulah Bermain Air" },
       { src: thufulahOutbond, alt: "Program Thufulah Outbond" },
       { src: cookingClass, alt: "Cooking Class" },
+      { src: berkebunSayuran, alt: "Berkebun Sayuran" },
+      { src: classMeetingPutri, alt: "Class Meeting Santri Putri" },
     ],
   },
   {
@@ -105,6 +115,8 @@ Dalam kunjungan tersebut, tim dari Dinas Pendidikan berkesempatan melihat langsu
     gallery: [
       { src: berkebun, alt: "Kegiatan Berkebun" },
       { src: makanBersama, alt: "Makan Bersama" },
+      { src: ternakKandang, alt: "Membersihkan Kandang Ternak" },
+      { src: kegiatanOutdoorPutri, alt: "Kegiatan Outdoor Santriwati" },
     ],
   },
   {

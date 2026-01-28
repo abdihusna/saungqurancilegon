@@ -19,6 +19,12 @@ import kegiatanBersama from "@/assets/gallery/kegiatan-bersama.jpg";
 import makanBersama from "@/assets/gallery/makan-bersama.jpg";
 import ternak from "@/assets/gallery/ternak.jpg";
 import berkudaMemanah from "@/assets/gallery/berkuda-memanah.jpg";
+import berkebunSayuran from "@/assets/gallery/berkebun-sayuran.jpg";
+import ternakKandang from "@/assets/gallery/ternak-kandang.jpg";
+import outbondJembatan from "@/assets/gallery/outbond-jembatan.jpg";
+import classMeetingPutra from "@/assets/gallery/class-meeting-putra.jpg";
+import classMeetingPutri from "@/assets/gallery/class-meeting-putri.jpg";
+import kegiatanOutdoorPutri from "@/assets/gallery/kegiatan-outdoor-putri.jpg";
 import kajianParenting from "@/assets/news/kajian-parenting.jpeg";
 
 const latestGallery = [
@@ -31,6 +37,12 @@ const latestGallery = [
   { src: makanBersama, alt: "Makan Bersama", date: "28 Desember 2025" },
   { src: ternak, alt: "Kegiatan Beternak", date: "22 Desember 2025" },
   { src: berkudaMemanah, alt: "Kegiatan Berkuda & Memanah", date: "20 Desember 2025" },
+  { src: berkebunSayuran, alt: "Berkebun Sayuran Bersama", date: "27 Januari 2026" },
+  { src: ternakKandang, alt: "Membersihkan Kandang Ternak", date: "27 Januari 2026" },
+  { src: outbondJembatan, alt: "Outbond Jembatan Tali", date: "27 Januari 2026" },
+  { src: classMeetingPutra, alt: "Class Meeting - Santri Putra", date: "27 Januari 2026" },
+  { src: classMeetingPutri, alt: "Class Meeting - Santri Putri", date: "27 Januari 2026" },
+  { src: kegiatanOutdoorPutri, alt: "Kegiatan Outdoor Santriwati", date: "27 Januari 2026" },
 ];
 
 const upcomingEvents = [
