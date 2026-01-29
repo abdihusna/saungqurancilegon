@@ -26,6 +26,7 @@ import classMeetingPutra from "@/assets/gallery/class-meeting-putra.jpg";
 import classMeetingPutri from "@/assets/gallery/class-meeting-putri.jpg";
 import kegiatanOutdoorPutri from "@/assets/gallery/kegiatan-outdoor-putri.jpg";
 import kajianParenting from "@/assets/news/kajian-parenting.jpeg";
+import kajianTahsinUmmahat from "@/assets/news/kajian-tahsin-ummahat.jpg";
 
 const latestGallery = [
   { src: thufulahBerkebun, alt: "Program Thufulah - Berkebun", date: "30 Januari 2025" },
@@ -73,6 +74,16 @@ const upcomingEvents = [
     location: "Saung Qur'an Cilegon (Saung Abu Bakr)",
     category: "Kajian",
     image: kajianParenting,
+  },
+  {
+    id: 4,
+    title: "Kajian Tahsin & Hafalan Ummahat",
+    description: "Perbaiki bacaan dan kuatkan hafalan Al-Qur'an bersama Saung Qur'an Cilegon! Pembahasan khusus huruf ظ (żho): Membenahi Bacaan, Menguatkan Hafalan, Meraih Keberkahan. Pemateri: Ustadzah Yuyun Rahayu & Ustadzah Nur Shadrina. Terbuka untuk Ummahat.",
+    date: "Setiap Kamis",
+    time: "16:00 - 17:00 WIB",
+    location: "Saung Abu Bakar, Saung Qur'an Cilegon",
+    category: "Kajian",
+    image: kajianTahsinUmmahat,
   },
 ];
 
