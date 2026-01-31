@@ -157,16 +157,4 @@ export const achievements = [
     title: "Program Tasmi' Juz-30",
     description: "Ananda Dhafita Nizza Nur Azizah - Santri Banat Kelas 6",
   },
-  {
-    title: "Juara 1 MTQ Tingkat Kota Cilegon 2023",
-    description: "Kategori Tilawah Anak-anak",
-  },
-  {
-    title: "Juara 2 Tahfidz Qur'an Tingkat Provinsi Banten 2023",
-    description: "Kategori 5 Juz",
-  },
-  {
-    title: "Juara 1 Kaligrafi Tingkat Nasional 2022",
-    description: "Kategori Naskah",
-  },
 ];
