@@ -11,6 +11,7 @@ import berkudaMemanah from "@/assets/gallery/berkuda-memanah.jpg";
 import renangImage from "@/assets/extracurricular/renang.jpg";
 import englishClubImage from "@/assets/extracurricular/english-club.jpg";
 import futsalImage from "@/assets/extracurricular/futsal.jpg";
+import fotografiImage from "@/assets/extracurricular/fotografi.jpg";
 
 const extracurriculars = [
   {
@@ -32,7 +33,7 @@ const extracurriculars = [
     icon: Camera,
     description: "Belajar teknik fotografi dan seni visual untuk mengabadikan momen berharga",
     schedule: "Selasa, 14:00 - 15:00",
-    image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=800&q=80",
+    image: fotografiImage,
   },
   {
     name: "Berkuda & Memanah",
