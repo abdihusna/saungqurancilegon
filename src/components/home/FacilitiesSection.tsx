@@ -5,6 +5,8 @@ import perpustakaanSaung from "@/assets/facilities/perpustakaan-saung.jpg";
 import lapanganAlami from "@/assets/facilities/lapangan-alami.jpg";
 import kantinSaung from "@/assets/facilities/kantin-saung.jpg";
 import asramaSaung from "@/assets/facilities/asrama-saung.jpg";
+import kebun from "@/assets/facilities/kebun.jpg";
+import areaTernak from "@/assets/facilities/area-ternak.jpg";
 
 const facilities = [
   {
@@ -36,6 +38,16 @@ const facilities = [
     name: "Kantin Sehat",
     image: kantinSaung,
     description: "Kantin berbentuk saung yang menyediakan makanan halal, sehat, dan bergizi",
+  },
+  {
+    name: "Kebun Edukasi",
+    image: kebun,
+    description: "Kebun sayuran untuk pembelajaran bertani dan mengenal tanaman secara langsung",
+  },
+  {
+    name: "Area Ternak",
+    image: areaTernak,
+    description: "Kandang ternak kambing untuk edukasi peternakan dan menumbuhkan rasa tanggung jawab santri",
   },
 ];
 
