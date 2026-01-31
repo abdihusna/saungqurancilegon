@@ -12,6 +12,7 @@ import renangImage from "@/assets/extracurricular/renang.jpg";
 import englishClubImage from "@/assets/extracurricular/english-club.jpg";
 import futsalImage from "@/assets/extracurricular/futsal.jpg";
 import fotografiImage from "@/assets/extracurricular/fotografi.jpg";
+import kaligrafiImage from "@/assets/extracurricular/kaligrafi.jpg";
 
 const extracurriculars = [
   {
@@ -54,7 +55,7 @@ const extracurriculars = [
     icon: Palette,
     description: "Seni visual dan kaligrafi Arab untuk mengembangkan kreativitas dan keindahan tulisan",
     schedule: "Jumat, 10:30 - 11:30",
-    image: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80",
+    image: kaligrafiImage,
   },
 ];
 
@@ -72,7 +73,7 @@ const galleryImages = [
     alt: "Kegiatan Futsal",
   },
   {
-    src: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=800&q=80",
+    src: kaligrafiImage,
     alt: "Kaligrafi",
   },
 ];
