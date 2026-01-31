@@ -15,17 +15,17 @@ const features = [
   {
     icon: Users,
     title: "Pembelajaran Based on Project",
-    description: "Metode pembelajaran yang aktif dan menyenangkan untuk memaksimalkan potensi santri",
+    description: "Metode pembelajaran berbasis proyek yang mengasah kreativitas dan kemandirian santri melalui pengalaman nyata",
   },
   {
     icon: GraduationCap,
     title: "Kurikulum Pendidikan Karakter Nabawiyah",
-    description: "Memadukan kurikulum nasional dengan pendidikan diniyah dan tahfidz secara seimbang",
+    description: "Kurikulum berbasis fitrah yang mengembangkan 4 karakter: iman, belajar, bakat, dan perkembangan sesuai Sunnah Rasulullah SAW",
   },
   {
     icon: Shield,
     title: "Lingkungan Alami",
-    description: "Suasana belajar yang Islami, aman, dan kondusif untuk perkembangan santri",
+    description: "Suasana belajar di alam terbuka dengan kegiatan berkebun, berternak, dan eksplorasi alam untuk tumbuh kembang optimal",
   },
   {
     icon: Star,
