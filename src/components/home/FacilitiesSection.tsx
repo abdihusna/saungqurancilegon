@@ -47,7 +47,7 @@ const facilities = [
   {
     name: "Area Ternak",
     image: areaTernak,
-    description: "Kandang ternak kambing untuk edukasi peternakan dan menumbuhkan rasa tanggung jawab santri",
+    description: "Kandang ayam dan bebek untuk edukasi peternakan dan menumbuhkan rasa tanggung jawab santri",
   },
 ];
 
