@@ -10,6 +10,7 @@ import { Waves, BookOpen, Camera, Globe, Swords, Dribbble, Palette } from "lucid
 import berkudaMemanah from "@/assets/gallery/berkuda-memanah.jpg";
 import renangImage from "@/assets/extracurricular/renang.jpg";
 import englishClubImage from "@/assets/extracurricular/english-club.jpg";
+import futsalImage from "@/assets/extracurricular/futsal.jpg";
 
 const extracurriculars = [
   {
@@ -45,7 +46,7 @@ const extracurriculars = [
     icon: Dribbble,
     description: "Olahraga tim untuk melatih kerjasama, strategi, dan kebugaran fisik",
     schedule: "Kamis, 14:15 - 17:00",
-    image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80",
+    image: futsalImage,
   },
   {
     name: "Menggambar & Kaligrafi",
@@ -66,7 +67,7 @@ const galleryImages = [
     alt: "Berkuda & Memanah",
   },
   {
-    src: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80",
+    src: futsalImage,
     alt: "Kegiatan Futsal",
   },
   {
