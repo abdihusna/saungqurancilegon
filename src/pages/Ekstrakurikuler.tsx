@@ -9,6 +9,7 @@ import { Waves, BookOpen, Camera, Globe, Swords, Dribbble, Palette } from "lucid
 
 import berkudaMemanah from "@/assets/gallery/berkuda-memanah.jpg";
 import renangImage from "@/assets/extracurricular/renang.jpg";
+import englishClubImage from "@/assets/extracurricular/english-club.jpg";
 
 const extracurriculars = [
   {
@@ -23,7 +24,7 @@ const extracurriculars = [
     icon: Globe,
     description: "Program pembelajaran bahasa Inggris interaktif untuk meningkatkan kemampuan komunikasi global",
     schedule: "Senin & Rabu, 13:05 - 14:05",
-    image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80",
+    image: englishClubImage,
   },
   {
     name: "Fotografi",
