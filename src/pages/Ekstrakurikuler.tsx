@@ -8,6 +8,7 @@ import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 import { Waves, BookOpen, Camera, Globe, Swords, Dribbble, Palette } from "lucide-react";
 
 import berkudaMemanah from "@/assets/gallery/berkuda-memanah.jpg";
+import renangImage from "@/assets/extracurricular/renang.jpg";
 
 const extracurriculars = [
   {
@@ -15,7 +16,7 @@ const extracurriculars = [
     icon: Waves,
     description: "Olahraga air untuk melatih stamina, koordinasi tubuh, dan keberanian santri",
     schedule: "Senin, 14:00 - 15:30",
-    image: "https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=800&q=80",
+    image: renangImage,
   },
   {
     name: "English Club",
@@ -56,7 +57,7 @@ const extracurriculars = [
 
 const galleryImages = [
   {
-    src: "https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=800&q=80",
+    src: renangImage,
     alt: "Kegiatan Renang",
   },
   {
