@@ -14,17 +14,17 @@ const features = [
   },
   {
     icon: Users,
-    title: "Pembelajaran Interaktif",
+    title: "Pembelajaran Based on Project",
     description: "Metode pembelajaran yang aktif dan menyenangkan untuk memaksimalkan potensi santri",
   },
   {
     icon: GraduationCap,
-    title: "Kurikulum Terpadu",
+    title: "Kurikulum Pendidikan Karakter Nabawiyah",
     description: "Memadukan kurikulum nasional dengan pendidikan diniyah dan tahfidz secara seimbang",
   },
   {
     icon: Shield,
-    title: "Lingkungan Islami",
+    title: "Lingkungan Alami",
     description: "Suasana belajar yang Islami, aman, dan kondusif untuk perkembangan santri",
   },
   {
