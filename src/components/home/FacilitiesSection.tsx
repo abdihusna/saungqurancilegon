@@ -4,6 +4,7 @@ import ruangKelasSaung from "@/assets/facilities/ruang-kelas-saung.jpg";
 import perpustakaanSaung from "@/assets/facilities/perpustakaan-saung.jpg";
 import lapanganAlami from "@/assets/facilities/lapangan-alami.jpg";
 import kantinSaung from "@/assets/facilities/kantin-saung.jpg";
+import asramaSaung from "@/assets/facilities/asrama-saung.jpg";
 
 const facilities = [
   {
@@ -23,8 +24,8 @@ const facilities = [
   },
   {
     name: "Asrama",
-    image: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=80",
-    description: "Asrama yang bersih dan nyaman untuk santri mukim",
+    image: asramaSaung,
+    description: "Asrama bergaya pondok dengan konstruksi kayu alami yang bersih dan nyaman untuk santri mukim",
   },
   {
     name: "Lapangan Bermain Alami",
