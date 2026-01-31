@@ -1,20 +1,25 @@
 import { SectionHeader } from "@/components/shared/SectionHeader";
+import aulaSaung from "@/assets/facilities/aula-saung.jpg";
+import ruangKelasSaung from "@/assets/facilities/ruang-kelas-saung.jpg";
+import perpustakaanSaung from "@/assets/facilities/perpustakaan-saung.jpg";
+import lapanganAlami from "@/assets/facilities/lapangan-alami.jpg";
+import kantinSaung from "@/assets/facilities/kantin-saung.jpg";
 
 const facilities = [
   {
-    name: "Masjid",
-    image: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=600&q=80",
-    description: "Masjid yang luas untuk ibadah dan kegiatan keagamaan",
+    name: "Aula Saung",
+    image: aulaSaung,
+    description: "Aula berbentuk saung untuk kegiatan bersama, kajian, dan pertemuan dalam suasana alami",
   },
   {
-    name: "Ruang Kelas",
-    image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=600&q=80",
-    description: "Ruang belajar yang nyaman dengan fasilitas lengkap",
+    name: "Ruang Kelas Saung",
+    image: ruangKelasSaung,
+    description: "Ruang belajar berbentuk saung dengan ventilasi alami untuk suasana belajar yang nyaman",
   },
   {
     name: "Perpustakaan",
-    image: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=600&q=80",
-    description: "Koleksi buku Islam dan pengetahuan umum yang lengkap",
+    image: perpustakaanSaung,
+    description: "Perpustakaan berbentuk saung dengan koleksi buku Islam dan pengetahuan umum",
   },
   {
     name: "Asrama",
@@ -22,14 +27,14 @@ const facilities = [
     description: "Asrama yang bersih dan nyaman untuk santri mukim",
   },
   {
-    name: "Lapangan Olahraga",
-    image: "https://images.unsplash.com/photo-1544298621-35a989dc4f60?auto=format&fit=crop&w=600&q=80",
-    description: "Fasilitas olahraga untuk menjaga kesehatan jasmani",
+    name: "Lapangan Bermain Alami",
+    image: lapanganAlami,
+    description: "Lapangan bermain yang luas di tengah alam hijau dengan pepohonan rindang untuk eksplorasi dan bermain bebas",
   },
   {
     name: "Kantin Sehat",
-    image: "https://images.unsplash.com/photo-1567521464027-f127ff144326?auto=format&fit=crop&w=600&q=80",
-    description: "Menyediakan makanan halal, sehat, dan bergizi",
+    image: kantinSaung,
+    description: "Kantin berbentuk saung yang menyediakan makanan halal, sehat, dan bergizi",
   },
 ];
 
