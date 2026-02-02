@@ -111,6 +111,7 @@ const programs = [
     gallery: [
       { src: mengaji, alt: "Kegiatan mengaji Program TALQIN" },
       { src: kegiatanBersama, alt: "Kegiatan bersama peserta TALQIN" },
+      { src: berkudaMemanah, alt: "Kegiatan berkuda & memanah" },
     ],
   },
 ];

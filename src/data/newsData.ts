@@ -8,6 +8,7 @@ import thufulahOutbond from "@/assets/gallery/thufulah-outbond.jpg";
 import mengaji from "@/assets/gallery/mengaji.jpg";
 import cookingClass from "@/assets/gallery/cooking-class.jpg";
 import kegiatanBersama from "@/assets/gallery/kegiatan-bersama.jpg";
+import belajarOutdoor from "@/assets/gallery/belajar-outdoor.jpg";
 import berkebun from "@/assets/gallery/berkebun.jpg";
 import berkudaMemanah from "@/assets/gallery/berkuda-memanah.jpg";
 import berkebunSayuran from "@/assets/gallery/berkebun-sayuran.jpg";
@@ -113,6 +114,7 @@ Dalam kunjungan tersebut, tim dari Dinas Pendidikan berkesempatan melihat langsu
     category: "Berita",
     gallery: [
       { src: berkebun, alt: "Kegiatan Berkebun" },
+      { src: belajarOutdoor, alt: "Pembelajaran Outdoor" },
       { src: ternakKandang, alt: "Membersihkan Kandang Ternak" },
       { src: kegiatanOutdoorPutri, alt: "Kegiatan Outdoor Santriwati" },
     ],
