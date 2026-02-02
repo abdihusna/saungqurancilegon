@@ -36,19 +36,6 @@ export function AboutSection() {
               dalam kehidupan sehari-hari.
             </p>
 
-            <div className="grid grid-cols-2 gap-4 pt-4">
-              {[
-                { value: "Tahfidz Al-Qur'an", desc: "Program hafalan intensif dengan metode talaqqi" },
-                { value: "Kurikulum Karakter Nabawiyah", desc: "Berbasis fitrah sesuai Sunnah Rasulullah SAW" },
-                { value: "Lingkungan Alami", desc: "Belajar di alam terbuka dengan berkebun & berternak" },
-                { value: "Tenaga Pengajar Berkualitas", desc: "Guru hafidz/hafidzah yang berkompeten" },
-              ].map((item, index) => (
-                <div key={index} className="p-4 bg-accent rounded-lg">
-                  <p className="font-semibold text-foreground">{item.value}</p>
-                  <p className="text-sm text-muted-foreground">{item.desc}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
