@@ -16,6 +16,7 @@ import thufulahOutbond from "@/assets/gallery/thufulah-outbond.jpg";
 import mengaji from "@/assets/gallery/mengaji.jpg";
 import cookingClass from "@/assets/gallery/cooking-class.jpg";
 import kegiatanBersama from "@/assets/gallery/kegiatan-bersama.jpg";
+import belajarOutdoor from "@/assets/gallery/belajar-outdoor.jpg";
 import ternak from "@/assets/gallery/ternak.jpg";
 import berkudaMemanah from "@/assets/gallery/berkuda-memanah.jpg";
 import berkebunSayuran from "@/assets/gallery/berkebun-sayuran.jpg";
@@ -34,6 +35,7 @@ const latestGallery = [
   { src: mengaji, alt: "Kegiatan Mengaji Bersama", date: "10 Januari 2026" },
   { src: cookingClass, alt: "Cooking Class", date: "5 Januari 2026" },
   { src: kegiatanBersama, alt: "Kegiatan Bersama", date: "1 Januari 2026" },
+  { src: belajarOutdoor, alt: "Pembelajaran Outdoor", date: "28 Desember 2025" },
   { src: ternak, alt: "Kegiatan Beternak", date: "22 Desember 2025" },
   { src: berkudaMemanah, alt: "Kegiatan Berkuda & Memanah", date: "20 Desember 2025" },
   { src: berkebunSayuran, alt: "Berkebun Sayuran Bersama", date: "27 Januari 2026" },

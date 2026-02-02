@@ -10,6 +10,7 @@ import mengaji from "@/assets/gallery/mengaji.jpg";
 import ternak from "@/assets/gallery/ternak.jpg";
 import kegiatanBersama from "@/assets/gallery/kegiatan-bersama.jpg";
 import cookingClass from "@/assets/gallery/cooking-class.jpg";
+import belajarOutdoor from "@/assets/gallery/belajar-outdoor.jpg";
 import berkudaMemanah from "@/assets/gallery/berkuda-memanah.jpg";
 import berkebunSayuran from "@/assets/gallery/berkebun-sayuran.jpg";
 import ternakKandang from "@/assets/gallery/ternak-kandang.jpg";
@@ -46,6 +47,10 @@ const galleryImages = [
   {
     src: cookingClass,
     alt: "Kegiatan cooking class",
+  },
+  {
+    src: belajarOutdoor,
+    alt: "Pembelajaran outdoor",
   },
   {
     src: berkudaMemanah,
