@@ -13,7 +13,6 @@ import berkebunBersama from "@/assets/gallery/berkebun-bersama.jpg";
 import berkebun from "@/assets/gallery/berkebun.jpg";
 import kegiatanBersama from "@/assets/gallery/kegiatan-bersama.jpg";
 import kegiatanKomputer from "@/assets/gallery/kegiatan-komputer.jpg";
-import makanBersama from "@/assets/gallery/makan-bersama.jpg";
 import mengaji from "@/assets/gallery/mengaji.jpg";
 import ternak from "@/assets/gallery/ternak.jpg";
 import berkudaMemanah from "@/assets/gallery/berkuda-memanah.jpg";
@@ -111,7 +110,6 @@ const programs = [
     ],
     gallery: [
       { src: mengaji, alt: "Kegiatan mengaji Program TALQIN" },
-      { src: makanBersama, alt: "Kegiatan makan bersama peserta TALQIN" },
       { src: kegiatanBersama, alt: "Kegiatan bersama peserta TALQIN" },
     ],
   },
