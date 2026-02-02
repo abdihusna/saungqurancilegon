@@ -38,10 +38,10 @@ export function AboutSection() {
 
             <div className="grid grid-cols-2 gap-4 pt-4">
               {[
-                { value: "Tahfidz Intensif", desc: "Program hafalan 30 Juz" },
-                { value: "Kurikulum Terpadu", desc: "Diniyah & Nasional" },
-                { value: "Lingkungan Islami", desc: "Kondusif untuk belajar" },
-                { value: "Pendidik Kompeten", desc: "Bersertifikasi & berpengalaman" },
+                { value: "Tahfidz Al-Qur'an", desc: "Program hafalan intensif dengan metode talaqqi" },
+                { value: "Kurikulum Karakter Nabawiyah", desc: "Berbasis fitrah sesuai Sunnah Rasulullah SAW" },
+                { value: "Lingkungan Alami", desc: "Belajar di alam terbuka dengan berkebun & berternak" },
+                { value: "Tenaga Pengajar Berkualitas", desc: "Guru hafidz/hafidzah yang berkompeten" },
               ].map((item, index) => (
                 <div key={index} className="p-4 bg-accent rounded-lg">
                   <p className="font-semibold text-foreground">{item.value}</p>
