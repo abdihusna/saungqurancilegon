@@ -2,6 +2,7 @@ import juaraTaekwondo from "@/assets/news/juara-taekwondo.jpeg";
 import programTasmi from "@/assets/news/program-tasmi.jpeg";
 import tasmiHafidz from "@/assets/news/tasmi-hafidz.jpg";
 import tasmiAli from "@/assets/news/tasmi-ali.jpg";
+import spmbGelombang2 from "@/assets/news/spmb-gelombang-2.jpg";
 
 // Gallery images for news articles
 import thufulahBerkebun from "@/assets/gallery/thufulah-berkebun.jpg";
@@ -135,24 +136,53 @@ wa.me/6285187855124
   },
   {
     id: 2,
-    slug: "pendaftaran-santri-baru-tahun-ajaran-2026-2027",
-    title: "Pendaftaran Santri Baru Tahun Ajaran 2026/2027 Dibuka",
-    excerpt: "Saung Qur'an Cilegon membuka SPMB Tahun Pelajaran 2026-2027. Info: wa.me/6285187855124. Daftar online: PAUD/TK (bit.ly/SPMBSTASAQURsqc), SD (bit.ly/SPMBSDsqc), SMP (bit.ly/SPMBSMPsqc).",
-    content: `**Sistem Penerimaan Murid Baru (SPMB) Tahun Pelajaran 2026-2027 Saung Qur'an Cilegon**
+    slug: "penerimaan-peserta-didik-baru-gelombang-2-tahun-ajaran-2026-2027",
+    title: "Penerimaan Peserta Didik Baru Gelombang 2 Tahun Ajaran 2026-2027",
+    excerpt: "Saung Qur'an Cilegon membuka SPMB Gelombang 2 untuk jenjang Setara SD. Kuota terbatas! Pendaftaran dimulai 02 Februari 2026.",
+    content: `**PENERIMAAN PESERTA DIDIK BARU**
+**GELOMBANG 2**
+**TAHUN AJARAN 2026-2027**
 
-Saung Qur'an Cilegon membuka pendaftaran santri baru untuk tahun ajaran 2026-2027.
+**Saung Qur'an Cilegon - Setara SD**
 
-**Informasi SPMB:**
-Hubungi kami di wa.me/6285187855124
+⚠️ **Kuota Terbatas**
 
-**Pendaftaran Online:**
-- PAUD/TK: https://bit.ly/SPMBSTASAQURsqc
-- SD: https://bit.ly/SPMBSDsqc
-- SMP: https://bit.ly/SPMBSMPsqc
+---
 
-Segera daftarkan putra-putri Anda untuk bergabung bersama kami dalam mewujudkan generasi Qur'ani, Terampil, dan Mandiri.`,
-    date: "12 Januari 2026",
+## Program Utama:
+1. Penanaman aqidah salimah, ibadah sohihah, adab dan akhlak Islami
+2. Mengimplementasikan konsepsi pendidikan karakter nabawiyah (PKN)
+3. Mengajarkan calistung dan madah diniyah
+4. Mengajarkan dasar-dasar ilmu pengetahuan umum setaraf SD mengacu kurikulum pendidikan Nasional
+5. Mengajarkan life skill dan thinking skill
+6. Outing Class
+
+## Program Unggulan:
+1. Tahsin Al Qur'an
+2. Tahfizh Al Qur'an
+3. Learning By Project (LBP)
+
+## Kegiatan Penunjang:
+1. Tasmi' Al Qur'an
+2. Super Camp
+3. Pesantren Kilat
+4. Outing Class
+
+---
+
+📅 **Pendaftaran Gel 2:** 02 Februari 2026
+*(Pendaftaran akan ditutup jika kuota telah terpenuhi)*
+
+🔗 **Untuk Pendaftaran silahkan klik:** https://bit.ly/SPMBSDsqc
+
+---
+
+📞 **Informasi Pendaftaran:**
+- **Pusat Info:** wa.me/6285175209033
+- **Ustadzah Syifa:** wa.me/6285187855124`,
+    date: "2 Februari 2026",
     category: "Pengumuman",
+    image: spmbGelombang2,
     gallery: [
       { src: thufulahBerkebun, alt: "Program Thufulah Berkebun" },
       { src: thufulahKolam, alt: "Program Thufulah Bermain Air" },
