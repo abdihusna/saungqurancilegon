@@ -65,7 +65,6 @@ export function Footer() {
                 { name: "Ekstrakurikuler", path: "/ekstrakurikuler" },
                 { name: "Pendaftaran", path: "/pendaftaran" },
                 { name: "FAQ", path: "/faq" },
-                { name: "Hubungi Kami", path: "/hubungi-kami" },
               ].map((link) => (
                 <li key={link.path}>
                   <Link
@@ -76,6 +75,16 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a
+                  href="https://wa.me/6287781818143"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-white/70 hover:text-primary transition-colors"
+                >
+                  Hubungi Kami
+                </a>
+              </li>
             </ul>
           </div>
 
