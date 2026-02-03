@@ -1,6 +1,7 @@
 import juaraTaekwondo from "@/assets/news/juara-taekwondo.jpeg";
 import programTasmi from "@/assets/news/program-tasmi.jpeg";
 import tasmiHafidz from "@/assets/news/tasmi-hafidz.jpg";
+import tasmiAli from "@/assets/news/tasmi-ali.jpg";
 
 // Gallery images for news articles
 import thufulahBerkebun from "@/assets/gallery/thufulah-berkebun.jpg";
@@ -37,6 +38,36 @@ export interface NewsItem {
 }
 
 export const newsData: NewsItem[] = [
+  {
+    id: 6,
+    slug: "program-tasmi-apresiasi-tertinggi-ali",
+    title: "Program Tasmi': Apresiasi Tertinggi untuk Ananda Ali",
+    excerpt: "Alhamdulillah, dengan penuh rasa syukur dan bangga, kami menyampaikan apresiasi yang setinggi-tingginya kepada Ananda Ali, santri Banin (putra) kelas 5, atas keberhasilannya menyelesaikan Program Tasmi' Juz'i Juz 30 di Saung Qur'an Cilegon.",
+    content: `🌟 **APRESIASI TERTINGGI** 🌟
+
+**Ananda Ali**
+
+Alhamdulillāh
+
+Dengan penuh rasa syukur dan bangga, kami menyampaikan apresiasi yang setinggi-tingginya kepada Ananda Ali, santri Banin (putra) kelas 5, atas keberhasilannya menyelesaikan Program Tasmi' Juz'i Juz 30 di Saung Qur'an Cilegon.
+
+Prestasi ini merupakan buah dari dedikasi, kesungguhan, serta kerja keras Ananda dalam mempelajari dan menghafal Al-Qur'an. Tasmi' bukan sekadar ujian hafalan, melainkan bukti keteguhan hati dalam menjaga kedekatan dengan Allah Ta'ālā.
+
+Kami meyakini pencapaian ini menjadi langkah awal yang baik bagi Ananda untuk terus meningkatkan hafalan, pemahaman, dan pengamalan Al-Qur'an dalam kehidupan sehari-hari.
+
+Ucapan terima kasih kami sampaikan kepada kedua orang tua Ananda, para Ustadz dan Ustadzah, serta seluruh pihak yang telah mendampingi dan membimbing Ananda Ali dalam perjalanan mulia ini.
+
+Semoga Allah Ta'ālā senantiasa memberkahi, menjaga, dan menjadikan Al-Qur'an sebagai cahaya dalam hidup Ananda.
+
+*Bârakallâhu fîk* ✨`,
+    date: "3 Februari 2026",
+    category: "Program",
+    image: tasmiAli,
+    gallery: [
+      { src: mengaji, alt: "Kegiatan Mengaji" },
+      { src: kegiatanBersama, alt: "Kegiatan Bersama" },
+    ],
+  },
   {
     id: 5,
     slug: "program-tasmi-apresiasi-tertinggi-muhammad-hafidz",
@@ -180,6 +211,10 @@ Semoga keberhasilan ini menjadi motivasi bagi Ananda untuk selalu mencintai Al-Q
 
 // Achievements for Profil page - synced with news data
 export const achievements = [
+  {
+    title: "Program Tasmi' Juz 30",
+    description: "Ali - Santri Banin Kelas 5",
+  },
   {
     title: "Program Tasmi' Juz 1 & 2",
     description: "Muhammad Hafidz - Santri Banin Kelas 6",
