@@ -9,8 +9,8 @@ const features = [
   },
   {
     icon: Heart,
-    title: "Akhlak Mulia",
-    description: "Pembinaan karakter dan akhlak berdasarkan nilai-nilai Al-Qur'an dan Sunnah Rasulullah SAW",
+    title: "Madah Diniyah",
+    description: "Penanaman aqidah salimah, ibadah sohihah. Pembinaan karakter dan akhlak berdasarkan nilai-nilai Al-Qur'an dan Sunnah Rasulullah SAW",
   },
   {
     icon: Users,
