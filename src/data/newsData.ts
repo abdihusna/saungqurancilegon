@@ -3,6 +3,7 @@ import programTasmi from "@/assets/news/program-tasmi.jpeg";
 import tasmiHafidz from "@/assets/news/tasmi-hafidz.jpg";
 import tasmiAli from "@/assets/news/tasmi-ali.jpg";
 import spmbGelombang2 from "@/assets/news/spmb-gelombang-2.jpg";
+import rapatKerjaIpi from "@/assets/news/rapat-kerja-ipi.png";
 
 // Gallery images for news articles
 import thufulahBerkebun from "@/assets/gallery/thufulah-berkebun.jpg";
@@ -194,16 +195,21 @@ wa.me/6285187855124
   },
   {
     id: 3,
-    slug: "kunjungan-dinas-pendidikan-kota-cilegon",
-    title: "Kunjungan Dinas Pendidikan Kota Cilegon",
-    excerpt: "Dinas Pendidikan Kota Cilegon melakukan kunjungan kerja untuk melihat program pendidikan di Saung Qur'an Cilegon.",
-    content: `Dinas Pendidikan Kota Cilegon melakukan kunjungan kerja untuk melihat program pendidikan di Saung Qur'an Cilegon.
+    slug: "fk-pkbm-cilegon-hadiri-rapat-kerja-ipi-2026",
+    title: "FK PKBM Cilegon Hadiri Pembukaan Rapat Kerja IPI Kota Cilegon Tahun 2026",
+    excerpt: "Turut menghadiri pembukaan Rapat Kerja Ikatan Penilik Indonesia (IPI) Kota Cilegon sekaligus pengesahan Program Kerja Penilik Tahun 2026 di Hotel Jayakarta Anyer.",
+    content: `**FK PKBM Cilegon Hadiri Pembukaan Rapat Kerja IPI Kota Cilegon Tahun 2026**
 
-Kunjungan ini merupakan bentuk apresiasi dan dukungan dari pemerintah daerah terhadap program pendidikan berbasis karakter dan tahfidz yang diselenggarakan oleh Saung Qur'an Cilegon.
+Turut menghadiri pembukaan Rapat Kerja Ikatan Penilik Indonesia (IPI) Kota Cilegon sekaligus pengesahan Program Kerja Penilik Tahun 2026 yang dilaksanakan di Hotel Jayakarta Anyer, Selasa (3/2/2026).
 
-Dalam kunjungan tersebut, tim dari Dinas Pendidikan berkesempatan melihat langsung proses pembelajaran dan fasilitas yang tersedia di Saung Qur'an Cilegon.`,
-    date: "5 Januari 2026",
+Kegiatan dibuka secara resmi oleh Fajar Hadi Prabowo, Wakil Wali Kota Cilegon. Rapat kerja ini menegaskan pentingnya penguatan peran penilik dalam mendukung pendidikan nonformal yang adaptif terhadap transformasi digital.
+
+Acara turut dihadiri jajaran Dinas Pendidikan Kota Cilegon, pengurus IPI Kota dan Provinsi, serta unsur lembaga pendidikan nonformal, antara lain FK PKBM Kota Cilegon, HIMPAUDI, dan pengurus LKP Kota Cilegon.
+
+#PendidikanNonFormal #FKPKBMCilegon #IPICilegon #TransformasiDigital #CilegonJuare`,
+    date: "3 Februari 2026",
     category: "Berita",
+    image: rapatKerjaIpi,
     gallery: [
       { src: berkebun, alt: "Kegiatan Berkebun" },
       { src: belajarOutdoor, alt: "Pembelajaran Outdoor" },
