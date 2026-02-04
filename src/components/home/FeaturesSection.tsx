@@ -1,4 +1,4 @@
-import { BookOpen, Heart, Users, GraduationCap, Shield, Star } from "lucide-react";
+import { BookOpen, Scroll, Users, GraduationCap, Shield, Star } from "lucide-react";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 
 const features = [
@@ -8,7 +8,7 @@ const features = [
     description: "Program hafalan Al-Qur'an intensif dengan metode talaqqi dari ustadz/ustadzah berpengalaman",
   },
   {
-    icon: Heart,
+    icon: Scroll,
     title: "Madah Diniyah",
     description: "Penanaman aqidah salimah, ibadah sohihah. Pembinaan karakter dan akhlak berdasarkan nilai-nilai Al-Qur'an dan Sunnah Rasulullah SAW",
   },
