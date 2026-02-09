@@ -66,7 +66,7 @@ const HubungiKami = () => {
                         +62 877-8181-8143
                       </a>
                       <p className="text-sm text-muted-foreground mt-1">
-                        (Senin - Sabtu, 08:00 - 16:00)
+                        (Senin - Jumat 07:00-14:00, Sabtu 07:00-10:00)
                       </p>
                     </div>
                   </div>
@@ -124,11 +124,11 @@ const HubungiKami = () => {
                       <div className="space-y-1 text-sm">
                         <div className="flex justify-between">
                           <span className="text-muted-foreground">Senin - Jumat</span>
-                          <span className="text-foreground">07:00 - 16:00</span>
+                          <span className="text-foreground">07:00 - 14:00</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-muted-foreground">Sabtu</span>
-                          <span className="text-foreground">07:00 - 12:00</span>
+                          <span className="text-foreground">07:00 - 10:00</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="text-muted-foreground">Minggu</span>

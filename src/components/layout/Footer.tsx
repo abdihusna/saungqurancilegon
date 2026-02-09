@@ -121,14 +121,14 @@ export function Footer() {
                 <Clock className="h-5 w-5 text-primary shrink-0" />
                 <div className="text-sm text-white/70">
                   <p>Senin - Jumat</p>
-                  <p className="text-white">07:00 - 16:00 WIB</p>
+                  <p className="text-white">07:00 - 14:00 WIB</p>
                 </div>
               </li>
               <li className="flex items-center gap-3">
                 <Clock className="h-5 w-5 text-primary shrink-0" />
                 <div className="text-sm text-white/70">
                   <p>Sabtu</p>
-                  <p className="text-white">07:00 - 12:00 WIB</p>
+                  <p className="text-white">07:00 - 10:00 WIB</p>
                 </div>
               </li>
             </ul>
