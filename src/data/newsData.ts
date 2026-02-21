@@ -4,6 +4,7 @@ import tasmiHafidz from "@/assets/news/tasmi-hafidz.jpg";
 import tasmiAli from "@/assets/news/tasmi-ali.jpg";
 import tasmiMadina from "@/assets/news/tasmi-madina.jpg";
 import tasmiSyifa from "@/assets/news/tasmi-syifa.jpg";
+import tasmiJafar from "@/assets/news/tasmi-jafar.jpg";
 import spmbGelombang2 from "@/assets/news/spmb-gelombang-2.jpg";
 import rapatKerjaIpi from "@/assets/news/rapat-kerja-ipi.png";
 
@@ -42,6 +43,36 @@ export interface NewsItem {
 }
 
 export const newsData: NewsItem[] = [
+  {
+    id: 9,
+    slug: "program-tasmi-apresiasi-tertinggi-astapati-jafar",
+    title: "Program Tasmi': Apresiasi Tertinggi untuk Ananda Astapati Jafar Wizkhalifa",
+    excerpt: "Alhamdulillah, dengan penuh rasa syukur dan bangga, kami menyampaikan apresiasi yang setinggi-tingginya kepada Ananda Astapati Jafar Wizkhalifa, santri Banin (putra) kelas 5, atas keberhasilannya menyelesaikan Program Tasmi' Juz'i Juz 30 di Saung Qur'an Cilegon.",
+    content: `🌟 **APRESIASI TERTINGGI** 🌟
+
+**Ananda Astapati Jafar Wizkhalifa**
+
+Alhamdulillāh
+
+Dengan penuh rasa syukur dan bangga, kami menyampaikan apresiasi yang setinggi-tingginya kepada Ananda Astapati Jafar Wizkhalifa, santri Banin (putra) kelas 5, atas keberhasilannya menyelesaikan Program Tasmi' Juz'i Juz 30 di Saung Qur'an Cilegon.
+
+Prestasi ini merupakan buah dari dedikasi, kesungguhan, serta kerja keras Ananda dalam mempelajari dan menghafal Al-Qur'an. Tasmi' bukan sekadar ujian hafalan, melainkan bukti keteguhan hati dalam menjaga kedekatan dengan Allah Ta'ālā.
+
+Kami meyakini pencapaian ini menjadi langkah awal yang baik bagi Ananda untuk terus meningkatkan hafalan, pemahaman, dan pengamalan Al-Qur'an dalam kehidupan sehari-hari.
+
+Ucapan terima kasih kami sampaikan kepada kedua orang tua Ananda, para Ustadz dan Ustadzah, serta seluruh pihak yang telah mendampingi dan membimbing Ananda Jafar dalam perjalanan mulia ini.
+
+Semoga Allah Ta'ālā senantiasa memberkahi, Al-Qur'an sebagai cahaya dalam hidup Ananda.
+
+*Baarakallaahufiik*`,
+    date: "18 Februari 2026",
+    category: "Program",
+    image: tasmiJafar,
+    gallery: [
+      { src: mengaji, alt: "Kegiatan Mengaji" },
+      { src: kegiatanBersama, alt: "Kegiatan Bersama" },
+    ],
+  },
   {
     id: 8,
     slug: "program-tasmi-apresiasi-tertinggi-syifa-nur-akhsanti",
@@ -309,6 +340,10 @@ Semoga keberhasilan ini menjadi motivasi bagi Ananda untuk selalu mencintai Al-Q
 
 // Achievements for Profil page - synced with news data
 export const achievements = [
+  {
+    title: "Program Tasmi' Juz 30",
+    description: "Astapati Jafar Wizkhalifa - Santri Banin Kelas 5",
+  },
   {
     title: "Program Tasmi' Juz 29",
     description: "Syifa Nur Akhsanti - Santri Banat Kelas 8",
