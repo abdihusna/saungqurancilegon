@@ -7,6 +7,7 @@ import tasmiSyifa from "@/assets/news/tasmi-syifa.jpg";
 import tasmiJafar from "@/assets/news/tasmi-jafar.jpg";
 import tasmiAbdullah from "@/assets/news/tasmi-abdullah.jpg";
 import tasmiRajwa from "@/assets/news/tasmi-rajwa.jpg";
+import tasmiAsmaa from "@/assets/news/tasmi-asmaa.jpg";
 import spmbGelombang2 from "@/assets/news/spmb-gelombang-2.jpg";
 import rapatKerjaIpi from "@/assets/news/rapat-kerja-ipi.png";
 
@@ -45,6 +46,36 @@ export interface NewsItem {
 }
 
 export const newsData: NewsItem[] = [
+  {
+    id: 12,
+    slug: "program-tasmi-apresiasi-tertinggi-asmaa-najiha",
+    title: "Program Tasmi': Apresiasi Tertinggi untuk Ananda Asmaa Najiha Kamila",
+    excerpt: "Alhamdulillah, dengan penuh rasa syukur dan bangga, kami menyampaikan apresiasi atas keberhasilan Ananda Asmaa Najiha Kamila, santri Banat (putri) kelas 5, dalam menyelesaikan Program Tasmi' Juz'i Juz 3 di Saung Qur'an Cilegon.",
+    content: `🌟 **APRESIASI TERTINGGI** 🌟
+
+**Ananda Asmaa Najiha Kamila**
+
+Santri Banat (Putri) Kelas 5
+
+Saung Qur'an Cilegon
+
+Alhamdulillâh, dengan penuh rasa syukur dan bangga kami menyampaikan apresiasi atas keberhasilan Ananda dalam menyelesaikan Program Tasmi' Juz'i Juz 3.
+
+Pencapaian ini merupakan bukti kesungguhan, ketekunan, dan kecintaan Ananda terhadap Al-Qur'an. Semoga menjadi langkah awal untuk terus menambah hafalan, memperdalam pemahaman, dan mengamalkan Al-Qur'an dalam kehidupan sehari-hari.
+
+Terima kasih kepada kedua orang tua serta para Ustadz dan Ustadzah yang telah membimbing dan mendampingi dengan penuh keikhlasan.
+
+Semoga Allah Ta'ālā senantiasa memberkahi dan menjadikan Al-Qur'an sebagai cahaya dalam hidup Ananda.
+
+*Bârakallâhu fîk* 🌸`,
+    date: "24 Februari 2026",
+    category: "Program",
+    image: tasmiAsmaa,
+    gallery: [
+      { src: mengaji, alt: "Kegiatan Mengaji" },
+      { src: kegiatanBersama, alt: "Kegiatan Bersama" },
+    ],
+  },
   {
     id: 11,
     slug: "program-tasmi-apresiasi-tertinggi-rajwa-abidah",
@@ -402,6 +433,10 @@ Semoga keberhasilan ini menjadi motivasi bagi Ananda untuk selalu mencintai Al-Q
 
 // Achievements for Profil page - synced with news data
 export const achievements = [
+  {
+    title: "Program Tasmi' Juz 3",
+    description: "Asmaa Najiha Kamila - Santri Banat Kelas 5",
+  },
   {
     title: "Program Tasmi' Juz 29",
     description: "Rajwa Abidah Al Mumtazah - Santri Banat Kelas 5",
