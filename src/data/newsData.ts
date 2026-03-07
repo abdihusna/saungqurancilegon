@@ -48,6 +48,36 @@ export interface NewsItem {
 
 export const newsData: NewsItem[] = [
   {
+    id: 13,
+    slug: "program-tasmi-apresiasi-tertinggi-aisyah-nisaul-hasanah",
+    title: "Program Tasmi': Apresiasi Tertinggi untuk Ananda Aisyah Nisa'ul Hasanah",
+    excerpt: "Alhamdulillah, dengan penuh rasa syukur dan bangga, kami menyampaikan apresiasi atas keberhasilan Ananda Aisyah Nisa'ul Hasanah, santri Banat (putri) kelas 8, dalam menyelesaikan Program Tasmi' Juz'i Juz 28 di Saung Qur'an Cilegon.",
+    content: `🌟 **APRESIASI TERTINGGI** 🌟
+
+**Ananda Aisyah Nisa'ul Hasanah**
+
+Santri Banat (Putri) Kelas 8
+
+Saung Qur'an Cilegon
+
+Alhamdulillāh, dengan penuh rasa syukur dan bangga kami menyampaikan apresiasi atas keberhasilan Ananda dalam menyelesaikan Program Tasmi' Juz'i Juz 28.
+
+Pencapaian ini merupakan bukti kesungguhan, ketekunan, dan kecintaan Ananda terhadap Al-Qur'an. Semoga menjadi langkah awal untuk terus menambah hafalan, memperdalam pemahaman, dan mengamalkan Al-Qur'an dalam kehidupan sehari-hari.
+
+Terima kasih kepada orang tua serta para Ustadz dan Ustadzah yang telah membimbing dan mendampingi dengan penuh keikhlasan.
+
+Semoga Allah Ta'ālā senantiasa memberkahi dan menjadikan Al-Qur'an sebagai cahaya dalam hidup Ananda.
+
+*Bārikallāhu fīk* 🌸`,
+    date: "7 Maret 2026",
+    category: "Program",
+    image: tasmiAisyah,
+    gallery: [
+      { src: mengaji, alt: "Kegiatan Mengaji" },
+      { src: kegiatanBersama, alt: "Kegiatan Bersama" },
+    ],
+  },
+  {
     id: 12,
     slug: "program-tasmi-apresiasi-tertinggi-asmaa-najiha",
     title: "Program Tasmi': Apresiasi Tertinggi untuk Ananda Asmaa Najiha Kamila",
