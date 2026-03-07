@@ -8,6 +8,7 @@ import tasmiJafar from "@/assets/news/tasmi-jafar.jpg";
 import tasmiAbdullah from "@/assets/news/tasmi-abdullah.jpg";
 import tasmiRajwa from "@/assets/news/tasmi-rajwa.jpg";
 import tasmiAsmaa from "@/assets/news/tasmi-asmaa.jpg";
+import tasmiAisyah from "@/assets/news/tasmi-aisyah.jpg";
 import spmbGelombang2 from "@/assets/news/spmb-gelombang-2.jpg";
 import rapatKerjaIpi from "@/assets/news/rapat-kerja-ipi.png";
 
@@ -46,6 +47,36 @@ export interface NewsItem {
 }
 
 export const newsData: NewsItem[] = [
+  {
+    id: 13,
+    slug: "program-tasmi-apresiasi-tertinggi-aisyah-nisaul-hasanah",
+    title: "Program Tasmi': Apresiasi Tertinggi untuk Ananda Aisyah Nisa'ul Hasanah",
+    excerpt: "Alhamdulillah, dengan penuh rasa syukur dan bangga, kami menyampaikan apresiasi atas keberhasilan Ananda Aisyah Nisa'ul Hasanah, santri Banat (putri) kelas 8, dalam menyelesaikan Program Tasmi' Juz'i Juz 28 di Saung Qur'an Cilegon.",
+    content: `🌟 **APRESIASI TERTINGGI** 🌟
+
+**Ananda Aisyah Nisa'ul Hasanah**
+
+Santri Banat (Putri) Kelas 8
+
+Saung Qur'an Cilegon
+
+Alhamdulillāh, dengan penuh rasa syukur dan bangga kami menyampaikan apresiasi atas keberhasilan Ananda dalam menyelesaikan Program Tasmi' Juz'i Juz 28.
+
+Pencapaian ini merupakan bukti kesungguhan, ketekunan, dan kecintaan Ananda terhadap Al-Qur'an. Semoga menjadi langkah awal untuk terus menambah hafalan, memperdalam pemahaman, dan mengamalkan Al-Qur'an dalam kehidupan sehari-hari.
+
+Terima kasih kepada orang tua serta para Ustadz dan Ustadzah yang telah membimbing dan mendampingi dengan penuh keikhlasan.
+
+Semoga Allah Ta'ālā senantiasa memberkahi dan menjadikan Al-Qur'an sebagai cahaya dalam hidup Ananda.
+
+*Bārikallāhu fīk* 🌸`,
+    date: "7 Maret 2026",
+    category: "Program",
+    image: tasmiAisyah,
+    gallery: [
+      { src: mengaji, alt: "Kegiatan Mengaji" },
+      { src: kegiatanBersama, alt: "Kegiatan Bersama" },
+    ],
+  },
   {
     id: 12,
     slug: "program-tasmi-apresiasi-tertinggi-asmaa-najiha",
@@ -433,6 +464,10 @@ Semoga keberhasilan ini menjadi motivasi bagi Ananda untuk selalu mencintai Al-Q
 
 // Achievements for Profil page - synced with news data
 export const achievements = [
+  {
+    title: "Program Tasmi' Juz 28",
+    description: "Aisyah Nisa'ul Hasanah - Santri Banat Kelas 8",
+  },
   {
     title: "Program Tasmi' Juz 3",
     description: "Asmaa Najiha Kamila - Santri Banat Kelas 5",
