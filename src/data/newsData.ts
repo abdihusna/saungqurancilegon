@@ -8,6 +8,7 @@ import tasmiJafar from "@/assets/news/tasmi-jafar.jpg";
 import tasmiAbdullah from "@/assets/news/tasmi-abdullah.jpg";
 import tasmiRajwa from "@/assets/news/tasmi-rajwa.jpg";
 import tasmiAsmaa from "@/assets/news/tasmi-asmaa.jpg";
+import tasmiAisyah from "@/assets/news/tasmi-aisyah.jpg";
 import spmbGelombang2 from "@/assets/news/spmb-gelombang-2.jpg";
 import rapatKerjaIpi from "@/assets/news/rapat-kerja-ipi.png";
 
