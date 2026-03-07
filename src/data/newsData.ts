@@ -465,6 +465,10 @@ Semoga keberhasilan ini menjadi motivasi bagi Ananda untuk selalu mencintai Al-Q
 // Achievements for Profil page - synced with news data
 export const achievements = [
   {
+    title: "Program Tasmi' Juz 28",
+    description: "Aisyah Nisa'ul Hasanah - Santri Banat Kelas 8",
+  },
+  {
     title: "Program Tasmi' Juz 3",
     description: "Asmaa Najiha Kamila - Santri Banat Kelas 5",
   },
