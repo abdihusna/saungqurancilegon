@@ -13,6 +13,7 @@ import Pendaftaran from "./pages/Pendaftaran";
 import BeritaDetail from "./pages/BeritaDetail";
 import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
+import Admin from "./pages/Admin";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/hubungi-kami" element={<HubungiKami />} />
           <Route path="/pendaftaran" element={<Pendaftaran />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
