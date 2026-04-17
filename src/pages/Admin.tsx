@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import { Lock, Plus, Pencil, Trash2, LogOut, ImagePlus, X, Loader2, ExternalLink } from "lucide-react";
+import { Lock, Plus, Pencil, Trash2, LogOut, ImagePlus, X, Loader2, ExternalLink, Download } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,33 +20,29 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { supabase } from "@/integrations/supabase/client";
+import type { Session } from "@supabase/supabase-js";
 
-const WEBHOOK_BASE = "https://saungqurancilegon.id/hostinger-webhook";
-const WEBHOOK_URL = `${WEBHOOK_BASE}/webhook.php`;
-const POSTS_URL = `${WEBHOOK_BASE}/posts.php`;
-const TOKEN_KEY = "sqc_webhook_token";
-
-interface DynamicPost {
-  id: number;
+interface NewsRow {
+  id: string;
   slug: string;
   title: string;
-  excerpt: string;
+  excerpt: string | null;
   content: string;
   category: string;
-  date: string;
-  author?: string;
-  tags?: string[];
-  image?: string | null;
-  gallery?: { src: string; alt: string }[];
-  created_at?: string;
-  updated_at?: string | null;
+  date_label: string | null;
+  author: string;
+  tags: string[];
+  image_url: string | null;
+  gallery: { src: string; alt: string }[];
+  published: boolean;
+  published_at: string | null;
+  created_at: string;
 }
 
 interface GalleryItem {
-  // existingSrc: gambar yang sudah ada di server (saat edit) — dikirim sebagai image_url
-  // base64: file baru yang baru di-upload — dikirim sebagai image_base64
   existingSrc?: string;
-  base64?: string;
+  file?: File;
   preview: string;
   alt: string;
 }
@@ -60,7 +56,7 @@ interface FormState {
   slug: string;
   author: string;
   tagsText: string;
-  imageBase64: string | null;
+  imageFile: File | null;
   imageUrl: string;
   imagePreview: string | null;
   gallery: GalleryItem[];
@@ -75,37 +71,97 @@ const emptyForm: FormState = {
   slug: "",
   author: "Admin SQC",
   tagsText: "",
-  imageBase64: null,
+  imageFile: null,
   imageUrl: "",
   imagePreview: null,
   gallery: [],
 };
 
-const fileToBase64 = (file: File): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
+const MAX_BYTES = 5 * 1024 * 1024;
+const BUCKET = "news-images";
+
+const slugify = (s: string): string =>
+  s
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "") || `post-${Date.now()}`;
+
+const formatDateID = (iso?: string | null) => {
+  const d = iso ? new Date(iso) : new Date();
+  return d.toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
+};
+
+const uploadToStorage = async (file: File): Promise<string> => {
+  const ext = file.name.split(".").pop() || "jpg";
+  const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+  const { error } = await supabase.storage.from(BUCKET).upload(path, file, {
+    cacheControl: "3600",
+    upsert: false,
+    contentType: file.type,
   });
+  if (error) throw error;
+  const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
+  return data.publicUrl;
+};
 
 const Admin = () => {
-  const [token, setToken] = useState<string | null>(null);
-  const [tokenInput, setTokenInput] = useState("");
-  const [posts, setPosts] = useState<DynamicPost[]>([]);
+  const [session, setSession] = useState<Session | null>(null);
+  const [authChecking, setAuthChecking] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loggingIn, setLoggingIn] = useState(false);
+
+  const [posts, setPosts] = useState<NewsRow[]>([]);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [form, setForm] = useState<FormState>(emptyForm);
-  const [editingSlug, setEditingSlug] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState<DynamicPost | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<NewsRow | null>(null);
+  const [importing, setImporting] = useState(false);
+  const [importDialogOpen, setImportDialogOpen] = useState(false);
 
-  // Restore token from sessionStorage (cleared on tab close)
+  // ====== AUTH ======
   useEffect(() => {
-    const saved = sessionStorage.getItem(TOKEN_KEY);
-    if (saved) setToken(saved);
+    // Set up listener FIRST
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, newSession) => {
+      setSession(newSession);
+      if (!newSession) {
+        setIsAdmin(false);
+      }
+    });
+    // THEN getSession
+    supabase.auth.getSession().then(({ data: { session: s } }) => {
+      setSession(s);
+      setAuthChecking(false);
+    });
+    return () => sub.subscription.unsubscribe();
   }, []);
 
-  // Inject noindex meta tag agar Google tidak meng-index halaman /admin
+  // Check admin role whenever session changes
+  useEffect(() => {
+    if (!session) {
+      setIsAdmin(false);
+      return;
+    }
+    (async () => {
+      const { data, error } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", session.user.id)
+        .eq("role", "admin")
+        .maybeSingle();
+      if (error) {
+        console.error("Role check failed:", error);
+      }
+      setIsAdmin(!!data);
+    })();
+  }, [session]);
+
+  // Inject noindex
   useEffect(() => {
     const meta = document.createElement("meta");
     meta.name = "robots";
@@ -119,212 +175,225 @@ const Admin = () => {
     };
   }, []);
 
-  // Fetch posts whenever token is set
-  useEffect(() => {
-    if (!token) return;
-    fetchPosts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
-
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     setLoadingPosts(true);
-    try {
-      const res = await fetch(POSTS_URL, { cache: "no-store" });
-      const data = await res.json();
-      setPosts(Array.isArray(data?.posts) ? data.posts : []);
-    } catch (err) {
-      toast.error("Gagal memuat berita", {
-        description: "Pastikan webhook.php sudah di-upload ke Hostinger.",
-      });
+    const { data, error } = await supabase
+      .from("news")
+      .select("*")
+      .order("published_at", { ascending: false });
+    if (error) {
+      toast.error("Gagal memuat berita", { description: error.message });
       setPosts([]);
-    } finally {
-      setLoadingPosts(false);
+    } else {
+      setPosts((data ?? []) as unknown as NewsRow[]);
     }
-  };
+    setLoadingPosts(false);
+  }, []);
 
-  const handleLogin = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (isAdmin) fetchPosts();
+  }, [isAdmin, fetchPosts]);
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const trimmed = tokenInput.trim();
-    if (trimmed.length < 16) {
-      toast.error("Token terlalu pendek", { description: "Minimal 16 karakter." });
+    if (!email.trim() || !password) {
+      toast.error("Email & password wajib");
       return;
     }
-    sessionStorage.setItem(TOKEN_KEY, trimmed);
-    setToken(trimmed);
-    setTokenInput("");
-    toast.success("Berhasil login admin");
+    setLoggingIn(true);
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email.trim(),
+      password,
+    });
+    setLoggingIn(false);
+    if (error) {
+      toast.error("Login gagal", { description: error.message });
+      return;
+    }
+    setPassword("");
+    toast.success("Berhasil login");
   };
 
-  const handleLogout = () => {
-    sessionStorage.removeItem(TOKEN_KEY);
-    setToken(null);
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     setForm(emptyForm);
-    setEditingSlug(null);
+    setEditingId(null);
     toast.info("Logout berhasil");
   };
 
-  const handleImageFile = async (file: File) => {
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error("Gambar terlalu besar", { description: "Maks 5 MB." });
-      return;
+  const validateImage = (file: File): boolean => {
+    if (file.size > MAX_BYTES) {
+      toast.error(`${file.name} terlalu besar`, { description: "Maks 5 MB." });
+      return false;
     }
-    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
-      toast.error("Format tidak didukung", { description: "Gunakan JPG, PNG, atau WebP." });
-      return;
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      toast.error(`${file.name} format tidak didukung`, { description: "JPG/PNG/WebP." });
+      return false;
     }
-    const base64 = await fileToBase64(file);
-    setForm((f) => ({ ...f, imageBase64: base64, imagePreview: base64, imageUrl: "" }));
+    return true;
   };
 
-  const handleGalleryFiles = async (files: FileList | null) => {
+  const handleImageFile = (file: File) => {
+    if (!validateImage(file)) return;
+    const preview = URL.createObjectURL(file);
+    setForm((f) => ({ ...f, imageFile: file, imagePreview: preview, imageUrl: "" }));
+  };
+
+  const handleGalleryFiles = (files: FileList | null) => {
     if (!files || files.length === 0) return;
-    const newItems: GalleryItem[] = [];
+    const items: GalleryItem[] = [];
     for (const file of Array.from(files)) {
-      if (file.size > 5 * 1024 * 1024) {
-        toast.error(`${file.name} terlalu besar`, { description: "Maks 5 MB per gambar." });
-        continue;
-      }
-      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
-        toast.error(`${file.name} format tidak didukung`);
-        continue;
-      }
-      const base64 = await fileToBase64(file);
-      newItems.push({ base64, preview: base64, alt: "" });
+      if (!validateImage(file)) continue;
+      items.push({ file, preview: URL.createObjectURL(file), alt: "" });
     }
-    if (newItems.length) {
-      setForm((f) => ({ ...f, gallery: [...f.gallery, ...newItems] }));
-    }
+    if (items.length) setForm((f) => ({ ...f, gallery: [...f.gallery, ...items] }));
   };
 
-  const removeGalleryItem = (idx: number) => {
+  const removeGalleryItem = (idx: number) =>
     setForm((f) => ({ ...f, gallery: f.gallery.filter((_, i) => i !== idx) }));
-  };
 
-  const updateGalleryAlt = (idx: number, alt: string) => {
+  const updateGalleryAlt = (idx: number, alt: string) =>
     setForm((f) => ({
       ...f,
       gallery: f.gallery.map((g, i) => (i === idx ? { ...g, alt } : g)),
     }));
-  };
 
-  const startEdit = (p: DynamicPost) => {
-    setEditingSlug(p.slug);
+  const startEdit = (p: NewsRow) => {
+    setEditingId(p.id);
     setForm({
       title: p.title,
-      excerpt: p.excerpt,
+      excerpt: p.excerpt ?? "",
       content: p.content,
       category: p.category,
-      date: p.date,
+      date: p.date_label ?? "",
       slug: p.slug,
-      author: p.author || "Admin SQC",
-      tagsText: (p.tags || []).join(", "),
-      imageBase64: null,
-      imageUrl: p.image && !p.image.includes("/uploads/news/") ? p.image : "",
-      imagePreview: p.image || null,
-      gallery: (p.gallery || []).map((g) => ({
+      author: p.author,
+      tagsText: (p.tags ?? []).join(", "),
+      imageFile: null,
+      imageUrl: "",
+      imagePreview: p.image_url ?? null,
+      gallery: (p.gallery ?? []).map((g) => ({
         existingSrc: g.src,
         preview: g.src,
-        alt: g.alt || "",
+        alt: g.alt ?? "",
       })),
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const cancelEdit = () => {
-    setEditingSlug(null);
+    setEditingId(null);
     setForm(emptyForm);
   };
 
   const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!token) return;
     if (!form.title.trim() || !form.content.trim()) {
-      toast.error("Title & content wajib diisi");
+      toast.error("Judul & konten wajib diisi");
       return;
     }
 
     setSubmitting(true);
     try {
-      const body: Record<string, unknown> = {
+      // 1. Upload main image jika file baru
+      let imageUrl: string | null = form.imagePreview;
+      if (form.imageFile) {
+        imageUrl = await uploadToStorage(form.imageFile);
+      } else if (form.imageUrl.trim()) {
+        imageUrl = form.imageUrl.trim();
+      } else if (!form.imagePreview) {
+        imageUrl = null;
+      }
+
+      // 2. Upload gallery files baru
+      const galleryFinal: { src: string; alt: string }[] = [];
+      for (const g of form.gallery) {
+        let src = g.existingSrc;
+        if (g.file) src = await uploadToStorage(g.file);
+        if (src) galleryFinal.push({ src, alt: g.alt || "" });
+      }
+
+      const payload = {
         title: form.title.trim(),
+        slug: form.slug.trim() || slugify(form.title),
+        excerpt: form.excerpt.trim() || form.content.trim().slice(0, 200) + "...",
         content: form.content.trim(),
         category: form.category.trim() || "Berita",
+        date_label: form.date.trim() || formatDateID(),
         author: form.author.trim() || "Admin SQC",
+        tags: form.tagsText.split(",").map((t) => t.trim()).filter(Boolean),
+        image_url: imageUrl,
+        gallery: galleryFinal,
+        published: true,
       };
-      if (form.excerpt.trim()) body.excerpt = form.excerpt.trim();
-      if (form.date.trim()) body.date = form.date.trim();
-      if (form.slug.trim()) body.slug = form.slug.trim();
-      if (form.tagsText.trim()) {
-        body.tags = form.tagsText.split(",").map((t) => t.trim()).filter(Boolean);
-      }
-      if (form.imageBase64) body.image_base64 = form.imageBase64;
-      else if (form.imageUrl.trim()) body.image_url = form.imageUrl.trim();
 
-      // Gallery: kirim array (existing pakai image_url, baru pakai image_base64)
-      // Saat editing kirim selalu (termasuk kosong = clear). Saat POST baru, hanya jika ada.
-      if (editingSlug || form.gallery.length > 0) {
-        body.gallery = form.gallery.map((g) => ({
-          alt: g.alt,
-          ...(g.base64 ? { image_base64: g.base64 } : { image_url: g.existingSrc }),
-        }));
+      if (editingId) {
+        const { error } = await supabase.from("news").update(payload).eq("id", editingId);
+        if (error) throw error;
+        toast.success("Berita diperbarui");
+      } else {
+        const { error } = await supabase.from("news").insert({
+          ...payload,
+          created_by: session!.user.id,
+          published_at: new Date().toISOString(),
+        });
+        if (error) throw error;
+        toast.success("Berita dipublish", { description: `/berita/${payload.slug}` });
       }
 
-      const url = editingSlug
-        ? `${WEBHOOK_URL}?slug=${encodeURIComponent(editingSlug)}`
-        : WEBHOOK_URL;
-      const method = editingSlug ? "PUT" : "POST";
-
-      const res = await fetch(url, {
-        method,
-        headers: {
-          "Content-Type": "application/json",
-          "X-Webhook-Secret": token,
-        },
-        body: JSON.stringify(body),
-      });
-
-      const data = await res.json();
-      if (!res.ok || !data.ok) {
-        throw new Error(data?.error || `HTTP ${res.status}`);
-      }
-
-      toast.success(editingSlug ? "Berita diperbarui" : "Berita dipublish", {
-        description: data.url,
-      });
       setForm(emptyForm);
-      setEditingSlug(null);
+      setEditingId(null);
       await fetchPosts();
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Unknown error";
-      toast.error("Gagal mengirim", { description: msg });
-      if (msg.includes("401") || msg.toLowerCase().includes("unauthorized")) {
-        handleLogout();
-      }
+      toast.error("Gagal simpan", { description: msg });
     } finally {
       setSubmitting(false);
     }
   };
 
   const confirmDelete = async () => {
-    if (!deleteTarget || !token) return;
+    if (!deleteTarget) return;
+    const { error } = await supabase.from("news").delete().eq("id", deleteTarget.id);
+    if (error) {
+      toast.error("Gagal hapus", { description: error.message });
+      return;
+    }
+    toast.success("Berita dihapus");
+    setDeleteTarget(null);
+    await fetchPosts();
+  };
+
+  const importFromHostinger = async () => {
+    setImporting(true);
     try {
-      const res = await fetch(`${WEBHOOK_URL}?slug=${encodeURIComponent(deleteTarget.slug)}`, {
-        method: "DELETE",
-        headers: { "X-Webhook-Secret": token },
+      const { data, error } = await supabase.functions.invoke("import-hostinger-posts");
+      if (error) throw error;
+      toast.success("Import selesai", {
+        description: `${data?.imported ?? 0} berita ditambahkan, ${data?.skipped ?? 0} dilewati (slug sudah ada)`,
       });
-      const data = await res.json();
-      if (!res.ok || !data.ok) throw new Error(data?.error || `HTTP ${res.status}`);
-      toast.success("Berita dihapus");
-      setDeleteTarget(null);
       await fetchPosts();
+      setImportDialogOpen(false);
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Unknown error";
-      toast.error("Gagal hapus", { description: msg });
+      toast.error("Import gagal", { description: msg });
+    } finally {
+      setImporting(false);
     }
   };
 
-  // ============ LOGIN VIEW ============
-  if (!token) {
+  // ============ LOADING / LOGIN VIEW ============
+  if (authChecking) {
+    return (
+      <Layout>
+        <section className="min-h-[70vh] flex items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+        </section>
+      </Layout>
+    );
+  }
+
+  if (!session) {
     return (
       <Layout>
         <section className="min-h-[70vh] flex items-center justify-center py-16 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
@@ -334,32 +403,66 @@ const Admin = () => {
                 <Lock className="h-6 w-6 text-primary" />
               </div>
               <CardTitle>Admin Berita</CardTitle>
-              <CardDescription>
-                Masukkan webhook secret untuk publish berita
-              </CardDescription>
+              <CardDescription>Masuk dengan akun admin SQC</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleLogin} className="space-y-4">
                 <div>
-                  <Label htmlFor="token">Webhook Secret</Label>
+                  <Label htmlFor="email">Email</Label>
                   <Input
-                    id="token"
-                    type="password"
-                    value={tokenInput}
-                    onChange={(e) => setTokenInput(e.target.value)}
-                    placeholder="Token rahasia dari webhook.php"
-                    autoComplete="off"
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="admin@saungqurancilegon.id"
+                    autoComplete="email"
+                    required
                   />
                 </div>
-                <Button type="submit" className="w-full">
-                  <Lock className="mr-2 h-4 w-4" /> Masuk
+                <div>
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    autoComplete="current-password"
+                    required
+                  />
+                </div>
+                <Button type="submit" className="w-full" disabled={loggingIn}>
+                  {loggingIn ? (
+                    <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Masuk...</>
+                  ) : (
+                    <><Lock className="mr-2 h-4 w-4" /> Masuk</>
+                  )}
                 </Button>
                 <Alert>
                   <AlertDescription className="text-xs">
-                    Token disimpan di session browser dan otomatis hilang saat tab ditutup. Token sama dengan <code>$WEBHOOK_SECRET</code> di <code>webhook.php</code>.
+                    Akses hanya untuk admin yang sudah terdaftar. Hubungi pengurus jika butuh akses.
                   </AlertDescription>
                 </Alert>
               </form>
+            </CardContent>
+          </Card>
+        </section>
+      </Layout>
+    );
+  }
+
+  if (!isAdmin) {
+    return (
+      <Layout>
+        <section className="min-h-[70vh] flex items-center justify-center py-16">
+          <Card className="w-full max-w-md mx-4">
+            <CardHeader className="text-center">
+              <CardTitle>Akses Ditolak</CardTitle>
+              <CardDescription>Akun Anda tidak memiliki peran admin.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" className="w-full" onClick={handleLogout}>
+                <LogOut className="mr-2 h-4 w-4" /> Logout
+              </Button>
             </CardContent>
           </Card>
         </section>
@@ -372,16 +475,21 @@ const Admin = () => {
     <Layout>
       <section className="py-10 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
         <div className="container">
-          <div className="flex items-center justify-between flex-wrap gap-4 mb-2">
+          <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
               <h1 className="font-serif text-3xl md:text-4xl font-bold">Admin Berita</h1>
               <p className="text-muted-foreground text-sm">
-                Publish, edit, dan hapus berita untuk halaman Event
+                Login sebagai <strong>{session.user.email}</strong>
               </p>
             </div>
-            <Button variant="outline" size="sm" onClick={handleLogout}>
-              <LogOut className="mr-2 h-4 w-4" /> Logout
-            </Button>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={() => setImportDialogOpen(true)}>
+                <Download className="mr-2 h-4 w-4" /> Import dari Hostinger
+              </Button>
+              <Button variant="outline" size="sm" onClick={handleLogout}>
+                <LogOut className="mr-2 h-4 w-4" /> Logout
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -392,13 +500,13 @@ const Admin = () => {
           <Card className="lg:col-span-3">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                {editingSlug ? <Pencil className="h-5 w-5" /> : <Plus className="h-5 w-5" />}
-                {editingSlug ? `Edit: ${editingSlug}` : "Berita Baru"}
+                {editingId ? <Pencil className="h-5 w-5" /> : <Plus className="h-5 w-5" />}
+                {editingId ? `Edit: ${form.slug}` : "Berita Baru"}
               </CardTitle>
-              {editingSlug && (
+              {editingId && (
                 <CardDescription>
                   <Button variant="ghost" size="sm" onClick={cancelEdit} className="px-0 h-auto">
-                    ← Batal edit, kembali ke mode baru
+                    ← Batal edit
                   </Button>
                 </CardDescription>
               )}
@@ -432,7 +540,7 @@ const Admin = () => {
                       id="date"
                       value={form.date}
                       onChange={(e) => setForm({ ...form, date: e.target.value })}
-                      placeholder="17 April 2026 (kosongkan = hari ini)"
+                      placeholder="17 April 2026"
                     />
                   </div>
                 </div>
@@ -453,7 +561,7 @@ const Admin = () => {
                       value={form.slug}
                       onChange={(e) => setForm({ ...form, slug: e.target.value })}
                       placeholder="otomatis dari judul"
-                      disabled={!!editingSlug}
+                      disabled={!!editingId}
                     />
                   </div>
                 </div>
@@ -475,7 +583,7 @@ const Admin = () => {
                     value={form.excerpt}
                     onChange={(e) => setForm({ ...form, excerpt: e.target.value })}
                     rows={2}
-                    placeholder="Auto-generate dari content kalau kosong"
+                    placeholder="Auto dari konten kalau kosong"
                   />
                 </div>
 
@@ -508,7 +616,7 @@ const Admin = () => {
                           variant="destructive"
                           className="absolute -top-2 -right-2 h-6 w-6"
                           onClick={() =>
-                            setForm({ ...form, imageBase64: null, imageUrl: "", imagePreview: null })
+                            setForm({ ...form, imageFile: null, imageUrl: "", imagePreview: null })
                           }
                         >
                           <X className="h-3 w-3" />
@@ -522,8 +630,7 @@ const Admin = () => {
                         size="sm"
                         onClick={() => document.getElementById("image-file")?.click()}
                       >
-                        <ImagePlus className="mr-2 h-4 w-4" />
-                        Upload File
+                        <ImagePlus className="mr-2 h-4 w-4" /> Upload File
                       </Button>
                       <input
                         id="image-file"
@@ -544,7 +651,7 @@ const Admin = () => {
                           setForm({
                             ...form,
                             imageUrl: e.target.value,
-                            imageBase64: null,
+                            imageFile: null,
                             imagePreview: e.target.value || null,
                           })
                         }
@@ -554,7 +661,7 @@ const Admin = () => {
                   </div>
                 </div>
 
-                {/* GALLERY MULTI-UPLOAD */}
+                {/* GALLERY */}
                 <div>
                   <div className="flex items-center justify-between mb-1">
                     <Label>Gallery Foto ({form.gallery.length})</Label>
@@ -566,11 +673,7 @@ const Admin = () => {
                         {form.gallery.map((g, idx) => (
                           <div key={idx} className="space-y-1">
                             <div className="relative group aspect-square rounded-lg overflow-hidden border bg-muted">
-                              <img
-                                src={g.preview}
-                                alt={g.alt || `Gallery ${idx + 1}`}
-                                className="w-full h-full object-cover"
-                              />
+                              <img src={g.preview} alt={g.alt || `Gallery ${idx + 1}`} className="w-full h-full object-cover" />
                               <Button
                                 type="button"
                                 size="icon"
@@ -580,7 +683,7 @@ const Admin = () => {
                               >
                                 <X className="h-3 w-3" />
                               </Button>
-                              {g.existingSrc && !g.base64 && (
+                              {g.existingSrc && !g.file && (
                                 <Badge variant="secondary" className="absolute bottom-1 left-1 text-[10px] h-4 px-1">
                                   tersimpan
                                 </Badge>
@@ -602,8 +705,7 @@ const Admin = () => {
                       size="sm"
                       onClick={() => document.getElementById("gallery-files")?.click()}
                     >
-                      <ImagePlus className="mr-2 h-4 w-4" />
-                      Tambah Foto Gallery (multi-select)
+                      <ImagePlus className="mr-2 h-4 w-4" /> Tambah Foto Gallery (multi-select)
                     </Button>
                     <input
                       id="gallery-files"
@@ -616,25 +718,16 @@ const Admin = () => {
                         e.target.value = "";
                       }}
                     />
-                    <p className="text-xs text-muted-foreground">
-                      Tahan <kbd className="px-1 border rounded">Ctrl</kbd>/<kbd className="px-1 border rounded">⌘</kbd> untuk pilih banyak foto sekaligus.
-                    </p>
                   </div>
                 </div>
 
                 <Button type="submit" disabled={submitting} className="w-full">
                   {submitting ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Mengirim...
-                    </>
-                  ) : editingSlug ? (
-                    <>
-                      <Pencil className="mr-2 h-4 w-4" /> Update Berita
-                    </>
+                    <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Menyimpan...</>
+                  ) : editingId ? (
+                    <><Pencil className="mr-2 h-4 w-4" /> Update Berita</>
                   ) : (
-                    <>
-                      <Plus className="mr-2 h-4 w-4" /> Publish Berita
-                    </>
+                    <><Plus className="mr-2 h-4 w-4" /> Publish Berita</>
                   )}
                 </Button>
               </form>
@@ -645,7 +738,7 @@ const Admin = () => {
           <div className="lg:col-span-2">
             <Card>
               <CardHeader>
-                <CardTitle>Berita Terpublish ({posts.length})</CardTitle>
+                <CardTitle>Berita ({posts.length})</CardTitle>
                 <CardDescription>Klik edit/hapus untuk mengelola</CardDescription>
               </CardHeader>
               <CardContent className="space-y-3 max-h-[800px] overflow-y-auto">
@@ -658,37 +751,23 @@ const Admin = () => {
                   ))
                 ) : posts.length === 0 ? (
                   <p className="text-sm text-muted-foreground text-center py-8">
-                    Belum ada berita dinamis.
+                    Belum ada berita. Buat berita baru atau import dari Hostinger.
                   </p>
                 ) : (
                   posts.map((p) => (
-                    <div
-                      key={p.slug}
-                      className="border rounded-lg p-3 hover:bg-accent/30 transition-colors"
-                    >
+                    <div key={p.id} className="border rounded-lg p-3 hover:bg-accent/30 transition-colors">
                       <div className="flex items-start gap-3">
-                        {p.image && (
-                          <img
-                            src={p.image}
-                            alt=""
-                            className="w-16 h-16 rounded object-cover flex-shrink-0"
-                          />
+                        {p.image_url && (
+                          <img src={p.image_url} alt="" className="w-16 h-16 rounded object-cover flex-shrink-0" />
                         )}
                         <div className="flex-1 min-w-0">
-                          <Badge variant="secondary" className="mb-1 text-xs">
-                            {p.category}
-                          </Badge>
+                          <Badge variant="secondary" className="mb-1 text-xs">{p.category}</Badge>
                           <h3 className="font-medium text-sm line-clamp-2">{p.title}</h3>
-                          <p className="text-xs text-muted-foreground mt-1">{p.date}</p>
+                          <p className="text-xs text-muted-foreground mt-1">{p.date_label}</p>
                         </div>
                       </div>
                       <div className="flex gap-1 mt-2">
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          className="h-7 px-2 text-xs"
-                          onClick={() => startEdit(p)}
-                        >
+                        <Button size="sm" variant="ghost" className="h-7 px-2 text-xs" onClick={() => startEdit(p)}>
                           <Pencil className="h-3 w-3 mr-1" /> Edit
                         </Button>
                         <Button
@@ -699,12 +778,7 @@ const Admin = () => {
                         >
                           <Trash2 className="h-3 w-3 mr-1" /> Hapus
                         </Button>
-                        <a
-                          href={`/berita/${p.slug}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="ml-auto"
-                        >
+                        <a href={`/berita/${p.slug}`} target="_blank" rel="noopener noreferrer" className="ml-auto">
                           <Button size="sm" variant="ghost" className="h-7 px-2 text-xs">
                             <ExternalLink className="h-3 w-3" />
                           </Button>
@@ -724,7 +798,7 @@ const Admin = () => {
           <AlertDialogHeader>
             <AlertDialogTitle>Hapus berita?</AlertDialogTitle>
             <AlertDialogDescription>
-              Berita <strong>"{deleteTarget?.title}"</strong> akan dihapus permanen beserta gambarnya. Tindakan ini tidak bisa dibatalkan.
+              Berita <strong>"{deleteTarget?.title}"</strong> akan dihapus permanen. Tindakan ini tidak bisa dibatalkan.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -734,6 +808,27 @@ const Admin = () => {
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
               Hapus
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog open={importDialogOpen} onOpenChange={setImportDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Import berita dari Hostinger?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Sistem akan fetch <code>posts.php</code> di saungqurancilegon.id, download semua gambar ke storage Lovable, lalu insert ke database. Slug yang sudah ada akan dilewati. Aman dijalankan berkali-kali.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={importing}>Batal</AlertDialogCancel>
+            <AlertDialogAction onClick={importFromHostinger} disabled={importing}>
+              {importing ? (
+                <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Mengimport...</>
+              ) : (
+                <><Download className="mr-2 h-4 w-4" /> Mulai Import</>
+              )}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

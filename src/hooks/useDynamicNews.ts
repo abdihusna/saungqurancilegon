@@ -1,72 +1,74 @@
 import { useEffect, useState } from "react";
 import type { NewsItem, GalleryImage } from "@/data/newsData";
+import { supabase } from "@/integrations/supabase/client";
 
 /**
- * Hook untuk fetch berita dinamis dari webhook PHP di Hostinger.
+ * Hook untuk fetch berita dinamis dari Lovable Cloud (table news).
  * Berita dinamis akan digabung dengan newsData statis di komponen pemanggil.
  */
 
-const POSTS_ENDPOINT = "https://saungqurancilegon.id/hostinger-webhook/posts.php";
-
-interface DynamicPost {
-  id: number;
+interface NewsRow {
+  id: string;
   slug: string;
   title: string;
-  excerpt: string;
+  excerpt: string | null;
   content: string;
   category: string;
-  date: string;
-  author?: string;
-  tags?: string[];
-  image?: string | null;
-  gallery?: { src: string; alt: string }[];
-  created_at?: string;
+  date_label: string | null;
+  image_url: string | null;
+  gallery: unknown;
+  published_at: string | null;
+  created_at: string;
 }
 
-function normalize(p: DynamicPost): NewsItem {
+function normalize(row: NewsRow): NewsItem {
+  // hash sederhana dari uuid untuk dapat number id (kompatibel dgn NewsItem.id: number)
+  const numId = parseInt(row.id.replace(/-/g, "").slice(0, 8), 16);
+  const galleryArr: GalleryImage[] = Array.isArray(row.gallery)
+    ? (row.gallery as { src?: string; alt?: string }[])
+        .filter((g) => g && typeof g.src === "string")
+        .map((g) => ({ src: g.src as string, alt: g.alt ?? "" }))
+    : [];
   return {
-    id: p.id,
-    slug: p.slug,
-    title: p.title,
-    excerpt: p.excerpt,
-    content: p.content,
-    date: p.date,
-    category: p.category,
-    image: p.image || undefined,
-    gallery: (p.gallery || []) as GalleryImage[],
+    id: numId,
+    slug: row.slug,
+    title: row.title,
+    excerpt: row.excerpt ?? "",
+    content: row.content,
+    date: row.date_label ?? new Date(row.published_at ?? row.created_at).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" }),
+    category: row.category,
+    image: row.image_url ?? undefined,
+    gallery: galleryArr,
   };
 }
 
 export function useDynamicNews() {
   const [dynamicNews, setDynamicNews] = useState<NewsItem[]>([]);
-  // mulai dari false agar tidak tampak skeleton kalau endpoint belum tersedia
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    const controller = new AbortController();
 
-    fetch(POSTS_ENDPOINT, { signal: controller.signal })
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
-      .then((data) => {
-        if (cancelled) return;
-        const posts: DynamicPost[] = Array.isArray(data?.posts) ? data.posts : [];
-        setDynamicNews(posts.map(normalize));
-      })
-      .catch((err) => {
-        if (cancelled || err.name === "AbortError") return;
-        // Diam saja kalau endpoint belum di-deploy / domain belum aktif
-        setError(err.message);
+    (async () => {
+      const { data, error } = await supabase
+        .from("news")
+        .select("id, slug, title, excerpt, content, category, date_label, image_url, gallery, published_at, created_at")
+        .eq("published", true)
+        .order("published_at", { ascending: false });
+
+      if (cancelled) return;
+      if (error) {
+        setError(error.message);
         setDynamicNews([]);
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
+      } else {
+        setDynamicNews((data ?? []).map((r) => normalize(r as NewsRow)));
+      }
+      setLoading(false);
+    })();
 
     return () => {
       cancelled = true;
-      controller.abort();
     };
   }, []);
 
