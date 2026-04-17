@@ -1,0 +1,4 @@
+# Blokir akses langsung ke posts.json mentah - paksa via posts.php
+<Files "posts.json">
+    Require all denied
+</Files>
