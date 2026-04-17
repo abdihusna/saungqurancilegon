@@ -3,13 +3,15 @@ import { useParams, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Lightbox } from "@/components/shared/Lightbox";
 import { newsData } from "@/data/newsData";
+import { useDynamicNews } from "@/hooks/useDynamicNews";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Calendar, Share2, Images } from "lucide-react";
 
 const BeritaDetail = () => {
   const { slug } = useParams<{ slug: string }>();
-  const news = newsData.find((n) => n.slug === slug);
+  const { dynamicNews } = useDynamicNews();
+  const news = [...dynamicNews, ...newsData].find((n) => n.slug === slug);
   
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
