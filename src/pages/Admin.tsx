@@ -260,6 +260,15 @@ const Admin = () => {
       if (form.imageBase64) body.image_base64 = form.imageBase64;
       else if (form.imageUrl.trim()) body.image_url = form.imageUrl.trim();
 
+      // Gallery: kirim array (existing pakai image_url, baru pakai image_base64)
+      // Saat editing kirim selalu (termasuk kosong = clear). Saat POST baru, hanya jika ada.
+      if (editingSlug || form.gallery.length > 0) {
+        body.gallery = form.gallery.map((g) => ({
+          alt: g.alt,
+          ...(g.base64 ? { image_base64: g.base64 } : { image_url: g.existingSrc }),
+        }));
+      }
+
       const url = editingSlug
         ? `${WEBHOOK_URL}?slug=${encodeURIComponent(editingSlug)}`
         : WEBHOOK_URL;
