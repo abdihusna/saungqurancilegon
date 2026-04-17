@@ -30,7 +30,7 @@ $WEBHOOK_SECRET = 'GANTI_DENGAN_TOKEN_RAHASIA_MIN_32_KARAKTER';
 $DATA_DIR     = __DIR__ . '/data';
 $POSTS_FILE   = $DATA_DIR . '/posts.json';
 $UPLOADS_DIR  = __DIR__ . '/uploads/news';
-$PUBLIC_BASE  = 'https://saungqurancilegon.id';
+$PUBLIC_BASE  = 'https://saungqurancilegon.id/hostinger-webhook';
 
 $MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5 MB
 $ALLOWED_MIMES   = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
