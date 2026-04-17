@@ -6,8 +6,9 @@ Sistem ini memungkinkan Anda menambahkan berita baru ke website **tanpa edit cod
 
 ```
 hostinger-webhook/
-├── webhook.php       → endpoint POST untuk kirim berita baru
+├── webhook.php       → endpoint POST/PUT/DELETE untuk kelola berita
 ├── posts.php         → endpoint GET untuk baca berita dinamis
+├── sitemap.php       → endpoint XML sitemap (statis + slug berita dinamis)
 ├── data/.htaccess    → blokir akses langsung posts.json
 └── README.md         → file ini
 ```
@@ -53,7 +54,7 @@ Buka di browser: `https://saungqurancilegon.id/posts.php` → harus muncul `{"ok
 
 ### Request
 - **Method**: `POST`
-- **URL**: `https://saungqurancilegon.id/webhook.php`
+- **URL**: `https://saungqurancilegon.id/hostinger-webhook/webhook.php`
 - **Headers**:
   - `Content-Type`: `application/json`
   - `X-Webhook-Secret`: `<token rahasia Anda>`
@@ -127,4 +128,5 @@ Website fetch `https://saungqurancilegon.id/posts.php` setiap kali halaman dibuk
 | `400 Invalid JSON body` | Body bukan JSON valid, cek di Postman pilih raw → JSON |
 | `500 Gagal buat folder` | Permission Hostinger salah, set folder `public_html` ke 755 |
 | Gambar gagal upload | Cek size ≤5MB & format jpeg/png/webp |
-| Berita tidak muncul di web | Cek `https://saungqurancilegon.id/posts.php` di browser dulu |
+| Berita tidak muncul di web | Cek `https://saungqurancilegon.id/hostinger-webhook/posts.php` di browser dulu |
+| Sitemap kosong / 404 | Cek `https://saungqurancilegon.id/hostinger-webhook/sitemap.php` langsung. Jika OK, masalah di rewrite `.htaccess` |
