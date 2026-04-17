@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { newsData } from "@/data/newsData";
+import { useDynamicNews } from "@/hooks/useDynamicNews";
 
 import thufulahBerkebun from "@/assets/gallery/thufulah-berkebun.jpg";
 import thufulahKolam from "@/assets/gallery/thufulah-kolam.jpg";
@@ -92,19 +93,23 @@ const Event = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
+  const { dynamicNews } = useDynamicNews();
+
+  // Gabung berita dinamis (dari webhook) dengan berita statis. Dinamis di atas.
+  const allNews = useMemo(() => [...dynamicNews, ...newsData], [dynamicNews]);
 
   // Filter news and events based on search query
   const filteredNews = useMemo(() => {
-    if (!searchQuery.trim()) return newsData;
+    if (!searchQuery.trim()) return allNews;
     const query = searchQuery.toLowerCase();
-    return newsData.filter(
+    return allNews.filter(
       (news) =>
         news.title.toLowerCase().includes(query) ||
         news.excerpt.toLowerCase().includes(query) ||
         news.category.toLowerCase().includes(query) ||
         news.content.toLowerCase().includes(query)
     );
-  }, [searchQuery]);
+  }, [searchQuery, allNews]);
 
   const filteredEvents = useMemo(() => {
     if (!searchQuery.trim()) return upcomingEvents;
