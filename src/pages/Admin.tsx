@@ -554,7 +554,73 @@ const Admin = () => {
                   </div>
                 </div>
 
-                <Button type="submit" disabled={submitting} className="w-full">
+                {/* GALLERY MULTI-UPLOAD */}
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <Label>Gallery Foto ({form.gallery.length})</Label>
+                    <span className="text-xs text-muted-foreground">Maks 5 MB / foto</span>
+                  </div>
+                  <div className="space-y-3">
+                    {form.gallery.length > 0 && (
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        {form.gallery.map((g, idx) => (
+                          <div key={idx} className="space-y-1">
+                            <div className="relative group aspect-square rounded-lg overflow-hidden border bg-muted">
+                              <img
+                                src={g.preview}
+                                alt={g.alt || `Gallery ${idx + 1}`}
+                                className="w-full h-full object-cover"
+                              />
+                              <Button
+                                type="button"
+                                size="icon"
+                                variant="destructive"
+                                className="absolute top-1 right-1 h-6 w-6 opacity-90"
+                                onClick={() => removeGalleryItem(idx)}
+                              >
+                                <X className="h-3 w-3" />
+                              </Button>
+                              {g.existingSrc && !g.base64 && (
+                                <Badge variant="secondary" className="absolute bottom-1 left-1 text-[10px] h-4 px-1">
+                                  tersimpan
+                                </Badge>
+                              )}
+                            </div>
+                            <Input
+                              value={g.alt}
+                              onChange={(e) => updateGalleryAlt(idx, e.target.value)}
+                              placeholder="Caption / alt"
+                              className="h-7 text-xs"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => document.getElementById("gallery-files")?.click()}
+                    >
+                      <ImagePlus className="mr-2 h-4 w-4" />
+                      Tambah Foto Gallery (multi-select)
+                    </Button>
+                    <input
+                      id="gallery-files"
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      multiple
+                      className="hidden"
+                      onChange={(e) => {
+                        handleGalleryFiles(e.target.files);
+                        e.target.value = "";
+                      }}
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Tahan <kbd className="px-1 border rounded">Ctrl</kbd>/<kbd className="px-1 border rounded">⌘</kbd> untuk pilih banyak foto sekaligus.
+                    </p>
+                  </div>
+                </div>
                   {submitting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Mengirim...
