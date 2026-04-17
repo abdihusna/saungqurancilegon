@@ -25,7 +25,7 @@
 
 // ============ KONFIGURASI ============
 // !!! GANTI dengan token random kuat (min 32 karakter) sebelum upload !!!
-$WEBHOOK_SECRET = 'GANTI_DENGAN_TOKEN_RAHASIA_MIN_32_KARAKTER';
+$WEBHOOK_SECRET = 'saungquran_2026_super_secret_token_123456';
 
 $DATA_DIR     = __DIR__ . '/data';
 $POSTS_FILE   = $DATA_DIR . '/posts.json';
