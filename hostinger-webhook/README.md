@@ -29,26 +29,45 @@ $WEBHOOK_SECRET = 'GANTI_DENGAN_TOKEN_RAHASIA_MIN_32_KARAKTER';
 Ganti dengan token yang baru Anda generate. **Simpan token ini** — Anda butuh untuk Postman.
 
 ### 3. Upload ke Hostinger
-Login ke **hPanel Hostinger** → **File Manager** → masuk ke `public_html/` → upload:
+Login ke **hPanel Hostinger** → **File Manager** → masuk ke `public_html/` → buat folder `hostinger-webhook/` lalu upload:
 - `webhook.php`
 - `posts.php`
+- `sitemap.php`
 - folder `data/` (yang berisi `.htaccess`)
 
 Pastikan struktur akhirnya:
 ```
 public_html/
-├── webhook.php
-├── posts.php
-├── data/
-│   └── .htaccess
-└── uploads/news/    ← akan dibuat otomatis saat upload pertama
+└── hostinger-webhook/
+    ├── webhook.php
+    ├── posts.php
+    ├── sitemap.php
+    ├── data/
+    │   ├── .htaccess
+    │   └── posts.json   ← otomatis dibuat saat post pertama
+    └── uploads/news/    ← otomatis dibuat saat upload pertama
 ```
 
 ### 4. Set permission folder
 Klik kanan folder `data/` dan `uploads/` (kalau sudah ada) → **Permissions** → set ke `755`.
 
 ### 5. Test endpoint
-Buka di browser: `https://saungqurancilegon.id/posts.php` → harus muncul `{"ok":true,"posts":[]}`
+Buka di browser:
+- `https://saungqurancilegon.id/hostinger-webhook/posts.php` → harus muncul `{"ok":true,"posts":[]}`
+- `https://saungqurancilegon.id/hostinger-webhook/sitemap.php` → harus muncul XML sitemap
+
+### 6. (Opsional) Rewrite `/sitemap.xml` ke `sitemap.php`
+Agar Google membaca sitemap di URL standar `https://saungqurancilegon.id/sitemap.xml`,
+edit/buat file `public_html/.htaccess` (di root, BUKAN di folder `hostinger-webhook`) dan tambahkan:
+
+```apache
+# === Sitemap dinamis dari hostinger-webhook ===
+RewriteEngine On
+RewriteRule ^sitemap\.xml$ /hostinger-webhook/sitemap.php [L]
+```
+
+Lalu test: `https://saungqurancilegon.id/sitemap.xml` → harus tampil XML.
+Submit URL itu ke **Google Search Console → Sitemaps**.
 
 ## 📮 Cara post berita via Postman
 
