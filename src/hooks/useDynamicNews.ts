@@ -39,6 +39,7 @@ function normalize(p: DynamicPost): NewsItem {
 
 export function useDynamicNews() {
   const [dynamicNews, setDynamicNews] = useState<NewsItem[]>([]);
+  // mulai dari false agar tidak tampak skeleton kalau endpoint belum tersedia
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
