@@ -6,7 +6,7 @@ import type { NewsItem, GalleryImage } from "@/data/newsData";
  * Berita dinamis akan digabung dengan newsData statis di komponen pemanggil.
  */
 
-const POSTS_ENDPOINT = "https://saungqurancilegon.id/posts.php";
+const POSTS_ENDPOINT = "https://saungqurancilegon.id/hostinger-webhook/posts.php";
 
 interface DynamicPost {
   id: number;
