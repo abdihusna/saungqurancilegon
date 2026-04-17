@@ -107,7 +107,13 @@ function savePosts(string $file, array $posts): bool {
 
 function deleteUploadIfLocal(?string $url, string $publicBase): void {
     if (!$url || strpos($url, $publicBase . '/uploads/news/') !== 0) return;
-    $localPath = __DIR__ . parse_url($url, PHP_URL_PATH);
+    // Hapus prefix path dari publicBase agar tidak duplikat saat di-concat dengan __DIR__
+    $basePath  = parse_url($publicBase, PHP_URL_PATH) ?: '';
+    $urlPath   = parse_url($url, PHP_URL_PATH) ?: '';
+    $relPath   = $basePath && strpos($urlPath, $basePath) === 0
+        ? substr($urlPath, strlen($basePath))
+        : $urlPath;
+    $localPath = __DIR__ . $relPath;
     if (file_exists($localPath)) @unlink($localPath);
 }
 
