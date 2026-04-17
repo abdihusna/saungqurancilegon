@@ -30,7 +30,7 @@ $WEBHOOK_SECRET = 'GANTI_DENGAN_TOKEN_RAHASIA_MIN_32_KARAKTER';
 $DATA_DIR     = __DIR__ . '/data';
 $POSTS_FILE   = $DATA_DIR . '/posts.json';
 $UPLOADS_DIR  = __DIR__ . '/uploads/news';
-$PUBLIC_BASE  = 'https://saungqurancilegon.id';
+$PUBLIC_BASE  = 'https://saungqurancilegon.id/hostinger-webhook';
 
 $MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5 MB
 $ALLOWED_MIMES   = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
@@ -107,7 +107,13 @@ function savePosts(string $file, array $posts): bool {
 
 function deleteUploadIfLocal(?string $url, string $publicBase): void {
     if (!$url || strpos($url, $publicBase . '/uploads/news/') !== 0) return;
-    $localPath = __DIR__ . parse_url($url, PHP_URL_PATH);
+    // Hapus prefix path dari publicBase agar tidak duplikat saat di-concat dengan __DIR__
+    $basePath  = parse_url($publicBase, PHP_URL_PATH) ?: '';
+    $urlPath   = parse_url($url, PHP_URL_PATH) ?: '';
+    $relPath   = $basePath && strpos($urlPath, $basePath) === 0
+        ? substr($urlPath, strlen($basePath))
+        : $urlPath;
+    $localPath = __DIR__ . $relPath;
     if (file_exists($localPath)) @unlink($localPath);
 }
 

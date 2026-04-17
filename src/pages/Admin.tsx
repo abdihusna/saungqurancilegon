@@ -21,7 +21,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-const WEBHOOK_BASE = "https://saungqurancilegon.id";
+const WEBHOOK_BASE = "https://saungqurancilegon.id/hostinger-webhook";
 const WEBHOOK_URL = `${WEBHOOK_BASE}/webhook.php`;
 const POSTS_URL = `${WEBHOOK_BASE}/posts.php`;
 const TOKEN_KEY = "sqc_webhook_token";
