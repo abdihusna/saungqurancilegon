@@ -42,6 +42,15 @@ interface DynamicPost {
   updated_at?: string | null;
 }
 
+interface GalleryItem {
+  // existingSrc: gambar yang sudah ada di server (saat edit) — dikirim sebagai image_url
+  // base64: file baru yang baru di-upload — dikirim sebagai image_base64
+  existingSrc?: string;
+  base64?: string;
+  preview: string;
+  alt: string;
+}
+
 interface FormState {
   title: string;
   excerpt: string;
@@ -54,6 +63,7 @@ interface FormState {
   imageBase64: string | null;
   imageUrl: string;
   imagePreview: string | null;
+  gallery: GalleryItem[];
 }
 
 const emptyForm: FormState = {
@@ -68,6 +78,7 @@ const emptyForm: FormState = {
   imageBase64: null,
   imageUrl: "",
   imagePreview: null,
+  gallery: [],
 };
 
 const fileToBase64 = (file: File): Promise<string> =>
@@ -92,6 +103,20 @@ const Admin = () => {
   useEffect(() => {
     const saved = sessionStorage.getItem(TOKEN_KEY);
     if (saved) setToken(saved);
+  }, []);
+
+  // Inject noindex meta tag agar Google tidak meng-index halaman /admin
+  useEffect(() => {
+    const meta = document.createElement("meta");
+    meta.name = "robots";
+    meta.content = "noindex, nofollow, noarchive, nosnippet";
+    document.head.appendChild(meta);
+    const prevTitle = document.title;
+    document.title = "Admin — Saung Qur'an Cilegon";
+    return () => {
+      document.head.removeChild(meta);
+      document.title = prevTitle;
+    };
   }, []);
 
   // Fetch posts whenever token is set
@@ -151,6 +176,37 @@ const Admin = () => {
     setForm((f) => ({ ...f, imageBase64: base64, imagePreview: base64, imageUrl: "" }));
   };
 
+  const handleGalleryFiles = async (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    const newItems: GalleryItem[] = [];
+    for (const file of Array.from(files)) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error(`${file.name} terlalu besar`, { description: "Maks 5 MB per gambar." });
+        continue;
+      }
+      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+        toast.error(`${file.name} format tidak didukung`);
+        continue;
+      }
+      const base64 = await fileToBase64(file);
+      newItems.push({ base64, preview: base64, alt: "" });
+    }
+    if (newItems.length) {
+      setForm((f) => ({ ...f, gallery: [...f.gallery, ...newItems] }));
+    }
+  };
+
+  const removeGalleryItem = (idx: number) => {
+    setForm((f) => ({ ...f, gallery: f.gallery.filter((_, i) => i !== idx) }));
+  };
+
+  const updateGalleryAlt = (idx: number, alt: string) => {
+    setForm((f) => ({
+      ...f,
+      gallery: f.gallery.map((g, i) => (i === idx ? { ...g, alt } : g)),
+    }));
+  };
+
   const startEdit = (p: DynamicPost) => {
     setEditingSlug(p.slug);
     setForm({
@@ -165,6 +221,11 @@ const Admin = () => {
       imageBase64: null,
       imageUrl: p.image && !p.image.includes("/uploads/news/") ? p.image : "",
       imagePreview: p.image || null,
+      gallery: (p.gallery || []).map((g) => ({
+        existingSrc: g.src,
+        preview: g.src,
+        alt: g.alt || "",
+      })),
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -198,6 +259,15 @@ const Admin = () => {
       }
       if (form.imageBase64) body.image_base64 = form.imageBase64;
       else if (form.imageUrl.trim()) body.image_url = form.imageUrl.trim();
+
+      // Gallery: kirim array (existing pakai image_url, baru pakai image_base64)
+      // Saat editing kirim selalu (termasuk kosong = clear). Saat POST baru, hanya jika ada.
+      if (editingSlug || form.gallery.length > 0) {
+        body.gallery = form.gallery.map((g) => ({
+          alt: g.alt,
+          ...(g.base64 ? { image_base64: g.base64 } : { image_url: g.existingSrc }),
+        }));
+      }
 
       const url = editingSlug
         ? `${WEBHOOK_URL}?slug=${encodeURIComponent(editingSlug)}`
@@ -481,6 +551,74 @@ const Admin = () => {
                         className="flex-1 min-w-[200px]"
                       />
                     </div>
+                  </div>
+                </div>
+
+                {/* GALLERY MULTI-UPLOAD */}
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <Label>Gallery Foto ({form.gallery.length})</Label>
+                    <span className="text-xs text-muted-foreground">Maks 5 MB / foto</span>
+                  </div>
+                  <div className="space-y-3">
+                    {form.gallery.length > 0 && (
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        {form.gallery.map((g, idx) => (
+                          <div key={idx} className="space-y-1">
+                            <div className="relative group aspect-square rounded-lg overflow-hidden border bg-muted">
+                              <img
+                                src={g.preview}
+                                alt={g.alt || `Gallery ${idx + 1}`}
+                                className="w-full h-full object-cover"
+                              />
+                              <Button
+                                type="button"
+                                size="icon"
+                                variant="destructive"
+                                className="absolute top-1 right-1 h-6 w-6 opacity-90"
+                                onClick={() => removeGalleryItem(idx)}
+                              >
+                                <X className="h-3 w-3" />
+                              </Button>
+                              {g.existingSrc && !g.base64 && (
+                                <Badge variant="secondary" className="absolute bottom-1 left-1 text-[10px] h-4 px-1">
+                                  tersimpan
+                                </Badge>
+                              )}
+                            </div>
+                            <Input
+                              value={g.alt}
+                              onChange={(e) => updateGalleryAlt(idx, e.target.value)}
+                              placeholder="Caption / alt"
+                              className="h-7 text-xs"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => document.getElementById("gallery-files")?.click()}
+                    >
+                      <ImagePlus className="mr-2 h-4 w-4" />
+                      Tambah Foto Gallery (multi-select)
+                    </Button>
+                    <input
+                      id="gallery-files"
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      multiple
+                      className="hidden"
+                      onChange={(e) => {
+                        handleGalleryFiles(e.target.files);
+                        e.target.value = "";
+                      }}
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Tahan <kbd className="px-1 border rounded">Ctrl</kbd>/<kbd className="px-1 border rounded">⌘</kbd> untuk pilih banyak foto sekaligus.
+                    </p>
                   </div>
                 </div>
 
