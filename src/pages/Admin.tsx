@@ -42,6 +42,15 @@ interface DynamicPost {
   updated_at?: string | null;
 }
 
+interface GalleryItem {
+  // existingSrc: gambar yang sudah ada di server (saat edit) — dikirim sebagai image_url
+  // base64: file baru yang baru di-upload — dikirim sebagai image_base64
+  existingSrc?: string;
+  base64?: string;
+  preview: string;
+  alt: string;
+}
+
 interface FormState {
   title: string;
   excerpt: string;
@@ -54,6 +63,7 @@ interface FormState {
   imageBase64: string | null;
   imageUrl: string;
   imagePreview: string | null;
+  gallery: GalleryItem[];
 }
 
 const emptyForm: FormState = {
@@ -68,6 +78,7 @@ const emptyForm: FormState = {
   imageBase64: null,
   imageUrl: "",
   imagePreview: null,
+  gallery: [],
 };
 
 const fileToBase64 = (file: File): Promise<string> =>
