@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { newsData } from "@/data/newsData";
 import { useDynamicNews } from "@/hooks/useDynamicNews";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import thufulahBerkebun from "@/assets/gallery/thufulah-berkebun.jpg";
 import thufulahKolam from "@/assets/gallery/thufulah-kolam.jpg";
@@ -93,7 +94,7 @@ const Event = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-  const { dynamicNews } = useDynamicNews();
+  const { dynamicNews, loading: dynamicLoading } = useDynamicNews();
 
   // Gabung berita dinamis (dari webhook) dengan berita statis. Dinamis di atas.
   const allNews = useMemo(() => [...dynamicNews, ...newsData], [dynamicNews]);
@@ -277,7 +278,25 @@ const Event = () => {
             title="Berita & Informasi Terbaru"
             subtitle="Kabar terkini seputar Saung Qur'an Cilegon"
           />
-          {filteredNews.length > 0 ? (
+          {dynamicLoading && (
+            <div className="grid md:grid-cols-2 gap-6 mt-10" aria-label="Memuat berita">
+              {[0, 1].map((i) => (
+                <Card key={`skeleton-${i}`} className="overflow-hidden">
+                  <CardContent className="p-6 space-y-4">
+                    <div className="flex items-center gap-3">
+                      <Skeleton className="h-5 w-20" />
+                      <Skeleton className="h-4 w-32" />
+                    </div>
+                    <Skeleton className="h-6 w-3/4" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-5/6" />
+                    <Skeleton className="h-9 w-32 mt-2" />
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+          {!dynamicLoading && filteredNews.length > 0 ? (
             <div className="grid md:grid-cols-2 gap-6 mt-10">
               {filteredNews.map((news) => (
                 <Card key={news.id} className={`hover:shadow-lg transition-shadow group ${news.image ? 'md:col-span-2' : ''}`}>
@@ -310,11 +329,11 @@ const Event = () => {
                 </Card>
               ))}
             </div>
-          ) : (
+          ) : !dynamicLoading ? (
             <div className="text-center py-12 mt-10">
               <p className="text-muted-foreground">Tidak ada berita yang ditemukan untuk "{searchQuery}"</p>
             </div>
-          )}
+          ) : null}
         </div>
       </section>
 
