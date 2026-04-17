@@ -105,6 +105,20 @@ const Admin = () => {
     if (saved) setToken(saved);
   }, []);
 
+  // Inject noindex meta tag agar Google tidak meng-index halaman /admin
+  useEffect(() => {
+    const meta = document.createElement("meta");
+    meta.name = "robots";
+    meta.content = "noindex, nofollow, noarchive, nosnippet";
+    document.head.appendChild(meta);
+    const prevTitle = document.title;
+    document.title = "Admin — Saung Qur'an Cilegon";
+    return () => {
+      document.head.removeChild(meta);
+      document.title = prevTitle;
+    };
+  }, []);
+
   // Fetch posts whenever token is set
   useEffect(() => {
     if (!token) return;
@@ -162,6 +176,37 @@ const Admin = () => {
     setForm((f) => ({ ...f, imageBase64: base64, imagePreview: base64, imageUrl: "" }));
   };
 
+  const handleGalleryFiles = async (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    const newItems: GalleryItem[] = [];
+    for (const file of Array.from(files)) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error(`${file.name} terlalu besar`, { description: "Maks 5 MB per gambar." });
+        continue;
+      }
+      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+        toast.error(`${file.name} format tidak didukung`);
+        continue;
+      }
+      const base64 = await fileToBase64(file);
+      newItems.push({ base64, preview: base64, alt: "" });
+    }
+    if (newItems.length) {
+      setForm((f) => ({ ...f, gallery: [...f.gallery, ...newItems] }));
+    }
+  };
+
+  const removeGalleryItem = (idx: number) => {
+    setForm((f) => ({ ...f, gallery: f.gallery.filter((_, i) => i !== idx) }));
+  };
+
+  const updateGalleryAlt = (idx: number, alt: string) => {
+    setForm((f) => ({
+      ...f,
+      gallery: f.gallery.map((g, i) => (i === idx ? { ...g, alt } : g)),
+    }));
+  };
+
   const startEdit = (p: DynamicPost) => {
     setEditingSlug(p.slug);
     setForm({
@@ -176,6 +221,11 @@ const Admin = () => {
       imageBase64: null,
       imageUrl: p.image && !p.image.includes("/uploads/news/") ? p.image : "",
       imagePreview: p.image || null,
+      gallery: (p.gallery || []).map((g) => ({
+        existingSrc: g.src,
+        preview: g.src,
+        alt: g.alt || "",
+      })),
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
