@@ -9,7 +9,9 @@ import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import { Lock, Plus, Pencil, Trash2, LogOut, ImagePlus, X, Loader2, ExternalLink, Download } from "lucide-react";
+import { Lock, Plus, Pencil, Trash2, LogOut, ImagePlus, X, Loader2, ExternalLink, Download, KeyRound, Calendar, Eye, EyeOff } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Link } from "react-router-dom";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -37,6 +39,7 @@ interface NewsRow {
   gallery: { src: string; alt: string }[];
   published: boolean;
   published_at: string | null;
+  scheduled_publish_at: string | null;
   created_at: string;
 }
 
@@ -60,6 +63,8 @@ interface FormState {
   imageUrl: string;
   imagePreview: string | null;
   gallery: GalleryItem[];
+  published: boolean;
+  scheduledPublishAt: string; // datetime-local value, "" if none
 }
 
 const emptyForm: FormState = {
@@ -75,6 +80,8 @@ const emptyForm: FormState = {
   imageUrl: "",
   imagePreview: null,
   gallery: [],
+  published: true,
+  scheduledPublishAt: "",
 };
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
