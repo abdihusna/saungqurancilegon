@@ -221,6 +221,22 @@ const Admin = () => {
     toast.success("Berhasil login");
   };
 
+  const handleForgotPassword = async () => {
+    const target = email.trim();
+    if (!target) {
+      toast.error("Isi email dulu", { description: "Tulis email admin di kolom email lalu klik 'Lupa Password'." });
+      return;
+    }
+    const { error } = await supabase.auth.resetPasswordForEmail(target, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    if (error) {
+      toast.error("Gagal kirim email reset", { description: error.message });
+      return;
+    }
+    toast.success("Email reset dikirim", { description: `Cek inbox ${target} untuk link reset password.` });
+  };
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setForm(emptyForm);
