@@ -789,13 +789,67 @@ const Admin = () => {
                   </div>
                 </div>
 
+
+                {/* PUBLISH / SCHEDULE */}
+                <div className="rounded-lg border p-4 space-y-3 bg-muted/30">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label htmlFor="published" className="flex items-center gap-2">
+                        {form.published ? <Eye className="h-4 w-4 text-primary" /> : <EyeOff className="h-4 w-4 text-muted-foreground" />}
+                        Status
+                      </Label>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {form.published ? "Published — tampil di /event" : "Draft — tersembunyi"}
+                      </p>
+                    </div>
+                    <Switch
+                      id="published"
+                      checked={form.published}
+                      onCheckedChange={(v) => setForm({ ...form, published: v, scheduledPublishAt: v ? form.scheduledPublishAt : form.scheduledPublishAt })}
+                      disabled={!!form.scheduledPublishAt && new Date(form.scheduledPublishAt).getTime() > Date.now()}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="scheduled" className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4" /> Jadwalkan Publish (opsional)
+                    </Label>
+                    <Input
+                      id="scheduled"
+                      type="datetime-local"
+                      value={form.scheduledPublishAt}
+                      onChange={(e) => setForm({ ...form, scheduledPublishAt: e.target.value })}
+                      className="mt-1"
+                    />
+                    {form.scheduledPublishAt && new Date(form.scheduledPublishAt).getTime() > Date.now() && (
+                      <p className="text-xs text-primary mt-1">
+                        Akan auto-publish: {new Date(form.scheduledPublishAt).toLocaleString("id-ID")}
+                      </p>
+                    )}
+                    {form.scheduledPublishAt && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="h-7 px-2 text-xs mt-1"
+                        onClick={() => setForm({ ...form, scheduledPublishAt: "" })}
+                      >
+                        <X className="h-3 w-3 mr-1" /> Hapus jadwal
+                      </Button>
+                    )}
+                  </div>
+                </div>
+
                 <Button type="submit" disabled={submitting} className="w-full">
                   {submitting ? (
                     <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Menyimpan...</>
                   ) : editingId ? (
                     <><Pencil className="mr-2 h-4 w-4" /> Update Berita</>
-                  ) : (
+                  ) : form.scheduledPublishAt && new Date(form.scheduledPublishAt).getTime() > Date.now() ? (
+                    <><Calendar className="mr-2 h-4 w-4" /> Jadwalkan Berita</>
+                  ) : form.published ? (
                     <><Plus className="mr-2 h-4 w-4" /> Publish Berita</>
+                  ) : (
+                    <><Plus className="mr-2 h-4 w-4" /> Simpan sebagai Draft</>
                   )}
                 </Button>
               </form>
