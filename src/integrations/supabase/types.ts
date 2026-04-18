@@ -28,6 +28,7 @@ export type Database = {
           image_url: string | null
           published: boolean
           published_at: string | null
+          scheduled_publish_at: string | null
           slug: string
           tags: string[]
           title: string
@@ -46,6 +47,7 @@ export type Database = {
           image_url?: string | null
           published?: boolean
           published_at?: string | null
+          scheduled_publish_at?: string | null
           slug: string
           tags?: string[]
           title: string
@@ -64,6 +66,7 @@ export type Database = {
           image_url?: string | null
           published?: boolean
           published_at?: string | null
+          scheduled_publish_at?: string | null
           slug?: string
           tags?: string[]
           title?: string
@@ -151,6 +154,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      auto_publish_scheduled_news: { Args: never; Returns: undefined }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
