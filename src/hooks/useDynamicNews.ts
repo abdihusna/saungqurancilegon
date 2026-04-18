@@ -51,10 +51,12 @@ export function useDynamicNews() {
     let cancelled = false;
 
     (async () => {
+      const nowIso = new Date().toISOString();
       const { data, error } = await supabase
         .from("news")
         .select("id, slug, title, excerpt, content, category, date_label, image_url, gallery, published_at, created_at")
         .eq("published", true)
+        .or(`published_at.is.null,published_at.lte.${nowIso}`)
         .order("published_at", { ascending: false });
 
       if (cancelled) return;

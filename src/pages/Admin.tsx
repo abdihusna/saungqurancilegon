@@ -9,7 +9,9 @@ import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import { Lock, Plus, Pencil, Trash2, LogOut, ImagePlus, X, Loader2, ExternalLink, Download } from "lucide-react";
+import { Lock, Plus, Pencil, Trash2, LogOut, ImagePlus, X, Loader2, ExternalLink, Download, KeyRound, Calendar, Eye, EyeOff } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Link } from "react-router-dom";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -37,6 +39,7 @@ interface NewsRow {
   gallery: { src: string; alt: string }[];
   published: boolean;
   published_at: string | null;
+  scheduled_publish_at: string | null;
   created_at: string;
 }
 
@@ -60,6 +63,8 @@ interface FormState {
   imageUrl: string;
   imagePreview: string | null;
   gallery: GalleryItem[];
+  published: boolean;
+  scheduledPublishAt: string; // datetime-local value, "" if none
 }
 
 const emptyForm: FormState = {
@@ -75,6 +80,8 @@ const emptyForm: FormState = {
   imageUrl: "",
   imagePreview: null,
   gallery: [],
+  published: true,
+  scheduledPublishAt: "",
 };
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -214,6 +221,22 @@ const Admin = () => {
     toast.success("Berhasil login");
   };
 
+  const handleForgotPassword = async () => {
+    const target = email.trim();
+    if (!target) {
+      toast.error("Isi email dulu", { description: "Tulis email admin di kolom email lalu klik 'Lupa Password'." });
+      return;
+    }
+    const { error } = await supabase.auth.resetPasswordForEmail(target, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    if (error) {
+      toast.error("Gagal kirim email reset", { description: error.message });
+      return;
+    }
+    toast.success("Email reset dikirim", { description: `Cek inbox ${target} untuk link reset password.` });
+  };
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setForm(emptyForm);
@@ -260,6 +283,13 @@ const Admin = () => {
 
   const startEdit = (p: NewsRow) => {
     setEditingId(p.id);
+    // Convert ISO to datetime-local format (YYYY-MM-DDTHH:mm)
+    const toLocal = (iso: string | null) => {
+      if (!iso) return "";
+      const d = new Date(iso);
+      const pad = (n: number) => String(n).padStart(2, "0");
+      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    };
     setForm({
       title: p.title,
       excerpt: p.excerpt ?? "",
@@ -277,6 +307,8 @@ const Admin = () => {
         preview: g.src,
         alt: g.alt ?? "",
       })),
+      published: p.published,
+      scheduledPublishAt: toLocal(p.scheduled_publish_at),
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -313,6 +345,14 @@ const Admin = () => {
         if (src) galleryFinal.push({ src, alt: g.alt || "" });
       }
 
+      // Resolve scheduled date
+      const scheduledIso = form.scheduledPublishAt
+        ? new Date(form.scheduledPublishAt).toISOString()
+        : null;
+      const isScheduledFuture = !!scheduledIso && new Date(scheduledIso).getTime() > Date.now();
+      // If a future schedule is set, force draft. Otherwise honor switch.
+      const finalPublished = isScheduledFuture ? false : form.published;
+
       const payload = {
         title: form.title.trim(),
         slug: form.slug.trim() || slugify(form.title),
@@ -324,21 +364,35 @@ const Admin = () => {
         tags: form.tagsText.split(",").map((t) => t.trim()).filter(Boolean),
         image_url: imageUrl,
         gallery: galleryFinal,
-        published: true,
+        published: finalPublished,
+        scheduled_publish_at: isScheduledFuture ? scheduledIso : null,
       };
 
       if (editingId) {
         const { error } = await supabase.from("news").update(payload).eq("id", editingId);
         if (error) throw error;
-        toast.success("Berita diperbarui");
+        toast.success(
+          isScheduledFuture
+            ? "Berita dijadwalkan"
+            : finalPublished
+              ? "Berita diperbarui & published"
+              : "Berita diperbarui (draft)",
+        );
       } else {
         const { error } = await supabase.from("news").insert({
           ...payload,
           created_by: session!.user.id,
-          published_at: new Date().toISOString(),
+          published_at: finalPublished ? new Date().toISOString() : scheduledIso,
         });
         if (error) throw error;
-        toast.success("Berita dipublish", { description: `/berita/${payload.slug}` });
+        toast.success(
+          isScheduledFuture
+            ? `Dijadwalkan publish ${new Date(scheduledIso!).toLocaleString("id-ID")}`
+            : finalPublished
+              ? "Berita dipublish"
+              : "Disimpan sebagai draft",
+          { description: `/berita/${payload.slug}` },
+        );
       }
 
       setForm(emptyForm);
@@ -437,6 +491,15 @@ const Admin = () => {
                     <><Lock className="mr-2 h-4 w-4" /> Masuk</>
                   )}
                 </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="w-full text-xs"
+                  onClick={handleForgotPassword}
+                >
+                  <KeyRound className="mr-2 h-3 w-3" /> Lupa Password?
+                </Button>
                 <Alert>
                   <AlertDescription className="text-xs">
                     Akses hanya untuk admin yang sudah terdaftar. Hubungi pengurus jika butuh akses.
@@ -482,7 +545,12 @@ const Admin = () => {
                 Login sebagai <strong>{session.user.email}</strong>
               </p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/admin/ganti-password">
+                  <KeyRound className="mr-2 h-4 w-4" /> Ganti Password
+                </Link>
+              </Button>
               <Button variant="outline" size="sm" onClick={() => setImportDialogOpen(true)}>
                 <Download className="mr-2 h-4 w-4" /> Import dari Hostinger
               </Button>
@@ -721,13 +789,67 @@ const Admin = () => {
                   </div>
                 </div>
 
+
+                {/* PUBLISH / SCHEDULE */}
+                <div className="rounded-lg border p-4 space-y-3 bg-muted/30">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label htmlFor="published" className="flex items-center gap-2">
+                        {form.published ? <Eye className="h-4 w-4 text-primary" /> : <EyeOff className="h-4 w-4 text-muted-foreground" />}
+                        Status
+                      </Label>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {form.published ? "Published — tampil di /event" : "Draft — tersembunyi"}
+                      </p>
+                    </div>
+                    <Switch
+                      id="published"
+                      checked={form.published}
+                      onCheckedChange={(v) => setForm({ ...form, published: v, scheduledPublishAt: v ? form.scheduledPublishAt : form.scheduledPublishAt })}
+                      disabled={!!form.scheduledPublishAt && new Date(form.scheduledPublishAt).getTime() > Date.now()}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="scheduled" className="flex items-center gap-2">
+                      <Calendar className="h-4 w-4" /> Jadwalkan Publish (opsional)
+                    </Label>
+                    <Input
+                      id="scheduled"
+                      type="datetime-local"
+                      value={form.scheduledPublishAt}
+                      onChange={(e) => setForm({ ...form, scheduledPublishAt: e.target.value })}
+                      className="mt-1"
+                    />
+                    {form.scheduledPublishAt && new Date(form.scheduledPublishAt).getTime() > Date.now() && (
+                      <p className="text-xs text-primary mt-1">
+                        Akan auto-publish: {new Date(form.scheduledPublishAt).toLocaleString("id-ID")}
+                      </p>
+                    )}
+                    {form.scheduledPublishAt && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="h-7 px-2 text-xs mt-1"
+                        onClick={() => setForm({ ...form, scheduledPublishAt: "" })}
+                      >
+                        <X className="h-3 w-3 mr-1" /> Hapus jadwal
+                      </Button>
+                    )}
+                  </div>
+                </div>
+
                 <Button type="submit" disabled={submitting} className="w-full">
                   {submitting ? (
                     <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Menyimpan...</>
                   ) : editingId ? (
                     <><Pencil className="mr-2 h-4 w-4" /> Update Berita</>
-                  ) : (
+                  ) : form.scheduledPublishAt && new Date(form.scheduledPublishAt).getTime() > Date.now() ? (
+                    <><Calendar className="mr-2 h-4 w-4" /> Jadwalkan Berita</>
+                  ) : form.published ? (
                     <><Plus className="mr-2 h-4 w-4" /> Publish Berita</>
+                  ) : (
+                    <><Plus className="mr-2 h-4 w-4" /> Simpan sebagai Draft</>
                   )}
                 </Button>
               </form>
@@ -761,7 +883,23 @@ const Admin = () => {
                           <img src={p.image_url} alt="" className="w-16 h-16 rounded object-cover flex-shrink-0" />
                         )}
                         <div className="flex-1 min-w-0">
-                          <Badge variant="secondary" className="mb-1 text-xs">{p.category}</Badge>
+                          <div className="flex flex-wrap gap-1 mb-1">
+                            <Badge variant="secondary" className="text-xs">{p.category}</Badge>
+                            {p.scheduled_publish_at && new Date(p.scheduled_publish_at).getTime() > Date.now() ? (
+                              <Badge variant="outline" className="text-xs border-primary text-primary">
+                                <Calendar className="h-3 w-3 mr-1" />
+                                {new Date(p.scheduled_publish_at).toLocaleString("id-ID", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+                              </Badge>
+                            ) : p.published ? (
+                              <Badge variant="default" className="text-xs">
+                                <Eye className="h-3 w-3 mr-1" /> Published
+                              </Badge>
+                            ) : (
+                              <Badge variant="outline" className="text-xs">
+                                <EyeOff className="h-3 w-3 mr-1" /> Draft
+                              </Badge>
+                            )}
+                          </div>
                           <h3 className="font-medium text-sm line-clamp-2">{p.title}</h3>
                           <p className="text-xs text-muted-foreground mt-1">{p.date_label}</p>
                         </div>
