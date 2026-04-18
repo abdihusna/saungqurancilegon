@@ -283,6 +283,13 @@ const Admin = () => {
 
   const startEdit = (p: NewsRow) => {
     setEditingId(p.id);
+    // Convert ISO to datetime-local format (YYYY-MM-DDTHH:mm)
+    const toLocal = (iso: string | null) => {
+      if (!iso) return "";
+      const d = new Date(iso);
+      const pad = (n: number) => String(n).padStart(2, "0");
+      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    };
     setForm({
       title: p.title,
       excerpt: p.excerpt ?? "",
@@ -300,6 +307,8 @@ const Admin = () => {
         preview: g.src,
         alt: g.alt ?? "",
       })),
+      published: p.published,
+      scheduledPublishAt: toLocal(p.scheduled_publish_at),
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -336,6 +345,14 @@ const Admin = () => {
         if (src) galleryFinal.push({ src, alt: g.alt || "" });
       }
 
+      // Resolve scheduled date
+      const scheduledIso = form.scheduledPublishAt
+        ? new Date(form.scheduledPublishAt).toISOString()
+        : null;
+      const isScheduledFuture = !!scheduledIso && new Date(scheduledIso).getTime() > Date.now();
+      // If a future schedule is set, force draft. Otherwise honor switch.
+      const finalPublished = isScheduledFuture ? false : form.published;
+
       const payload = {
         title: form.title.trim(),
         slug: form.slug.trim() || slugify(form.title),
@@ -347,21 +364,35 @@ const Admin = () => {
         tags: form.tagsText.split(",").map((t) => t.trim()).filter(Boolean),
         image_url: imageUrl,
         gallery: galleryFinal,
-        published: true,
+        published: finalPublished,
+        scheduled_publish_at: isScheduledFuture ? scheduledIso : null,
       };
 
       if (editingId) {
         const { error } = await supabase.from("news").update(payload).eq("id", editingId);
         if (error) throw error;
-        toast.success("Berita diperbarui");
+        toast.success(
+          isScheduledFuture
+            ? "Berita dijadwalkan"
+            : finalPublished
+              ? "Berita diperbarui & published"
+              : "Berita diperbarui (draft)",
+        );
       } else {
         const { error } = await supabase.from("news").insert({
           ...payload,
           created_by: session!.user.id,
-          published_at: new Date().toISOString(),
+          published_at: finalPublished ? new Date().toISOString() : scheduledIso,
         });
         if (error) throw error;
-        toast.success("Berita dipublish", { description: `/berita/${payload.slug}` });
+        toast.success(
+          isScheduledFuture
+            ? `Dijadwalkan publish ${new Date(scheduledIso!).toLocaleString("id-ID")}`
+            : finalPublished
+              ? "Berita dipublish"
+              : "Disimpan sebagai draft",
+          { description: `/berita/${payload.slug}` },
+        );
       }
 
       setForm(emptyForm);
