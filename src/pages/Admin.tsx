@@ -491,6 +491,15 @@ const Admin = () => {
                     <><Lock className="mr-2 h-4 w-4" /> Masuk</>
                   )}
                 </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="w-full text-xs"
+                  onClick={handleForgotPassword}
+                >
+                  <KeyRound className="mr-2 h-3 w-3" /> Lupa Password?
+                </Button>
                 <Alert>
                   <AlertDescription className="text-xs">
                     Akses hanya untuk admin yang sudah terdaftar. Hubungi pengurus jika butuh akses.
@@ -536,7 +545,12 @@ const Admin = () => {
                 Login sebagai <strong>{session.user.email}</strong>
               </p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/admin/ganti-password">
+                  <KeyRound className="mr-2 h-4 w-4" /> Ganti Password
+                </Link>
+              </Button>
               <Button variant="outline" size="sm" onClick={() => setImportDialogOpen(true)}>
                 <Download className="mr-2 h-4 w-4" /> Import dari Hostinger
               </Button>
