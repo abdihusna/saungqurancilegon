@@ -883,7 +883,23 @@ const Admin = () => {
                           <img src={p.image_url} alt="" className="w-16 h-16 rounded object-cover flex-shrink-0" />
                         )}
                         <div className="flex-1 min-w-0">
-                          <Badge variant="secondary" className="mb-1 text-xs">{p.category}</Badge>
+                          <div className="flex flex-wrap gap-1 mb-1">
+                            <Badge variant="secondary" className="text-xs">{p.category}</Badge>
+                            {p.scheduled_publish_at && new Date(p.scheduled_publish_at).getTime() > Date.now() ? (
+                              <Badge variant="outline" className="text-xs border-primary text-primary">
+                                <Calendar className="h-3 w-3 mr-1" />
+                                {new Date(p.scheduled_publish_at).toLocaleString("id-ID", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+                              </Badge>
+                            ) : p.published ? (
+                              <Badge variant="default" className="text-xs">
+                                <Eye className="h-3 w-3 mr-1" /> Published
+                              </Badge>
+                            ) : (
+                              <Badge variant="outline" className="text-xs">
+                                <EyeOff className="h-3 w-3 mr-1" /> Draft
+                              </Badge>
+                            )}
+                          </div>
                           <h3 className="font-medium text-sm line-clamp-2">{p.title}</h3>
                           <p className="text-xs text-muted-foreground mt-1">{p.date_label}</p>
                         </div>
