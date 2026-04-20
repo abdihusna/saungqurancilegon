@@ -10,9 +10,14 @@ import { ArrowLeft, Calendar, Share2, Images } from "lucide-react";
 
 const BeritaDetail = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { dynamicNews } = useDynamicNews();
-  const news = [...dynamicNews, ...newsData].find((n) => n.slug === slug);
-  
+  const { dynamicNews, loading } = useDynamicNews();
+
+  if (loading) {
+    return <div className="text-center py-20">Loading...</div>;
+  }
+
+  const news = [...dynamicNews, ...newsData].find((n) => n.slug?.toLowerCase() === slug?.toLowerCase());
+
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -91,9 +96,7 @@ const BeritaDetail = () => {
                   {news.date}
                 </div>
               </div>
-              <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">
-                {news.title}
-              </h1>
+              <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-4">{news.title}</h1>
               <Button variant="outline" size="sm" onClick={handleShare} className="gap-2">
                 <Share2 className="h-4 w-4" />
                 Bagikan
@@ -103,32 +106,28 @@ const BeritaDetail = () => {
             {/* Featured Image */}
             {news.image && (
               <div className="mb-8 rounded-xl overflow-hidden">
-                <img
-                  src={news.image}
-                  alt={news.title}
-                  className="w-full h-auto object-cover"
-                />
+                <img src={news.image} alt={news.title} className="w-full h-auto object-cover" />
               </div>
             )}
 
             {/* Content */}
             <div className="prose prose-lg max-w-none text-foreground">
-              {news.content.split('\n\n').map((paragraph, index) => {
+              {news.content.split("\n\n").map((paragraph, index) => {
                 // Handle markdown-like bold text
-                const formattedText = paragraph.split('**').map((text, i) => 
-                  i % 2 === 1 ? <strong key={i}>{text}</strong> : text
-                );
-                
-                if (paragraph.startsWith('---')) {
+                const formattedText = paragraph
+                  .split("**")
+                  .map((text, i) => (i % 2 === 1 ? <strong key={i}>{text}</strong> : text));
+
+                if (paragraph.startsWith("---")) {
                   return <hr key={index} className="my-6 border-border" />;
                 }
-                
-                if (paragraph.startsWith('- ')) {
+
+                if (paragraph.startsWith("- ")) {
                   return (
                     <ul key={index} className="list-disc list-inside my-4">
-                      {paragraph.split('\n').map((item, i) => (
+                      {paragraph.split("\n").map((item, i) => (
                         <li key={i} className="text-muted-foreground">
-                          {item.replace('- ', '')}
+                          {item.replace("- ", "")}
                         </li>
                       ))}
                     </ul>
@@ -148,9 +147,7 @@ const BeritaDetail = () => {
               <div className="mt-12">
                 <div className="flex items-center gap-2 mb-6">
                   <Images className="h-5 w-5 text-primary" />
-                  <h2 className="font-serif text-2xl font-bold text-foreground">
-                    Galeri Foto
-                  </h2>
+                  <h2 className="font-serif text-2xl font-bold text-foreground">Galeri Foto</h2>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {news.gallery.map((image, index) => (
@@ -178,9 +175,7 @@ const BeritaDetail = () => {
             {/* Footer */}
             <footer className="mt-12 pt-8 border-t border-border">
               <div className="bg-accent/50 rounded-xl p-6 text-center">
-                <p className="font-serif text-lg font-semibold text-foreground mb-2">
-                  Saung Qur'an Cilegon
-                </p>
+                <p className="font-serif text-lg font-semibold text-foreground mb-2">Saung Qur'an Cilegon</p>
                 <p className="text-sm text-muted-foreground italic">
                   Mewujudkan Generasi Qur'ani, Terampil, dan Mandiri
                 </p>
