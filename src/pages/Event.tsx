@@ -98,13 +98,7 @@ const Event = () => {
   const { dynamicNews, loading: dynamicLoading } = useDynamicNews();
 
   // Gabung berita dinamis (dari webhook) dengan berita statis. Dinamis di atas.
-  const allNews = useMemo(() => {
-    return [...dynamicNews, ...newsData].sort((a, b) => {
-      const dateA = new Date(a.date || 0).getTime();
-      const dateB = new Date(b.date || 0).getTime();
-      return dateB - dateA;
-    });
-  }, [dynamicNews]);
+  const allNews = dynamicNews;
 
   // Filter news and events based on search query
   const filteredNews = useMemo(() => {
