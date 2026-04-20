@@ -70,7 +70,8 @@ const upcomingEvents = [
   {
     id: 3,
     title: "Kajian Parenting: Membina Intelektualitas Anak Sejak Dini",
-    description: "Kajian Parenting SQC bersama Ustadz Drs. Muhammad Rijal, Psi (Pembina Yayasan Al Hanif Cilegon, Independent Consultant, Trainer, Presenter & Conselor). Acara ini diselenggarakan sebagai bentuk kepedulian dalam mendidik peserta didik dan bukti komitmen orangtua dalam meningkatkan kapasitas keilmuan.",
+    description:
+      "Kajian Parenting SQC bersama Ustadz Drs. Muhammad Rijal, Psi (Pembina Yayasan Al Hanif Cilegon, Independent Consultant, Trainer, Presenter & Conselor). Acara ini diselenggarakan sebagai bentuk kepedulian dalam mendidik peserta didik dan bukti komitmen orangtua dalam meningkatkan kapasitas keilmuan.",
     date: "25 Januari 2026 / 6 Sya'ban 1447 H",
     time: "08:00 - 10:00 WIB",
     location: "Saung Qur'an Cilegon (Saung Abu Bakr)",
@@ -80,7 +81,8 @@ const upcomingEvents = [
   {
     id: 4,
     title: "Kelas Tahsin & Hafalan Ummahat",
-    description: "Yuk, perbaiki bacaan dan kuatkan hafalan Al-Qur'an bersama Saung Qur'an Cilegon! Pembahasan khusus huruf ظ (żho): Membenahi Bacaan, Menguatkan Hafalan, Meraih Keberkahan. Pemateri: Ustadzah Yuyun Rahayu & Ustadzah Nur Shadrina. Terbuka untuk Ummahat.",
+    description:
+      "Yuk, perbaiki bacaan dan kuatkan hafalan Al-Qur'an bersama Saung Qur'an Cilegon! Pembahasan khusus huruf ظ (żho): Membenahi Bacaan, Menguatkan Hafalan, Meraih Keberkahan. Pemateri: Ustadzah Yuyun Rahayu & Ustadzah Nur Shadrina. Terbuka untuk Ummahat.",
     date: "Setiap Kamis",
     time: "16:00 - 17:00 WIB",
     location: "Saung Abu Bakar, Saung Qur'an Cilegon",
@@ -89,7 +91,6 @@ const upcomingEvents = [
   },
 ];
 
-
 const Event = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -97,7 +98,11 @@ const Event = () => {
   const { dynamicNews, loading: dynamicLoading } = useDynamicNews();
 
   // Gabung berita dinamis (dari webhook) dengan berita statis. Dinamis di atas.
-  const allNews = useMemo(() => [...dynamicNews, ...newsData], [dynamicNews]);
+  const allNews = useMemo(() => {
+    return [...dynamicNews, ...newsData].sort(
+      (a, b) => new Date(b.created_at || b.date) - new Date(a.created_at || a.date),
+    );
+  }, [dynamicNews]);
 
   // Filter news and events based on search query
   const filteredNews = useMemo(() => {
@@ -108,7 +113,7 @@ const Event = () => {
         news.title.toLowerCase().includes(query) ||
         news.excerpt.toLowerCase().includes(query) ||
         news.category.toLowerCase().includes(query) ||
-        news.content.toLowerCase().includes(query)
+        news.content.toLowerCase().includes(query),
     );
   }, [searchQuery, allNews]);
 
@@ -120,7 +125,7 @@ const Event = () => {
         event.title.toLowerCase().includes(query) ||
         event.description.toLowerCase().includes(query) ||
         event.category.toLowerCase().includes(query) ||
-        event.location.toLowerCase().includes(query)
+        event.location.toLowerCase().includes(query),
     );
   }, [searchQuery]);
 
@@ -146,13 +151,11 @@ const Event = () => {
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/10 py-16 md:py-24">
         <div className="container text-center">
-          <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Event & Berita
-          </h1>
+          <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">Event & Berita</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
             Ikuti perkembangan terbaru kegiatan dan informasi dari Saung Qur'an Cilegon
           </p>
-          
+
           {/* Search Bar */}
           <div className="max-w-md mx-auto relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -173,7 +176,7 @@ const Event = () => {
               </button>
             )}
           </div>
-          
+
           {searchQuery && (
             <p className="text-sm text-muted-foreground mt-4">
               Menampilkan {filteredNews.length} berita dan {filteredEvents.length} event untuk "{searchQuery}"
@@ -185,10 +188,7 @@ const Event = () => {
       {/* Latest Gallery Section */}
       <section className="py-16 bg-background">
         <div className="container">
-          <SectionHeader
-            title="Gallery Terbaru"
-            subtitle="Dokumentasi kegiatan terkini di Saung Qur'an Cilegon"
-          />
+          <SectionHeader title="Gallery Terbaru" subtitle="Dokumentasi kegiatan terkini di Saung Qur'an Cilegon" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
             {latestGallery.map((image, index) => (
               <div
@@ -216,19 +216,19 @@ const Event = () => {
       {/* Upcoming Events Section */}
       <section className="py-16 bg-muted/30">
         <div className="container">
-          <SectionHeader
-            title="Agenda Mendatang"
-            subtitle="Event dan kegiatan yang akan datang"
-          />
+          <SectionHeader title="Agenda Mendatang" subtitle="Event dan kegiatan yang akan datang" />
           {filteredEvents.length > 0 ? (
             <div className="grid md:grid-cols-3 gap-6 mt-10">
               {filteredEvents.map((event) => (
-                <Card key={event.id} className={`hover:shadow-lg transition-shadow ${event.image ? 'md:col-span-3' : ''}`}>
-                  <div className={event.image ? 'flex flex-col md:flex-row' : ''}>
+                <Card
+                  key={event.id}
+                  className={`hover:shadow-lg transition-shadow ${event.image ? "md:col-span-3" : ""}`}
+                >
+                  <div className={event.image ? "flex flex-col md:flex-row" : ""}>
                     {event.image && (
                       <div className="md:w-1/3 flex-shrink-0">
-                        <img 
-                          src={event.image} 
+                        <img
+                          src={event.image}
                           alt={event.title}
                           className="w-full h-full object-cover rounded-t-lg md:rounded-l-lg md:rounded-tr-none"
                         />
@@ -274,10 +274,7 @@ const Event = () => {
       {/* Latest News Section */}
       <section className="py-16 bg-background">
         <div className="container">
-          <SectionHeader
-            title="Berita & Informasi Terbaru"
-            subtitle="Kabar terkini seputar Saung Qur'an Cilegon"
-          />
+          <SectionHeader title="Berita & Informasi Terbaru" subtitle="Kabar terkini seputar Saung Qur'an Cilegon" />
           {dynamicLoading && (
             <div className="grid md:grid-cols-2 gap-6 mt-10" aria-label="Memuat berita">
               {[0, 1].map((i) => (
@@ -299,18 +296,17 @@ const Event = () => {
           {!dynamicLoading && filteredNews.length > 0 ? (
             <div className="grid md:grid-cols-2 gap-6 mt-10">
               {filteredNews.map((news) => (
-                <Card key={news.id} className={`hover:shadow-lg transition-shadow group ${news.image ? 'md:col-span-2' : ''}`}>
-                  <CardContent className={`p-6 ${news.image ? 'flex flex-col md:flex-row gap-6' : ''}`}>
+                <Card
+                  key={news.id}
+                  className={`hover:shadow-lg transition-shadow group ${news.image ? "md:col-span-2" : ""}`}
+                >
+                  <CardContent className={`p-6 ${news.image ? "flex flex-col md:flex-row gap-6" : ""}`}>
                     {news.image && (
                       <div className="md:w-1/3 flex-shrink-0">
-                        <img 
-                          src={news.image} 
-                          alt={news.title}
-                          className="w-full h-auto rounded-lg object-cover"
-                        />
+                        <img src={news.image} alt={news.title} className="w-full h-auto rounded-lg object-cover" />
                       </div>
                     )}
-                    <div className={news.image ? 'flex-1' : ''}>
+                    <div className={news.image ? "flex-1" : ""}>
                       <div className="flex items-center gap-3 mb-3">
                         <Badge>{news.category}</Badge>
                         <span className="text-sm text-muted-foreground">{news.date}</span>
