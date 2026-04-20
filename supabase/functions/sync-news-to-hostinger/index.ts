@@ -1,6 +1,6 @@
 // Edge function: sync-news-to-hostinger
 // Dipanggil otomatis oleh database trigger (pg_net) setiap insert/update di tabel news.
-// Forward payload ke Hostinger webhook menggunakan HOSTINGER_WEBHOOK_SECRET.
+// Forward ke Hostinger webhook.php menggunakan header X-Webhook-Secret.
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -59,35 +59,48 @@ Deno.serve(async (req) => {
       );
     }
 
-    const action = payload.type === "INSERT" ? "create" : "update";
+    // Body sesuai format webhook.php (field di root, bukan dibungkus)
     const body = {
-      action,
-      secret: webhookSecret,
-      post: {
-        slug: news.slug,
-        title: news.title,
-        excerpt: news.excerpt ?? "",
-        content: news.content,
-        category: news.category,
-        date: news.date_label ?? "",
-        author: news.author,
-        tags: news.tags ?? [],
-        image: news.image_url,
-        gallery: Array.isArray(news.gallery) ? news.gallery : [],
-        created_at: news.published_at ?? news.created_at,
-      },
+      title: news.title,
+      slug: news.slug,
+      excerpt: news.excerpt ?? "",
+      content: news.content,
+      category: news.category,
+      date: news.date_label ?? "",
+      author: news.author,
+      tags: news.tags ?? [],
+      image_url: news.image_url,
+      gallery: Array.isArray(news.gallery)
+        ? (news.gallery as { src: string; alt: string }[]).map((g) => ({
+            image_url: g.src,
+            alt: g.alt ?? "",
+          }))
+        : [],
     };
 
-    console.log(`Forwarding ${action} for slug=${news.slug} to Hostinger`);
+    // Cek apakah slug sudah ada di Hostinger -> tentukan METHOD
+    const baseUrl = webhookUrl.replace(/\/webhook\.php.*$/, "");
+    const checkRes = await fetch(`${baseUrl}/posts.php?slug=${encodeURIComponent(news.slug)}`);
+    const exists = checkRes.status === 200;
 
-    const res = await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const targetUrl = exists
+      ? `${webhookUrl}?slug=${encodeURIComponent(news.slug)}`
+      : webhookUrl;
+    const method = exists ? "PUT" : "POST";
+
+    console.log(`${method} ${targetUrl} (slug=${news.slug}, exists=${exists})`);
+
+    const res = await fetch(targetUrl, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        "X-Webhook-Secret": webhookSecret,
+      },
       body: JSON.stringify(body),
     });
     const text = await res.text();
 
-    console.log(`Hostinger responded ${res.status}: ${text.slice(0, 200)}`);
+    console.log(`Hostinger ${res.status}: ${text.slice(0, 200)}`);
 
     return new Response(
       JSON.stringify({ ok: res.ok, status: res.status, response: text.slice(0, 500) }),
