@@ -100,7 +100,13 @@ const Event = () => {
   // Gabung berita dinamis (dari webhook) dengan berita statis. Dinamis di atas.
   const allNews = useMemo(() => {
     return [...dynamicNews, ...newsData].sort(
-      (a, b) => new Date(b.created_at || b.date) - new Date(a.created_at || a.date),
+      const allNews = useMemo(() => {
+  return [...dynamicNews, ...newsData].sort((a, b) => {
+    const dateA = new Date(a.created_at || a.date).getTime();
+    const dateB = new Date(b.created_at || b.date).getTime();
+    return dateB - dateA;
+  });
+}, [dynamicNews]);,
     );
   }, [dynamicNews]);
 
