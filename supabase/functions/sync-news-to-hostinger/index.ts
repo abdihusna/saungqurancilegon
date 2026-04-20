@@ -80,8 +80,18 @@ Deno.serve(async (req) => {
 
     // Cek apakah slug sudah ada di Hostinger -> tentukan METHOD
     const baseUrl = webhookUrl.replace(/\/webhook\.php.*$/, "");
-    const checkRes = await fetch(`${baseUrl}/posts.php?slug=${encodeURIComponent(news.slug)}`);
-    const exists = checkRes.status === 200;
+    let exists = false;
+    try {
+      const checkRes = await fetch(`${baseUrl}/posts.php?slug=${encodeURIComponent(news.slug)}`);
+      if (checkRes.status === 200) {
+        const checkJson = await checkRes.json().catch(() => null) as { ok?: boolean; post?: unknown } | null;
+        // posts.php returns { ok: true, post: {...} } when found, 404 when not found.
+        // When data file is empty it returns { ok: true, posts: [] } with status 200.
+        exists = !!(checkJson && checkJson.ok === true && checkJson.post);
+      }
+    } catch (e) {
+      console.warn("Check existing slug failed, defaulting to POST:", e);
+    }
 
     const targetUrl = exists
       ? `${webhookUrl}?slug=${encodeURIComponent(news.slug)}`
