@@ -11,15 +11,14 @@ import { ArrowLeft, Calendar, Share2, Images } from "lucide-react";
 const BeritaDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const { dynamicNews, loading } = useDynamicNews();
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   if (loading) {
     return <div className="text-center py-20">Loading...</div>;
   }
 
   const news = [...dynamicNews, ...newsData].find((n) => n.slug?.toLowerCase() === slug?.toLowerCase());
-  const content = news?.content ? news.content.replace(/\\n/g, "\n") : "";
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   if (!news) {
     return (
