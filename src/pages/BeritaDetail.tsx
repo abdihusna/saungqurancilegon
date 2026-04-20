@@ -112,34 +112,37 @@ const BeritaDetail = () => {
 
             {/* Content */}
             <div className="prose prose-lg max-w-none text-foreground">
-              {content.split("\n\n").map((paragraph, index) => {
-                // Handle markdown-like bold text
-                const formattedText = paragraph
-                  .split("**")
-                  .map((text, i) => (i % 2 === 1 ? <strong key={i}>{text}</strong> : text));
+              {(news.content || "")
+                .replace(/\\n/g, "\n")
+                .split("\n\n")
+                .map((paragraph, index) => {
+                  // Handle markdown-like bold text
+                  const formattedText = paragraph
+                    .split("**")
+                    .map((text, i) => (i % 2 === 1 ? <strong key={i}>{text}</strong> : text));
 
-                if (paragraph.startsWith("---")) {
-                  return <hr key={index} className="my-6 border-border" />;
-                }
+                  if (paragraph.startsWith("---")) {
+                    return <hr key={index} className="my-6 border-border" />;
+                  }
 
-                if (paragraph.startsWith("- ")) {
+                  if (paragraph.startsWith("- ")) {
+                    return (
+                      <ul key={index} className="list-disc list-inside my-4">
+                        {paragraph.split("\n").map((item, i) => (
+                          <li key={i} className="text-muted-foreground">
+                            {item.replace("- ", "")}
+                          </li>
+                        ))}
+                      </ul>
+                    );
+                  }
+
                   return (
-                    <ul key={index} className="list-disc list-inside my-4">
-                      {paragraph.split("\n").map((item, i) => (
-                        <li key={i} className="text-muted-foreground">
-                          {item.replace("- ", "")}
-                        </li>
-                      ))}
-                    </ul>
+                    <p key={index} className="text-muted-foreground mb-4 leading-relaxed">
+                      {formattedText}
+                    </p>
                   );
-                }
-
-                return (
-                  <p key={index} className="text-muted-foreground mb-4 leading-relaxed">
-                    {formattedText}
-                  </p>
-                );
-              })}
+                })}
             </div>
 
             {/* Photo Gallery */}
