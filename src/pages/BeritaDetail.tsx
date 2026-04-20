@@ -112,7 +112,7 @@ const BeritaDetail = () => {
 
             {/* Content */}
             <div className="prose prose-lg max-w-none text-foreground">
-              {news.content.split("\n\n").map((paragraph, index) => {
+              {content.split("\n\n").map((paragraph, index) => {
                 // Handle markdown-like bold text
                 const formattedText = paragraph
                   .split("**")
