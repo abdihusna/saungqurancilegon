@@ -99,15 +99,11 @@ const Event = () => {
 
   // Gabung berita dinamis (dari webhook) dengan berita statis. Dinamis di atas.
   const allNews = useMemo(() => {
-    return [...dynamicNews, ...newsData].sort(
-      const allNews = useMemo(() => {
-  return [...dynamicNews, ...newsData].sort((a, b) => {
-    const dateA = new Date(a.created_at || a.date).getTime();
-    const dateB = new Date(b.created_at || b.date).getTime();
-    return dateB - dateA;
-  });
-}, [dynamicNews]);,
-    );
+    return [...dynamicNews, ...newsData].sort((a, b) => {
+      const dateA = new Date(a.created_at || a.date || 0).getTime();
+      const dateB = new Date(b.created_at || b.date || 0).getTime();
+      return dateB - dateA;
+    });
   }, [dynamicNews]);
 
   // Filter news and events based on search query
