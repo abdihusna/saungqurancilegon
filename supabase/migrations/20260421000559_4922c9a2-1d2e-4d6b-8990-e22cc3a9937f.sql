@@ -1,0 +1,1 @@
+DELETE FROM public.news WHERE slug IN ('program-tasmi-apresiasi-tertinggi-aulia-azizah', 'tasmi-aulia-azizah');
