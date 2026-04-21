@@ -10,25 +10,25 @@ import { ArrowLeft, Calendar, Share2, Images } from "lucide-react";
 
 const BeritaDetail = () => {
   const { slug } = useParams<{ slug: string }>();
+
+  // ✅ HANYA SEKALI
   const { dynamicNews, loading } = useDynamicNews();
 
-  // ✅ Hooks HARUS di atas (fix error sebelumnya)
+  // ✅ state
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // ✅ Gabung data
-  const { dynamicNews } = useDynamicNews();
-
+  // ✅ gunakan fallback (biar berita lama tetap muncul)
   const source = dynamicNews.length > 0 ? dynamicNews : newsData;
 
   const news = source.find((n) => n.slug?.toLowerCase() === slug?.toLowerCase());
 
-  // ✅ Loading
+  // ✅ loading
   if (loading) {
     return <div className="text-center py-20">Loading...</div>;
   }
 
-  // ❌ Jika tidak ditemukan
+  // ❌ jika tidak ditemukan
   if (!news) {
     return (
       <Layout>
@@ -47,7 +47,7 @@ const BeritaDetail = () => {
     );
   }
 
-  // ✅ Helper functions
+  // ✅ share
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
@@ -82,7 +82,6 @@ const BeritaDetail = () => {
 
   return (
     <Layout>
-      {/* Hero */}
       <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/10 py-8 md:py-12">
         <div className="container">
           <Link to="/event" className="inline-flex items-center text-primary hover:underline mb-6">
@@ -92,11 +91,9 @@ const BeritaDetail = () => {
         </div>
       </section>
 
-      {/* Content */}
       <section className="py-12 bg-background">
         <div className="container">
           <article className="max-w-3xl mx-auto">
-            {/* Header */}
             <header className="mb-8">
               <div className="flex items-center gap-3 mb-4">
                 <Badge>{news.category}</Badge>
@@ -114,46 +111,23 @@ const BeritaDetail = () => {
               </Button>
             </header>
 
-            {/* Image */}
             {news.image && (
               <div className="mb-8 rounded-xl overflow-hidden">
                 <img src={news.image} alt={news.title} className="w-full h-auto object-cover" />
               </div>
             )}
 
-            {/* Content */}
             <div className="prose prose-lg max-w-none">
               {(news.content || "")
                 .replace(/\\n/g, "\n")
                 .split("\n\n")
-                .map((paragraph, index) => {
-                  const formattedText = paragraph
-                    .split("**")
-                    .map((text, i) => (i % 2 === 1 ? <strong key={i}>{text}</strong> : text));
-
-                  if (paragraph.startsWith("---")) {
-                    return <hr key={index} className="my-6" />;
-                  }
-
-                  if (paragraph.startsWith("- ")) {
-                    return (
-                      <ul key={index} className="list-disc list-inside my-4">
-                        {paragraph.split("\n").map((item, i) => (
-                          <li key={i}>{item.replace("- ", "")}</li>
-                        ))}
-                      </ul>
-                    );
-                  }
-
-                  return (
-                    <p key={index} className="mb-4 leading-relaxed">
-                      {formattedText}
-                    </p>
-                  );
-                })}
+                .map((paragraph, index) => (
+                  <p key={index} className="mb-4 leading-relaxed">
+                    {paragraph}
+                  </p>
+                ))}
             </div>
 
-            {/* Gallery */}
             {news.gallery && news.gallery.length > 0 && (
               <div className="mt-12">
                 <div className="flex items-center gap-2 mb-6">
@@ -171,7 +145,6 @@ const BeritaDetail = () => {
               </div>
             )}
 
-            {/* Footer */}
             <footer className="mt-12 pt-8 border-t text-center">
               <p className="font-semibold">Saung Qur'an Cilegon</p>
               <p className="text-sm text-muted-foreground">Mewujudkan Generasi Qur'ani, Terampil, dan Mandiri</p>
@@ -180,7 +153,6 @@ const BeritaDetail = () => {
         </div>
       </section>
 
-      {/* Lightbox */}
       {lightboxOpen && news.gallery && (
         <Lightbox
           images={news.gallery}
