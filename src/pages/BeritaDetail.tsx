@@ -17,7 +17,11 @@ const BeritaDetail = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // ✅ Gabung data
-  const news = [...dynamicNews, ...newsData].find((n) => n.slug?.toLowerCase() === slug?.toLowerCase());
+  const news = const source = dynamicNews.length > 0 ? dynamicNews : newsData;
+
+const news = source.find(
+  (n) => n.slug?.toLowerCase() === slug?.toLowerCase()
+);.find((n) => n.slug?.toLowerCase() === slug?.toLowerCase());
 
   // ✅ Loading
   if (loading) {
