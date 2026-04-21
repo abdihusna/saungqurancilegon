@@ -1,22 +1,19 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
-import { SectionHeader } from "@/components/shared/SectionHeader";
-import { Lightbox } from "@/components/shared/Lightbox";
-import { Calendar, Clock, MapPin, ArrowRight, Search, X } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Search, X } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { newsData } from "@/data/newsData";
 import { useDynamicNews } from "@/hooks/useDynamicNews";
-import { Skeleton } from "@/components/ui/skeleton";
 
 const Event = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const { dynamicNews, loading } = useDynamicNews();
 
-  // 🔥 INI KUNCI UTAMA (FALLBACK)
+  // 🔥 fallback kalau dynamic kosong
   const allNews = dynamicNews.length > 0 ? dynamicNews : newsData;
 
   const filteredNews = useMemo(() => {
@@ -62,7 +59,14 @@ const Event = () => {
           ) : filteredNews.length > 0 ? (
             <div className="grid md:grid-cols-2 gap-6">
               {filteredNews.map((news) => (
-                <Card key={news.id}>
+                <Card key={news.id} className="overflow-hidden">
+                  {/* 🔥 GAMBAR */}
+                  <img
+                    src={news.image || "https://via.placeholder.com/600x400?text=Saung+Quran"}
+                    alt={news.title}
+                    className="w-full h-48 object-cover"
+                  />
+
                   <CardContent className="p-6">
                     <div className="flex items-center gap-3 mb-3">
                       <Badge>{news.category}</Badge>
