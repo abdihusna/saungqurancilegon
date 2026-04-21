@@ -12,33 +12,40 @@ export function useDynamicNews() {
 
     (async () => {
       try {
-        // Pakai edge function sebagai proxy supaya bypass CORS Hostinger
-        const { data, error: fnError } = await supabase.functions.invoke(
-          "get-hostinger-posts",
-          { method: "GET" },
-        );
+        const { data, error: fnError } = await supabase.functions.invoke("get-hostinger-posts", { method: "GET" });
 
         if (cancelled) return;
         if (fnError) throw fnError;
 
         const rawPosts: any[] = Array.isArray(data?.posts) ? data.posts : [];
 
-        const normalized: NewsItem[] = rawPosts.map((item: any) => ({
-          id: item.id,
-          slug: item.slug,
-          title: item.title,
-          excerpt: item.excerpt || "",
-          content: item.content,
-          date: item.date,
-          category: item.category,
-          image: item.image || undefined,
-          gallery: Array.isArray(item.gallery)
-            ? item.gallery.map((g: any) => ({
-                src: g.src || g.image_url || "",
-                alt: g.alt || "",
-              }))
-            : [],
-        }));
+        const normalized: NewsItem[] = rawPosts.map((item: any) => {
+          // 🔥 ambil gambar dari berbagai kemungkinan field
+          const image =
+            item.image ||
+            item.image_url ||
+            item.thumbnail ||
+            item.cover ||
+            "https://via.placeholder.com/600x400?text=Saung+Quran";
+
+          return {
+            id: item.id || Math.random(),
+            slug: item.slug || "",
+            title: item.title || "Tanpa Judul",
+            excerpt: item.excerpt || "",
+            content: item.content || "",
+            date: item.date || "",
+            category: item.category || "Umum",
+            image,
+
+            gallery: Array.isArray(item.gallery)
+              ? item.gallery.map((g: any) => ({
+                  src: g.src || g.image_url || "https://via.placeholder.com/300",
+                  alt: g.alt || "",
+                }))
+              : [],
+          };
+        });
 
         setDynamicNews(normalized);
       } catch (err: any) {
