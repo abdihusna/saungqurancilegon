@@ -8,10 +8,11 @@ export function useDynamicNews() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch("https://saungqurancilegon.id/hostinger-webhook/posts.php");
+        const res = await fetch("https://saungqurancilegon.id/hostinger-webhook/data/posts.json");
         const data = await res.json();
 
-        const posts: NewsItem[] = (data.posts || []).map((item: any) => ({
+        // ✅ LANGSUNG MAP ARRAY
+        const posts: NewsItem[] = (data || []).map((item: any) => ({
           id: item.id,
           slug: item.slug,
           title: item.title,
