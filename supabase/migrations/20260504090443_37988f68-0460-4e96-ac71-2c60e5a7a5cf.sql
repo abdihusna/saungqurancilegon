@@ -1,0 +1,1 @@
+DROP TRIGGER IF EXISTS news_sync_to_hostinger ON public.news;
