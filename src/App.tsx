@@ -11,6 +11,8 @@ import Event from "./pages/Event";
 import HubungiKami from "./pages/HubungiKami";
 import Pendaftaran from "./pages/Pendaftaran";
 import BeritaDetail from "./pages/BeritaDetail";
+import Pengumuman from "./pages/Pengumuman";
+import PengumumanDetail from "./pages/PengumumanDetail";
 import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
@@ -32,6 +34,8 @@ const App = () => (
           <Route path="/ekstrakurikuler" element={<Ekstrakurikuler />} />
           <Route path="/event" element={<Event />} />
           <Route path="/berita/:slug" element={<BeritaDetail />} />
+          <Route path="/pengumuman" element={<Pengumuman />} />
+          <Route path="/pengumuman/:slug" element={<PengumumanDetail />} />
           <Route path="/hubungi-kami" element={<HubungiKami />} />
           <Route path="/pendaftaran" element={<Pendaftaran />} />
           <Route path="/faq" element={<FAQ />} />
