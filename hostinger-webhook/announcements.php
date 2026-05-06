@@ -1,11 +1,12 @@
 <?php
 /**
- * posts.php - Endpoint baca daftar/detail postingan
+ * announcements.php - Endpoint baca daftar/detail pengumuman
+ * UPLOAD KE: public_html/hostinger-webhook/announcements.php
  *
- * UPLOAD KE: public_html/posts.php di Hostinger (saungqurancilegon.id)
+ * GET .../announcements.php           -> semua pengumuman
+ * GET .../announcements.php?slug=xxx  -> 1 pengumuman by slug
  *
- * GET https://saungqurancilegon.id/posts.php           -> semua post
- * GET https://saungqurancilegon.id/posts.php?slug=xxx  -> 1 post by slug
+ * NOTE: NO cache headers — perubahan langsung terbaca.
  */
 
 header('Access-Control-Allow-Origin: *');
@@ -18,14 +19,14 @@ header('Expires: 0');
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(204); exit; }
 
-$POSTS_FILE = __DIR__ . '/data/posts.json';
+$FILE = __DIR__ . '/data/announcements.json';
 
-if (!file_exists($POSTS_FILE)) {
+if (!file_exists($FILE)) {
     echo json_encode(['ok' => true, 'posts' => []]);
     exit;
 }
 
-$contents = file_get_contents($POSTS_FILE);
+$contents = file_get_contents($FILE);
 $posts = $contents ? json_decode($contents, true) : [];
 if (!is_array($posts)) $posts = [];
 
@@ -38,7 +39,7 @@ if ($slug) {
         }
     }
     http_response_code(404);
-    echo json_encode(['ok' => false, 'error' => 'Post not found']);
+    echo json_encode(['ok' => false, 'error' => 'Not found']);
     exit;
 }
 
