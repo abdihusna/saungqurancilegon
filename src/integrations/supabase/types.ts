@@ -14,6 +14,66 @@ export type Database = {
   }
   public: {
     Tables: {
+      announcements: {
+        Row: {
+          author: string
+          category: string
+          content: string
+          created_at: string
+          created_by: string | null
+          date_label: string | null
+          excerpt: string | null
+          gallery: Json
+          id: string
+          image_url: string | null
+          published: boolean
+          published_at: string | null
+          scheduled_publish_at: string | null
+          slug: string
+          tags: string[]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author?: string
+          category?: string
+          content: string
+          created_at?: string
+          created_by?: string | null
+          date_label?: string | null
+          excerpt?: string | null
+          gallery?: Json
+          id?: string
+          image_url?: string | null
+          published?: boolean
+          published_at?: string | null
+          scheduled_publish_at?: string | null
+          slug: string
+          tags?: string[]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author?: string
+          category?: string
+          content?: string
+          created_at?: string
+          created_by?: string | null
+          date_label?: string | null
+          excerpt?: string | null
+          gallery?: Json
+          id?: string
+          image_url?: string | null
+          published?: boolean
+          published_at?: string | null
+          scheduled_publish_at?: string | null
+          slug?: string
+          tags?: string[]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       news: {
         Row: {
           author: string
