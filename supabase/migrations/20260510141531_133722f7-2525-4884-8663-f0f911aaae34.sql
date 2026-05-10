@@ -1,0 +1,1 @@
+DELETE FROM public.pendaftaran WHERE nama_lengkap='RLS Test User';
