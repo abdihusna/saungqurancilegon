@@ -94,17 +94,15 @@ async function runAnonSuite() {
     no_telepon: "081234567890",
     program: "Tamyiz",
   };
+  // Anon tidak punya SELECT di pendaftaran → tidak bisa pakai return=representation.
+  // Cleanup ditangani lewat suite admin (atau dilewati bila admin tidak diset).
   let createdId: string | null = null;
   {
     const r = await rest("pendaftaran", {
       method: "POST",
-      headers: { Prefer: "return=representation" },
       body: JSON.stringify(validRow),
     });
-    const body = await r.json().catch(() => null);
-    const ok = r.status === 201 && Array.isArray(body) && body[0]?.id;
-    if (ok) createdId = body[0].id;
-    record("anon INSERT pendaftaran valid → 201", ok, `HTTP ${r.status}`);
+    record("anon INSERT pendaftaran valid → 201", r.status === 201, `HTTP ${r.status}`);
   }
 
   // 6. INSERT pendaftaran with invalid program → blocked
