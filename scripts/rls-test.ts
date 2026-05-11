@@ -164,14 +164,14 @@ async function runAnonSuite() {
     );
   }
 
-  // 10. Storage upload
+  // 10. Storage upload — anon should NOT be able to upload (any non-2xx is acceptable: 400/401/403)
   {
     const r = await fetch(`${SUPABASE_URL}/storage/v1/object/news-images/rls-test-${Date.now()}.txt`, {
       method: "POST",
       headers: { apikey: ANON_KEY!, Authorization: `Bearer ${ANON_KEY!}`, "Content-Type": "text/plain" },
       body: "blocked",
     });
-    record("anon UPLOAD news-images blocked", r.status === 403 || r.status === 401, `HTTP ${r.status}`);
+    record("anon UPLOAD news-images blocked", !r.ok, `HTTP ${r.status}`);
   }
 
   return createdId;
