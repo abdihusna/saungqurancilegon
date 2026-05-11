@@ -198,13 +198,22 @@ const Pendaftaran = () => {
               <h1 className="font-serif text-3xl font-bold text-foreground mb-4">
                 Pendaftaran Berhasil!
               </h1>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/60 border border-border mb-6">
+                <span className="h-2 w-2 rounded-full bg-amber-500 animate-pulse" />
+                <span className="text-sm font-medium">Status: Menunggu diproses</span>
+              </div>
               <p className="text-muted-foreground mb-8">
-                Terima kasih telah mendaftarkan putra/putri Anda di Saung Qur'an Cilegon. 
-                Tim kami akan segera menghubungi Anda untuk proses selanjutnya.
+                Terima kasih telah mendaftarkan putra/putri Anda di Saung Qur'an Cilegon.
+                Tim kami akan menghubungi nomor WhatsApp yang Anda daftarkan untuk verifikasi dan langkah selanjutnya (1-3 hari kerja).
               </p>
-              <Button onClick={() => navigate("/")}>
-                Kembali ke Beranda
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button onClick={() => navigate("/")}>Kembali ke Beranda</Button>
+                <Button variant="outline" asChild>
+                  <a href="https://wa.me/6282112345678" target="_blank" rel="noopener noreferrer">
+                    Hubungi Admin via WhatsApp
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
         </section>
