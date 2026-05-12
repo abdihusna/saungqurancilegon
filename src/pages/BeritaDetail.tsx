@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Lightbox } from "@/components/shared/Lightbox";
-import { newsData } from "@/data/newsData";
-import { useDynamicNews } from "@/hooks/useDynamicNews";
+import { useAllNews } from "@/hooks/useAllNews";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Calendar, Share2, Images } from "lucide-react";
@@ -12,16 +11,13 @@ const BeritaDetail = () => {
   const { slug } = useParams<{ slug: string }>();
 
   // ✅ HANYA SEKALI
-  const { dynamicNews, loading } = useDynamicNews();
+  const { allNews, loading } = useAllNews();
 
   // ✅ state
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // ✅ gunakan fallback (biar berita lama tetap muncul)
-  const source = dynamicNews.length > 0 ? dynamicNews : newsData;
-
-  const news = source.find((n) => n.slug?.toLowerCase() === slug?.toLowerCase());
+  const news = allNews.find((n) => n.slug?.toLowerCase() === slug?.toLowerCase());
 
   // ✅ loading
   if (loading) {
