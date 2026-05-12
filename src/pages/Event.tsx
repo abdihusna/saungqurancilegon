@@ -6,8 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { newsData } from "@/data/newsData";
-import { useDynamicNews } from "@/hooks/useDynamicNews";
+import { useAllNews } from "@/hooks/useAllNews";
 
 const PAGE_SIZE = 6;
 
@@ -15,9 +14,7 @@ const Event = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<string>("Semua");
   const [page, setPage] = useState(1);
-  const { dynamicNews, loading } = useDynamicNews();
-
-  const allNews = dynamicNews.length > 0 ? dynamicNews : newsData;
+  const { allNews, loading } = useAllNews();
 
   const categories = useMemo(() => {
     const set = new Set<string>();
