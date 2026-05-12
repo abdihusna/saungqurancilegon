@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import type { NewsItem } from "@/data/newsData";
+import { newsData } from "@/data/newsData";
 import { supabase } from "@/integrations/supabase/client";
 
 const ENDPOINT = "https://saungqurancilegon.id/hostinger-webhook/posts.php";
@@ -22,55 +23,66 @@ function parseDateLabel(label: string): Date {
 }
 
 export function useAllNews() {
-  const [allNews, setAllNews] = useState<NewsItem[]>([]);
+  const [allNews, setAllNews] = useState<NewsItem[]>(newsData);
   const [loading, setLoading] = useState(true);
 
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      // 1. Ambil dari Hostinger webhook
-      const hostingerRes = await fetch(`${ENDPOINT}?t=${Date.now()}`, { cache: "no-store" });
-      const hostingerData = await hostingerRes.json();
-      const hostingerList = Array.isArray(hostingerData) ? hostingerData : (hostingerData?.posts ?? []);
-      const hostingerNews: NewsItem[] = hostingerList.map((item: any) => ({
-        id: item.id ?? item.slug,
-        slug: item.slug,
-        title: item.title,
-        excerpt: item.excerpt || "",
-        content: item.content,
-        date: item.date,
-        category: item.category,
-        image: item.image,
-        gallery: item.gallery || [],
-      }));
-
-      // 2. Ambil dari Supabase
-      const { data: supabaseRows, error } = await supabase
-        .from("news")
-        .select("id, slug, title, excerpt, content, category, date_label, author, image_url, gallery, tags, published_at")
-        .eq("published", true)
-        .order("published_at", { ascending: false });
-
-      if (error) {
-        console.error("Supabase news error:", error);
+      // 1. Ambil dari Hostinger webhook (ignore failure)
+      let hostingerNews: NewsItem[] = [];
+      try {
+        const hostingerRes = await fetch(`${ENDPOINT}?t=${Date.now()}`, { cache: "no-store" });
+        const hostingerData = await hostingerRes.json();
+        const hostingerList = Array.isArray(hostingerData) ? hostingerData : (hostingerData?.posts ?? []);
+        hostingerNews = hostingerList.map((item: any) => ({
+          id: item.id ?? item.slug,
+          slug: item.slug,
+          title: item.title,
+          excerpt: item.excerpt || "",
+          content: item.content,
+          date: item.date,
+          category: item.category,
+          image: item.image,
+          gallery: item.gallery || [],
+        }));
+      } catch (_) {
+        // Hostinger unavailable in preview, continue
       }
 
-      const supabaseNews: NewsItem[] = (supabaseRows ?? []).map((row: any) => ({
-        id: row.slug ?? row.id,
-        slug: row.slug,
-        title: row.title,
-        excerpt: row.excerpt || "",
-        content: row.content,
-        date: row.date_label || new Date(row.published_at).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" }),
-        category: row.category,
-        image: row.image_url,
-        gallery: Array.isArray(row.gallery)
-          ? row.gallery.map((g: any) => ({ src: g.src ?? g.image_url ?? "", alt: g.alt ?? "" }))
-          : [],
-      }));
+      // 2. Ambil dari Supabase
+      let supabaseNews: NewsItem[] = [];
+      try {
+        const { data: supabaseRows, error } = await supabase
+          .from("news")
+          .select("id, slug, title, excerpt, content, category, date_label, author, image_url, gallery, tags, published_at")
+          .eq("published", true)
+          .order("published_at", { ascending: false });
 
-      // 3. Merge: Supabase menimpa Hostinger (prioritas Supabase)
+        if (error) throw error;
+
+        supabaseNews = (supabaseRows ?? []).map((row: any) => ({
+          id: row.slug ?? row.id,
+          slug: row.slug,
+          title: row.title,
+          excerpt: row.excerpt || "",
+          content: row.content,
+          date: row.date_label || new Date(row.published_at).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" }),
+          category: row.category,
+          image: row.image_url,
+          gallery: Array.isArray(row.gallery)
+            ? row.gallery.map((g: any) => ({ src: g.src ?? g.image_url ?? "", alt: g.alt ?? "" }))
+            : [],
+        }));
+      } catch (err) {
+        console.error("Supabase news error:", err);
+      }
+
+      // 3. Merge: Supabase menimpa Hostinger (prioritas Supabase), fallback ke newsData
       const map = new Map<string, NewsItem>();
+      for (const n of newsData) {
+        if (n.slug) map.set(n.slug.toLowerCase(), n);
+      }
       for (const n of hostingerNews) {
         if (n.slug) map.set(n.slug.toLowerCase(), n);
       }
@@ -88,7 +100,7 @@ export function useAllNews() {
       setAllNews(merged);
     } catch (err) {
       console.error(err);
-      setAllNews([]);
+      setAllNews(newsData);
     } finally {
       setLoading(false);
     }
