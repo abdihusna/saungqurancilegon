@@ -71,7 +71,7 @@ Semoga Allah Ta'ālā senantiasa memberkahi dan menjadikan Al-Qur'an sebagai cah
 
 *Bârakallâhu fîk* 🌸`,
     date: "17 April 2026",
-    category: "Program",
+    category: "Prestasi Santri",
     image: tasmiAuliaAzizah,
     gallery: [
       { src: mengaji, alt: "Kegiatan Mengaji" },
@@ -101,7 +101,7 @@ Semoga Allah Ta'ālā senantiasa memberkahi dan menjadikan Al-Qur'an sebagai cah
 
 *Bārikallāhu fīk* 🌸`,
     date: "7 Maret 2026",
-    category: "Program",
+    category: "Prestasi Santri",
     image: tasmiAisyah,
     gallery: [
       { src: mengaji, alt: "Kegiatan Mengaji" },
@@ -131,7 +131,7 @@ Semoga Allah Ta'ālā senantiasa memberkahi dan menjadikan Al-Qur'an sebagai cah
 
 *Bârakallâhu fîk* 🌸`,
     date: "24 Februari 2026",
-    category: "Program",
+    category: "Prestasi Santri",
     image: tasmiAsmaa,
     gallery: [
       { src: mengaji, alt: "Kegiatan Mengaji" },
@@ -161,7 +161,7 @@ Semoga Allah Ta'ālā senantiasa memberkahi, Al-Qur'an sebagai cahaya dalam hidu
 
 *Baarakallaahufiik*`,
     date: "24 Februari 2026",
-    category: "Program",
+    category: "Prestasi Santri",
     image: tasmiRajwa,
     gallery: [
       { src: mengaji, alt: "Kegiatan Mengaji" },
@@ -191,7 +191,7 @@ Semoga Allah Ta'ālā senantiasa memberkahi, menjaga, dan menjadikan Al-Qur'an s
 
 *Baarakallaahufiik*`,
     date: "18 Februari 2026",
-    category: "Program",
+    category: "Prestasi Santri",
     image: tasmiAbdullah,
     gallery: [
       { src: mengaji, alt: "Kegiatan Mengaji" },
@@ -221,7 +221,7 @@ Semoga Allah Ta'ālā senantiasa memberkahi, Al-Qur'an sebagai cahaya dalam hidu
 
 *Baarakallaahufiik*`,
     date: "18 Februari 2026",
-    category: "Program",
+    category: "Prestasi Santri",
     image: tasmiJafar,
     gallery: [
       { src: mengaji, alt: "Kegiatan Mengaji" },
@@ -251,7 +251,7 @@ Semoga Allah Ta'ālā senantiasa memberkahi, menjaga, dan menjadikan Al-Qur'an s
 
 *Baarakallaahufiik*`,
     date: "18 Februari 2026",
-    category: "Program",
+    category: "Prestasi Santri",
     image: tasmiSyifa,
     gallery: [
       { src: mengaji, alt: "Kegiatan Mengaji" },
@@ -281,7 +281,7 @@ Semoga Allah Ta'ālā senantiasa memberkahi dan menjaga Al-Qur'an sebagai cahaya
 
 *Baarakallaahufiik*`,
     date: "18 Februari 2026",
-    category: "Program",
+    category: "Prestasi Santri",
     image: tasmiMadina,
     gallery: [
       { src: mengaji, alt: "Kegiatan Mengaji" },
@@ -311,7 +311,7 @@ Semoga Allah Ta'ālā senantiasa memberkahi, menjaga, dan menjadikan Al-Qur'an s
 
 *Bârakallâhu fîk* ✨`,
     date: "3 Februari 2026",
-    category: "Program",
+    category: "Prestasi Santri",
     image: tasmiAli,
     gallery: [
       { src: mengaji, alt: "Kegiatan Mengaji" },
@@ -341,7 +341,7 @@ Semoga Allah Ta'ālā senantiasa memberkahi, menjaga, dan menjadikan Al-Qur'an s
 
 *Baarakallaahufiik*`,
     date: "3 Februari 2026",
-    category: "Program",
+    category: "Prestasi Santri",
     image: tasmiHafidz,
     gallery: [
       { src: mengaji, alt: "Kegiatan Mengaji" },
@@ -484,7 +484,7 @@ Semoga keberhasilan ini menjadi motivasi bagi Ananda untuk selalu mencintai Al-Q
 
 *Syukron*`,
     date: "24 Januari 2026",
-    category: "Program",
+    category: "Prestasi Santri",
     image: programTasmi,
     gallery: [
       { src: mengaji, alt: "Kegiatan Mengaji" },
