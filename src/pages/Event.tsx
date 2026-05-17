@@ -25,7 +25,11 @@ const Event = () => {
   const filteredNews = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
     return allNews.filter((news) => {
-      const matchCat = activeCategory === "Semua" || news.category === activeCategory;
+      let matchCat = activeCategory === "Semua" || news.category === activeCategory;
+      // Tampilkan "Prestasi Santri" juga saat kategori "Program" dipilih
+      if (activeCategory === "Program" && news.category === "Prestasi Santri") {
+        matchCat = true;
+      }
       const matchSearch =
         !q ||
         news.title.toLowerCase().includes(q) ||
