@@ -108,12 +108,27 @@ export function useAllNews() {
 
   useEffect(() => {
     fetchData();
-    const id = setInterval(fetchData, 60000);
+    const id = setInterval(fetchData, 10000);
     const onFocus = () => fetchData();
+    const onVisibility = () => { if (document.visibilityState === "visible") fetchData(); };
     window.addEventListener("focus", onFocus);
+    document.addEventListener("visibilitychange", onVisibility);
+
+    // Realtime: refetch saat ada perubahan di tabel news
+    const channel = supabase
+      .channel("news-changes")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "news" },
+        () => fetchData()
+      )
+      .subscribe();
+
     return () => {
       clearInterval(id);
       window.removeEventListener("focus", onFocus);
+      document.removeEventListener("visibilitychange", onVisibility);
+      supabase.removeChannel(channel);
     };
   }, [fetchData]);
 
