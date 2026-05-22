@@ -1,1 +1,3 @@
 project_id = "xkppbrevqrdrgykjlfrw"
+[functions.delete-hostinger-post]
+verify_jwt = false
