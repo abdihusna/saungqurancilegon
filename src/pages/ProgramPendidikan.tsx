@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { Lightbox } from "@/components/shared/Lightbox";
-import { Building, BookOpen, Clock, GraduationCap, Target, CheckCircle, Image } from "lucide-react";
+import { Building, BookOpen, Clock, GraduationCap, Target, CheckCircle, Image, Sun, Heart, Users, Sparkles } from "lucide-react";
 
 import thufulahBerkebun from "@/assets/gallery/thufulah-berkebun.jpg";
 import thufulahKolam from "@/assets/gallery/thufulah-kolam.jpg";
