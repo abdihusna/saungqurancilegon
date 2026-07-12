@@ -215,13 +215,6 @@ export type Database = {
     }
     Functions: {
       auto_publish_scheduled_news: { Args: never; Returns: undefined }
-      has_role: {
-        Args: {
-          _role: Database["public"]["Enums"]["app_role"]
-          _user_id: string
-        }
-        Returns: boolean
-      }
     }
     Enums: {
       app_role: "admin" | "editor"
