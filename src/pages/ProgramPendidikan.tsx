@@ -153,6 +153,55 @@ const ProgramPendidikan = () => {
         </div>
       </section>
 
+      {/* Fullday / Pulang-Pergi Highlights */}
+      <section className="py-16 bg-accent/50 islamic-pattern">
+        <div className="container">
+          <SectionHeader
+            title="Fullday / Pulang-Pergi"
+            subtitle="Model pembelajaran terpadu yang menjadikan hari penuh santri tetap berada dalam lingkungan pendidikan karakter"
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                icon: Sun,
+                title: "Pembelajaran Intensif",
+                description: "Kegiatan belajar mengajar berlangsung sepanjang hari dengan jadwal yang terstruktur dan optimal.",
+              },
+              {
+                icon: Heart,
+                title: "Tetap Bersama Keluarga",
+                description: "Santri pulang ke rumah setiap hari sehingga tetap dekat dengan orang tua dan lingkungan keluarga.",
+              },
+              {
+                icon: Users,
+                title: "Pembentukan Karakter",
+                description: "Akhlak, adab, dan karakter Nabawiyah dibentuk secara berkesinambungan di sekolah dan di rumah.",
+              },
+              {
+                icon: Sparkles,
+                title: "Pengembangan Bakat",
+                description: "Beragam kegiatan ekstrakurikuler tersedia untuk mengembangkan bakat dan minat santri.",
+              },
+            ].map((point, index) => {
+              const PointIcon = point.icon;
+              return (
+                <div key={index} className="islamic-card p-6 text-center hover:shadow-lg transition-shadow">
+                  <div className="p-4 bg-primary/10 rounded-full w-fit mx-auto mb-4">
+                    <PointIcon className="h-7 w-7 text-primary" />
+                  </div>
+                  <h3 className="font-serif text-lg font-bold text-foreground mb-2">
+                    {point.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {point.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Programs Section */}
       <section className="py-20 bg-background islamic-pattern">
         <div className="container">
