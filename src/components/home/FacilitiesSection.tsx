@@ -4,7 +4,7 @@ import ruangKelasSaung from "@/assets/facilities/ruang-kelas-saung.jpg";
 import perpustakaanSaung from "@/assets/facilities/perpustakaan-saung.jpg";
 import lapanganAlami from "@/assets/facilities/lapangan-alami.jpg";
 import kantinSaung from "@/assets/facilities/kantin-saung.jpg";
-import asramaSaung from "@/assets/facilities/asrama-saung.jpg";
+
 import kebun from "@/assets/facilities/kebun.jpg";
 import areaTernak from "@/assets/facilities/area-ternak.jpg";
 
@@ -23,11 +23,6 @@ const facilities = [
     name: "Perpustakaan",
     image: perpustakaanSaung,
     description: "Perpustakaan berbentuk saung dengan koleksi buku Islam dan pengetahuan umum",
-  },
-  {
-    name: "Asrama",
-    image: asramaSaung,
-    description: "Asrama bergaya pondok dengan konstruksi kayu alami yang bersih dan nyaman untuk santri mukim",
   },
   {
     name: "Lapangan Bermain Alami",
