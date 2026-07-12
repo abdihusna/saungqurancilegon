@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { Lightbox } from "@/components/shared/Lightbox";
-import { Building, BookOpen, Clock, GraduationCap, Target, CheckCircle, Image } from "lucide-react";
+import { Building, BookOpen, Clock, GraduationCap, Target, CheckCircle, Image, Sun, Heart, Users, Sparkles } from "lucide-react";
 
 import thufulahBerkebun from "@/assets/gallery/thufulah-berkebun.jpg";
 import thufulahKolam from "@/assets/gallery/thufulah-kolam.jpg";
@@ -68,11 +68,11 @@ const programs = [
   },
   {
     name: "Program Murohaqoh",
-    description: "Program Murohaqoh adalah Program Pendidikan Jenjang SMP (fullday, pulang-pergi) dalam rangka mewujudkan generasi Qur'ani yang solih dan muslih, berakhlakul karimah dan bermanfaat untuk umat.",
+    description: "Program Murohaqoh adalah Program Pendidikan Jenjang SMP dengan sistem Fullday / Pulang-Pergi dalam rangka mewujudkan generasi Qur'ani yang solih dan muslih, berakhlakul karimah dan bermanfaat untuk umat.",
     duration: "3 Tahun",
     icon: GraduationCap,
     curriculum: [
-      "Program Fullday (Pulang-Pergi)",
+      "Sistem Fullday / Pulang-Pergi",
       "Tahfidz dan Tahsin Al-Qur'an",
       "Kurikulum SMP Nasional terintegrasi",
       "Pendidikan Akhlak dan Adab Islami",
@@ -149,6 +149,55 @@ const ProgramPendidikan = () => {
             <p className="text-lg text-primary-foreground/90 animate-fade-up delay-100">
               Program-program unggulan yang kami tawarkan
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Fullday / Pulang-Pergi Highlights */}
+      <section className="py-16 bg-accent/50 islamic-pattern">
+        <div className="container">
+          <SectionHeader
+            title="Fullday / Pulang-Pergi"
+            subtitle="Model pembelajaran terpadu yang menjadikan hari penuh santri tetap berada dalam lingkungan pendidikan karakter"
+          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                icon: Sun,
+                title: "Pembelajaran Intensif",
+                description: "Kegiatan belajar mengajar berlangsung sepanjang hari dengan jadwal yang terstruktur dan optimal.",
+              },
+              {
+                icon: Heart,
+                title: "Tetap Bersama Keluarga",
+                description: "Santri pulang ke rumah setiap hari sehingga tetap dekat dengan orang tua dan lingkungan keluarga.",
+              },
+              {
+                icon: Users,
+                title: "Pembentukan Karakter",
+                description: "Akhlak, adab, dan karakter Nabawiyah dibentuk secara berkesinambungan di sekolah dan di rumah.",
+              },
+              {
+                icon: Sparkles,
+                title: "Pengembangan Bakat",
+                description: "Beragam kegiatan ekstrakurikuler tersedia untuk mengembangkan bakat dan minat santri.",
+              },
+            ].map((point, index) => {
+              const PointIcon = point.icon;
+              return (
+                <div key={index} className="islamic-card p-6 text-center hover:shadow-lg transition-shadow">
+                  <div className="p-4 bg-primary/10 rounded-full w-fit mx-auto mb-4">
+                    <PointIcon className="h-7 w-7 text-primary" />
+                  </div>
+                  <h3 className="font-serif text-lg font-bold text-foreground mb-2">
+                    {point.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {point.description}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

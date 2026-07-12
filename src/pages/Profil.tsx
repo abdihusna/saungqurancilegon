@@ -17,7 +17,7 @@ const programs = [
   },
   {
     name: "Program Murohaqoh",
-    description: "Program Murohaqoh adalah Program Pendidikan Jenjang SMP (fullday, pulang-pergi) dalam rangka mewujudkan generasi Qur'ani yang solih dan muslih, berakhlakul karimah dan bermanfaat untuk umat.",
+    description: "Program Murohaqoh adalah Program Pendidikan Jenjang SMP dengan sistem Fullday / Pulang-Pergi dalam rangka mewujudkan generasi Qur'ani yang solih dan muslih, berakhlakul karimah dan bermanfaat untuk umat.",
     duration: "3 Tahun",
   },
   {
